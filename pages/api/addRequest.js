@@ -28,14 +28,7 @@ export default async (req, res) => {
 
     res.status(201).json(request);
   } else {
+    // Method not permitted
     res.status(405).end();
   }
-
-  // const requests = await db
-  //   .collection("sourdough")
-  //   .find({})
-  //   .limit(20)
-  //   .toArray();
-
-  // res.json(request);
 };
