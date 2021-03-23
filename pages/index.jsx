@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { useState } from "react";
+import Image from "next/image";
 
 export default function Home() {
   const [submitting, setSubmitting] = useState(false);
@@ -47,6 +48,15 @@ export default function Home() {
           href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍞</text></svg>"
         />
       </Head>
+      <div className="background-wrap">
+        <Image
+          src="/images/IMG_3547.jpg"
+          alt="Bread"
+          layout="fill"
+          objectFit="cover"
+          quality={20}
+        />
+      </div>
 
       <main>
         <h1>The Yeasty Boys Sourdough Bread Lottery</h1>
@@ -82,9 +92,17 @@ export default function Home() {
 
       <style jsx>{`
         .container {
-          background: limegreen;
           min-height: 100vh;
           padding: 3rem;
+        }
+        .background-wrap {
+          position: fixed;
+          top: 0;
+          left: 0;
+          height: 100vh;
+          width: 100vw;
+          overflow: hidden;
+          z-index: -1;
         }
         main {
           padding: 3rem;
@@ -100,8 +118,13 @@ export default function Home() {
         }
         form {
           display: grid;
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: 1fr;
           gap: 2rem;
+        }
+        @media (min-width: 600px) {
+          form {
+            grid-template-columns: 1fr 1fr;
+          }
         }
         label {
           margin-bottom: 0.5rem;
