@@ -88,7 +88,6 @@ export default function Home() {
             layout="fill"
             objectFit="cover"
             quality={15}
-            priority={true}
           />
         </div>
 

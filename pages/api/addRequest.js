@@ -6,11 +6,17 @@ export default async (req, res) => {
   if (req.method === 'POST') {
     const { db } = await connectToDatabase();
 
+    let regex = /\+(.*)(?=@)/gm;
+    // let re = new RegExp(regex);
+    // const foundPlus = re.test(req.body.email);
+    const strippedEmail = req.body.email.replace(regex, '');
+
+
     // Check if user is already in database
     const findEmail = await db
       .collection("sourdough")
       .findOne({
-        email: req.body.email
+        email: strippedEmail
       });
 
     if (findEmail) {
@@ -23,6 +29,7 @@ export default async (req, res) => {
       .collection("sourdough")
       .insertOne({
         ...req.body,
+        email: strippedEmail,
         numberOfBreads: 0,
       });
 
