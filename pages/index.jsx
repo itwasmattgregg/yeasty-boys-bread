@@ -127,7 +127,7 @@ export default function Home() {
           {submitState === SubmitStateEnum.SUCCESS && (
             <>
               <p>Congrats!!! You're one step closer to bread!</p>
-              {/* <Link href="/breadmachine">Check out the Bread Machine...</Link> */}
+              <Link href="/breadmachine">Check out the Bread Machine...</Link>
             </>
           )}
         </main>
