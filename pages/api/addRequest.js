@@ -7,33 +7,28 @@ export default async (req, res) => {
     const { db } = await connectToDatabase();
 
     let regex = /\+(.*)(?=@)/gm;
-    // let re = new RegExp(regex);
-    // const foundPlus = re.test(req.body.email);
     const strippedEmail = req.body.email.replace(regex, '');
 
-
-    // Check if user is already in database
-    const findEmail = await db
-      .collection("sourdough")
-      .findOne({
-        email: strippedEmail
-      });
-
-    if (findEmail) {
-      res.status(500).send("You've already been added to the list");
+    // add request to database
+    let response;
+    try {
+      response = await db
+        .collection("sourdough")
+        .insertOne({
+          ...req.body,
+          uniqueEmail: strippedEmail,
+          numberOfBreads: 0,
+        });
+    } catch (e) {
+      if (e.code === 11000) {
+        res.status(500).send("You've already been added to the list");
+        return;
+      }
+      response.status(500).end();
       return;
     }
 
-    // add request to database
-    const request = await db
-      .collection("sourdough")
-      .insertOne({
-        ...req.body,
-        email: strippedEmail,
-        numberOfBreads: 0,
-      });
-
-    res.status(201).json(request);
+    res.status(201).json({ ok: true });
   } else {
     // Method not permitted
     res.status(405).end();
