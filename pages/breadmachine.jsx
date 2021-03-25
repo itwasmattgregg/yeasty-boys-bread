@@ -10,8 +10,15 @@ export default function BreadMachine() {
   }
 
   function playSound(e) {
-    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
-    const key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+    let keyCode;
+    if (e.keyCode) {
+      keyCode = e.keyCode;
+    } else {
+      console.log(e.currentTarget);
+      keyCode = e.currentTarget.dataset.key;
+    }
+    const audio = document.querySelector(`audio[data-key="${keyCode}"]`);
+    const key = document.querySelector(`div[data-key="${keyCode}"]`);
     if (!audio) return;
 
     key.classList.add("playing");
@@ -21,9 +28,10 @@ export default function BreadMachine() {
 
   useEffect(() => {
     const keys = Array.from(document.querySelectorAll(".key"));
-    keys.forEach((key) =>
-      key.addEventListener("transitionend", removeTransition)
-    );
+    keys.forEach((key) => {
+      key.addEventListener("transitionend", removeTransition);
+      key.addEventListener("click", playSound);
+    });
     window.addEventListener("keydown", playSound);
   }, []);
 
@@ -100,6 +108,7 @@ export default function BreadMachine() {
             grid-template-columns: repeat(4, 1fr);
             align-items: center;
             justify-content: center;
+            cursor: pointer;
           }
 
           .key {
