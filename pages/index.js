@@ -96,10 +96,10 @@ export default function Home() {
 
           <p>
             This is the official waiting list for Matt Gregg's sourdough. I
-            generally make one loaf to give away for free every week. If you
-            live in the twin cities area of Minnesota you are eligible to enter
-            this lottery. Please fill out your name, email and full address
-            below and I will notify you if you've won a loaf.
+            generally make one loaf to give away for free every week to friends
+            and family. If you live in the twin cities area of Minnesota you are
+            eligible to enter this lottery. Please fill out your name, email and
+            full address below and I will notify you if you've won a loaf.
           </p>
           {submitState !== SubmitStateEnum.SUCCESS && (
             <form onSubmit={submitForm}>
@@ -155,6 +155,7 @@ export default function Home() {
             width: 100%;
             font-size: 1rem;
             border: none;
+            border-radius: 0;
             border-bottom: 2px solid #333;
             margin-top: 0.5rem;
             padding: 3px 0;

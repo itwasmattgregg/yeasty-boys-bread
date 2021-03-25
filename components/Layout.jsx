@@ -21,7 +21,7 @@ function Layout(props) {
 
         .container {
           min-height: 100vh;
-          padding: 3rem;
+          padding: 1rem;
         }
         .background-wrap {
           position: fixed;
@@ -33,7 +33,7 @@ function Layout(props) {
           z-index: -1;
         }
         main {
-          padding: 3rem;
+          padding: 2rem;
           flex: 1;
           display: flex;
           flex-direction: column;
