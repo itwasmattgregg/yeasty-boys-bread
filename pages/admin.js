@@ -7,9 +7,12 @@ import useRouterRefresh from '../lib/useRouterRefresh';
 
 const Admin = ({ breadies }) => {
   const [winner, setWinner] = useState();
+  const [emailSent, setEmailSent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
   const refresh = useRouterRefresh();
 
   const pickWinner = (array) => {
+    setEmailSent(false);
     const lowestNumber = array.reduce(
       (a, { numberOfBreads }) => Math.min(a, numberOfBreads),
       array[0].numberOfBreads
@@ -25,15 +28,19 @@ const Admin = ({ breadies }) => {
   };
 
   const incrementBread = async (winnerEmail) => {
+    setSubmitting(true);
     try {
       await fetchJson('/api/increment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: winnerEmail }),
       });
+      setEmailSent(true);
       refresh();
     } catch (error) {
       console.error('An unexpected error happened:', error);
+    } finally {
+      setSubmitting(false);
     }
   };
 
@@ -47,11 +54,15 @@ const Admin = ({ breadies }) => {
         {winner && (
           <>
             <p>Winner is: {winner.name}</p>
-            <button onClick={() => incrementBread(winner.uniqueEmail)}>
+            <button
+              disabled={emailSent || submitting}
+              onClick={() => incrementBread(winner.uniqueEmail)}
+            >
               Crown winner?
             </button>
           </>
         )}
+        {emailSent && <p>Email has been sent</p>}
         <table>
           <thead>
             <tr>
