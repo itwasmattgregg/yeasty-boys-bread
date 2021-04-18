@@ -1,37 +1,37 @@
-import Head from "next/head";
-import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import Layout from "../components/Layout";
+import Head from 'next/head';
+import { useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import Layout from '../components/Layout';
 
 const SubmitStateEnum = {
-  WAITING: "waiting",
-  LOADING: "loading",
-  SUCCESS: "success",
-  ERROR: "error",
+  WAITING: 'waiting',
+  LOADING: 'loading',
+  SUCCESS: 'success',
+  ERROR: 'error',
 };
 
 export default function Home() {
   const [submitState, setSubmitState] = useState(SubmitStateEnum.WAITING);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   const submitForm = async (e) => {
     e.preventDefault();
     setSubmitState(SubmitStateEnum.LOADING);
-    setError("");
+    setError('');
 
     const data = new FormData(e.target);
     const body = JSON.stringify({
-      email: data.get("email"),
-      name: data.get("name"),
-      address: data.get("address"),
+      email: data.get('email'),
+      name: data.get('name'),
+      address: data.get('address'),
     });
     try {
       const settings = {
-        method: "POST",
+        method: 'POST',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
         body,
       };
@@ -51,13 +51,13 @@ export default function Home() {
   const getSubmitButtonText = () => {
     switch (submitState) {
       case SubmitStateEnum.LOADING:
-        return "Submitting";
+        return 'Submitting';
       case SubmitStateEnum.SUCCESS:
-        return "Success!";
+        return 'Success!';
       case SubmitStateEnum.ERROR:
-        return "There was an error!";
+        return 'There was an error!';
       default:
-        return "Submit";
+        return 'Submit';
     }
   };
 
@@ -73,20 +73,20 @@ export default function Home() {
 
   return (
     <Layout>
-      <div className="container">
+      <div className='container'>
         <Head>
           <title>Yeasty Boys Sourdough Bread Lottery</title>
           <link
-            rel="icon"
-            href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍞</text></svg>"
+            rel='icon'
+            href='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍞</text></svg>'
           />
         </Head>
-        <div className="background-wrap">
+        <div className='background-wrap'>
           <Image
-            src="/images/IMG_3547.jpg"
-            alt="Bread"
-            layout="fill"
-            objectFit="cover"
+            src='/images/IMG_3547.jpg'
+            alt='Bread'
+            layout='fill'
+            objectFit='cover'
             quality={15}
           />
         </div>
@@ -95,28 +95,29 @@ export default function Home() {
           <h1>The Yeasty Boys Sourdough Bread Lottery</h1>
 
           <p>
-            This is the official waiting list for Matt Gregg's sourdough. I
-            generally make one loaf to give away for free every week to friends
-            and family. If you live in the twin cities area of Minnesota you are
-            eligible to enter this lottery. Please fill out your name, email and
-            full address below and I will notify you if you've won a loaf.
+            This is the official waiting list for Matt Gregg&lsquo;s sourdough.
+            I generally make one loaf to give away for free every week to
+            friends and family. If you live in the twin cities area of Minnesota
+            you are eligible to enter this lottery. Please fill out your name,
+            email and full address below and I will notify you if you&lsquo;ve
+            won a loaf.
           </p>
           {submitState !== SubmitStateEnum.SUCCESS && (
             <form onSubmit={submitForm}>
               <label>
                 Name:
-                <input type="text" name="name" required />
+                <input type='text' name='name' required />
               </label>
               <label>
                 Email:
-                <input type="email" name="email" required />
+                <input type='email' name='email' required />
               </label>
-              <label className="address">
+              <label className='address'>
                 Address (including city and zip code):
-                <input type="text" name="address" required />
+                <input type='text' name='address' required />
               </label>
 
-              <div className="submit">
+              <div className='submit'>
                 <button disabled={buttonDisabled()}>
                   {getSubmitButtonText()}
                 </button>
@@ -126,9 +127,9 @@ export default function Home() {
           )}
           {submitState === SubmitStateEnum.SUCCESS && (
             <>
-              <p>Congrats!!! You're one step closer to bread!</p>
-              <Link href="/breadmachine">
-                While you're waiting... check out the Bread Machine
+              <p>Congrats!!! You&lsquo;re one step closer to bread!</p>
+              <Link href='/breadmachine'>
+                While you&lsquo;re waiting... check out the Bread Machine
               </Link>
             </>
           )}
