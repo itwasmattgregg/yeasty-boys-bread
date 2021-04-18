@@ -1,10 +1,14 @@
 import withSession from '../lib/session';
 import Layout from '../components/Layout';
+import fetchJson from '../lib/fetchJson';
 import { connectToDatabase } from '../util/mongodb';
 import { useState } from 'react';
+import useRouterRefresh from '../lib/useRouterRefresh';
 
 const Admin = ({ breadies }) => {
   const [winner, setWinner] = useState();
+  const refresh = useRouterRefresh();
+
   const pickWinner = (array) => {
     const lowestNumber = array.reduce(
       (a, { numberOfBreads }) => Math.min(a, numberOfBreads),
@@ -20,6 +24,19 @@ const Admin = ({ breadies }) => {
     return weightedArray[Math.floor(Math.random() * weightedArray.length)];
   };
 
+  const incrementBread = async (winnerEmail) => {
+    try {
+      await fetchJson('/api/increment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: winnerEmail }),
+      });
+      refresh();
+    } catch (error) {
+      console.error('An unexpected error happened:', error);
+    }
+  };
+
   return (
     <Layout>
       <div className='container'>
@@ -27,7 +44,14 @@ const Admin = ({ breadies }) => {
         <button onClick={() => setWinner(pickWinner(breadies))}>
           Select winner
         </button>
-        {winner && <p>Winner is: {winner.name}</p>}
+        {winner && (
+          <>
+            <p>Winner is: {winner.name}</p>
+            <button onClick={() => incrementBread(winner.uniqueEmail)}>
+              Crown winner?
+            </button>
+          </>
+        )}
         <table>
           <thead>
             <tr>
@@ -39,7 +63,7 @@ const Admin = ({ breadies }) => {
           </thead>
           <tbody>
             {breadies.map((breadie) => (
-              <tr key={breadie.id}>
+              <tr key={breadie._id}>
                 <td>{breadie.name}</td>
                 <td>{breadie.email}</td>
                 <td>{breadie.address}</td>
