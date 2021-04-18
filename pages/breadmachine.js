@@ -57,7 +57,7 @@ export default function BreadMachine() {
 
         <main>
           <h1>The Yeasty Boys Bread (Drum) Machine</h1>
-          <p>Note: this might not work the best on mobile</p>
+          <p>Note: this might not work the best on safari</p>
           <div className='keys'>
             <div data-key='81' className='key'>
               <kbd>Q</kbd>
