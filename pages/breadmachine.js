@@ -109,19 +109,19 @@ export default function BreadMachine() {
             </div>
           </div>
 
-          <audio preload='auto' data-key='81' src='sounds/Tap.ogg'></audio>
-          <audio preload='auto' data-key='87' src='sounds/Crunch.ogg'></audio>
-          <audio preload='auto' data-key='69' src='sounds/Knife.ogg'></audio>
-          <audio preload='auto' data-key='82' src='sounds/Soft.ogg'></audio>
+          <audio preload='auto' data-key='81' src='sounds/Tap.m4a'></audio>
+          <audio preload='auto' data-key='87' src='sounds/Crunch.m4a'></audio>
+          <audio preload='auto' data-key='69' src='sounds/Knife.m4a'></audio>
+          <audio preload='auto' data-key='82' src='sounds/Soft.m4a'></audio>
 
-          <audio preload='auto' data-key='65' src='sounds/guitar1.wav'></audio>
-          <audio preload='auto' data-key='83' src='sounds/guitar2.wav'></audio>
-          <audio preload='auto' data-key='68' src='sounds/guitar3.wav'></audio>
-          <audio preload='auto' data-key='70' src='sounds/guitar4.wav'></audio>
-          <audio preload='auto' data-key='71' src='sounds/kick.wav'></audio>
-          <audio preload='auto' data-key='72' src='sounds/nosleep.ogg'></audio>
-          <audio preload='auto' data-key='74' src='sounds/brooklyn.wav'></audio>
-          <audio preload='auto' data-key='75' src='sounds/snare.ogg'></audio>
+          <audio preload='auto' data-key='65' src='sounds/guitar1.m4a'></audio>
+          <audio preload='auto' data-key='83' src='sounds/guitar2.m4a'></audio>
+          <audio preload='auto' data-key='68' src='sounds/guitar3.m4a'></audio>
+          <audio preload='auto' data-key='70' src='sounds/guitar4.m4a'></audio>
+          <audio preload='auto' data-key='71' src='sounds/kick.m4a'></audio>
+          <audio preload='auto' data-key='72' src='sounds/nosleep.m4a'></audio>
+          <audio preload='auto' data-key='74' src='sounds/brooklyn.m4a'></audio>
+          <audio preload='auto' data-key='75' src='sounds/snare.m4a'></audio>
         </main>
         <style jsx>{`
           .keys {
@@ -137,7 +137,7 @@ export default function BreadMachine() {
             border: 0.4rem solid black;
             border-radius: 0.5rem;
             font-size: 1.5rem;
-            padding: 1rem 0.5rem;
+            padding: 0;
             transition: all 0.07s ease;
             text-align: center;
             color: white;
@@ -153,14 +153,26 @@ export default function BreadMachine() {
 
           kbd {
             display: block;
-            font-size: 3rem;
+            font-size: 1.5rem;
           }
 
           .sound {
-            font-size: 1.2rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.1rem;
             color: #ffc600;
+          }
+
+          @media (min-width: 725px) {
+            .key {
+              padding: 1rem 0.5rem;
+            }
+            kbd {
+              font-size: 3rem;
+            }
+            .sound {
+              font-size: 1.2rem;
+            }
           }
         `}</style>
       </div>
