@@ -1,6 +1,7 @@
 import { connectToDatabase } from '../../util/mongodb';
 import withSession from '../../lib/session';
 const client = require('@sendgrid/client');
+const converter = require('number-to-words');
 
 export default withSession(async (req, res) => {
   const user = req.session.get('user');
@@ -35,6 +36,11 @@ export default withSession(async (req, res) => {
                     name: foundWinner.name,
                   },
                 ],
+                dynamic_template_data: {
+                  num_wins: converter.toWordsOrdinal(
+                    foundWinner.numberOfBreads
+                  ),
+                },
               },
             ],
           },
