@@ -100,8 +100,9 @@ export default function Home() {
             friends and family. If you live in the twin cities area of Minnesota
             you are eligible to enter this lottery. Please fill out your name,
             email and full address below and I will notify you if you&lsquo;ve
-            won a loaf.
+            won a loaf and become a Breadwinner.
           </p>
+
           {submitState !== SubmitStateEnum.SUCCESS && (
             <form onSubmit={submitForm}>
               <label>
@@ -133,6 +134,15 @@ export default function Home() {
               </Link>
             </>
           )}
+          {submitState !== SubmitStateEnum.SUCCESS && (
+            <p>
+              <small>
+                I&lsquo;m not interested in becoming a Breadwinner, I&lsquo;m
+                just here for the{' '}
+                <Link href='/breadmachine'>bread machine</Link>.
+              </small>
+            </p>
+          )}
         </main>
 
         <footer></footer>
@@ -142,6 +152,11 @@ export default function Home() {
             display: grid;
             grid-template-columns: 1fr;
             gap: 2rem;
+          }
+          small {
+            font-size: 0.8em;
+            margin-top: 40px;
+            display: block;
           }
           @media (min-width: 600px) {
             form {
