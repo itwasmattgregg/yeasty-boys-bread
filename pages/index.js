@@ -91,7 +91,7 @@ export default function Home() {
           />
         </div>
 
-        <main>
+        <p>
           <h1>The Yeasty Boys Sourdough Bread Lottery</h1>
 
           <p>
@@ -129,6 +129,10 @@ export default function Home() {
           {submitState === SubmitStateEnum.SUCCESS && (
             <>
               <p>Congrats!!! You&lsquo;re one step closer to bread!</p>
+              <p>
+                You should receive a welcome email in your inbox shortly. If you
+                don&lsquo;t, check your spam folder and mark it as not spam.
+              </p>
               <Link href='/breadmachine'>
                 While you&lsquo;re waiting... check out the Bread Machine
               </Link>
@@ -143,7 +147,7 @@ export default function Home() {
               </small>
             </p>
           )}
-        </main>
+        </p>
 
         <footer></footer>
 
