@@ -91,66 +91,70 @@ export default function Home() {
           />
         </div>
 
-        <p>
-          <h1>The Yeasty Boys Sourdough Bread Lottery</h1>
-
+        <main>
           <p>
-            This is the official waiting list for Matt Gregg&lsquo;s sourdough.
-            I generally make one loaf to give away for free every week to
-            friends and family. If you live in the twin cities area of Minnesota
-            you are eligible to enter this lottery. Please fill out your name,
-            email and full address below and I will notify you if you&lsquo;ve
-            won a loaf and become a Breadwinner.
-          </p>
+            <h1>The Yeasty Boys Sourdough Bread Lottery</h1>
 
-          {submitState !== SubmitStateEnum.SUCCESS && (
-            <form onSubmit={submitForm}>
-              <label>
-                Name:
-                <input type='text' name='name' required />
-              </label>
-              <label>
-                Email:
-                <input type='email' name='email' required />
-              </label>
-              <label className='address'>
-                Address (including city and zip code):
-                <input type='text' name='address' required />
-              </label>
-
-              <div className='submit'>
-                <button disabled={buttonDisabled()}>
-                  {getSubmitButtonText()}
-                </button>
-                {error.length > 0 && <p>{error}</p>}
-              </div>
-              <p>This probably goes without saying, but I will never sell or distribute any of your information to anyone.</p>
-            </form>
-          )}
-          {submitState === SubmitStateEnum.SUCCESS && (
-            <>
-              <p>Congrats!!! You&lsquo;re one step closer to bread!</p>
-              <p>
-                You should receive a welcome email in your inbox shortly. If you
-                don&lsquo;t, check your spam folder and mark it as not spam.
-              </p>
-              <Link href='/breadmachine'>
-                While you&lsquo;re waiting... check out the Bread Machine
-              </Link>
-            </>
-          )}
-          {submitState !== SubmitStateEnum.SUCCESS && (
             <p>
-              <small>
-                I&lsquo;m not interested in becoming a Breadwinner, I&lsquo;m
-                just here for the{' '}
-                <Link href='/breadmachine'>bread machine</Link>.
-              </small>
+              This is the official waiting list for Matt Gregg&lsquo;s
+              sourdough. I generally make one loaf to give away for free every
+              week to friends and family. If you live in the twin cities area of
+              Minnesota you are eligible to enter this lottery. Please fill out
+              your name, email and full address below and I will notify you if
+              you&lsquo;ve won a loaf and become a Breadwinner.
             </p>
-          )}
-        </p>
 
-        <footer></footer>
+            {submitState !== SubmitStateEnum.SUCCESS && (
+              <form onSubmit={submitForm}>
+                <label>
+                  Name:
+                  <input type='text' name='name' required />
+                </label>
+                <label>
+                  Email:
+                  <input type='email' name='email' required />
+                </label>
+                <label className='address'>
+                  Address (including city and zip code):
+                  <input type='text' name='address' required />
+                </label>
+
+                <div className='submit'>
+                  <button disabled={buttonDisabled()}>
+                    {getSubmitButtonText()}
+                  </button>
+                  {error.length > 0 && <p>{error}</p>}
+                </div>
+                <p>
+                  This probably goes without saying, but I will never sell or
+                  distribute any of your information to anyone.
+                </p>
+              </form>
+            )}
+            {submitState === SubmitStateEnum.SUCCESS && (
+              <>
+                <p>Congrats!!! You&lsquo;re one step closer to bread!</p>
+                <p>
+                  You should receive a welcome email in your inbox shortly. If
+                  you don&lsquo;t, check your spam folder and mark it as not
+                  spam.
+                </p>
+                <Link href='/breadmachine'>
+                  While you&lsquo;re waiting... check out the Bread Machine
+                </Link>
+              </>
+            )}
+            {submitState !== SubmitStateEnum.SUCCESS && (
+              <p>
+                <small>
+                  I&lsquo;m not interested in becoming a Breadwinner, I&lsquo;m
+                  just here for the{' '}
+                  <Link href='/breadmachine'>bread machine</Link>.
+                </small>
+              </p>
+            )}
+          </p>
+        </main>
 
         <style jsx>{`
           form {
