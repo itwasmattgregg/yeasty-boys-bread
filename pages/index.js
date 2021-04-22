@@ -124,6 +124,7 @@ export default function Home() {
                 </button>
                 {error.length > 0 && <p>{error}</p>}
               </div>
+              <p>This probably goes without saying, but I will never sell or distribute any of your information to anyone.</p>
             </form>
           )}
           {submitState === SubmitStateEnum.SUCCESS && (
