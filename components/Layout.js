@@ -43,6 +43,7 @@ function Layout(props) {
           margin: 0 auto;
           background: #fff;
           border-radius: 1rem;
+          text-align: center;
         }
       `}</style>
     </div>

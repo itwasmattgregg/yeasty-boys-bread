@@ -196,6 +196,9 @@ export default function Home() {
             grid-column: 1 / -1;
             text-align: center;
           }
+          form p {
+            grid-column: 1 / -1;
+          }
           button {
             border: 2px solid #333;
             padding: 0.5rem 1rem;
