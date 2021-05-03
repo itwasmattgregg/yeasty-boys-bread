@@ -204,10 +204,15 @@ export default function Home() {
             cursor: pointer;
             border: 2px solid #333;
             color: #fff;
-            padding: 1rem 3rem;
+            padding: 0.75rem 3rem;
             background: #333;
-            font-size: 18px;
+            font-size: 20px;
             border-radius: 4px;
+            transition: 0.3s all linear;
+          }
+          button:hover, button:focus {
+            color: #333;
+            background: #fff;
           }
         `}</style>
       </div>
