@@ -132,7 +132,7 @@ export default function Home() {
               </form>
             )}
             {submitState === SubmitStateEnum.SUCCESS && (
-              <>
+              <div>
                 <p>Congrats!!! You&lsquo;re one step closer to bread!</p>
                 <p>
                   You should receive a welcome email in your inbox shortly. If
@@ -142,7 +142,7 @@ export default function Home() {
                 <Link href='/breadmachine'>
                   While you&lsquo;re waiting... check out the Bread Machine
                 </Link>
-              </>
+              </div>
             )}
             {submitState !== SubmitStateEnum.SUCCESS && (
               <p>
@@ -162,18 +162,19 @@ export default function Home() {
             grid-template-columns: 1fr;
             gap: 2rem;
           }
-          small {
-            font-size: 0.8em;
-            margin-top: 40px;
-            display: block;
-          }
           @media (min-width: 600px) {
             form {
               grid-template-columns: 1fr 1fr;
             }
           }
+          small {
+            font-size: 0.8em;
+            margin-top: 40px;
+            display: block;
+          }
           label {
             margin-bottom: 0.5rem;
+            text-align: left;
           }
           input {
             display: block;
@@ -200,11 +201,13 @@ export default function Home() {
             grid-column: 1 / -1;
           }
           button {
+            cursor: pointer;
             border: 2px solid #333;
-            padding: 0.5rem 1rem;
-            background: #fff;
+            color: #fff;
+            padding: 1rem 3rem;
+            background: #333;
             font-size: 18px;
-            border-radius: 0.5rem;
+            border-radius: 4px;
           }
         `}</style>
       </div>
