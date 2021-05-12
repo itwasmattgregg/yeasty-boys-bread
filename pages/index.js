@@ -154,6 +154,11 @@ export default function Home() {
               </p>
             )}
           </p>
+          <div>
+            <small>
+              Made by <a href='https://codegregg.com'>CodeGregg</a>
+            </small>
+          </div>
         </main>
 
         <style jsx>{`
@@ -210,7 +215,8 @@ export default function Home() {
             border-radius: 4px;
             transition: 0.3s all linear;
           }
-          button:hover, button:focus {
+          button:hover,
+          button:focus {
             color: #333;
             background: #fff;
           }
