@@ -1,19 +1,19 @@
-import { connectToDatabase } from '../../util/mongodb';
-import withSession from '../../lib/session';
-const client = require('@sendgrid/client');
-const converter = require('number-to-words');
+import { connectToDatabase } from "../../util/mongodb";
+import withSession from "../../lib/session";
+const client = require("@sendgrid/client");
+const converter = require("number-to-words");
 
 export default withSession(async (req, res) => {
-  const user = req.session.get('user');
+  const user = req.session.get("user");
 
   client.setApiKey(process.env.SENDGRID_API_KEY);
 
-  if (req.method === 'POST') {
+  if (req.method === "POST") {
     const { db } = await connectToDatabase();
     if (user) {
       try {
         const response = await db
-          .collection('sourdough')
+          .collection("sourdough")
           .findOneAndUpdate(
             { uniqueEmail: req.body.email },
             { $inc: { numberOfBreads: 1 } },
@@ -22,12 +22,12 @@ export default withSession(async (req, res) => {
         const foundWinner = response.value;
 
         const request = {
-          method: 'POST',
-          url: '/v3/mail/send',
+          method: "POST",
+          url: "/v3/mail/send",
           body: {
-            template_id: 'd-8eee7c28510044edb7200f18f43802e5',
+            template_id: "d-8eee7c28510044edb7200f18f43802e5",
             from: {
-              email: 'mattdgregg@gmail.com',
+              email: "mattdgregg@gmail.com",
             },
             personalizations: [
               {
@@ -48,7 +48,7 @@ export default withSession(async (req, res) => {
         };
         await client.request(request);
         // assume email went through
-        res.json({ user: response.value, email: 'ok' });
+        res.json({ user: response.value, email: "ok" });
       } catch (e) {
         console.log(e.response.body);
         res.status(500).json(e);

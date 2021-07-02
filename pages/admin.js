@@ -55,7 +55,7 @@ const Admin = ({ breadies }) => {
           <>
             <p>Winner is: {winner.name}</p>
             <button
-              // disabled={emailSent || submitting}
+              disabled={emailSent || submitting}
               onClick={() => incrementBread(winner.uniqueEmail)}
             >
               Crown winner?
