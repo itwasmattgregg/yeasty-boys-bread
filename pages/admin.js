@@ -27,10 +27,10 @@ const Admin = ({ breadies }) => {
     return weightedArray[Math.floor(Math.random() * weightedArray.length)];
   };
 
-  const incrementBread = async (winnerEmail) => {
+  const incrementAndSendEmail = async (winnerEmail) => {
     setSubmitting(true);
     try {
-      await fetchJson("/api/increment", {
+      await fetchJson("/api/incrementAndSendEmail", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: winnerEmail }),
@@ -56,7 +56,7 @@ const Admin = ({ breadies }) => {
             <p>Winner is: {winner.name}</p>
             <button
               disabled={emailSent || submitting}
-              onClick={() => incrementBread(winner.uniqueEmail)}
+              onClick={() => incrementAndSendEmail(winner.uniqueEmail)}
             >
               Crown winner?
             </button>
