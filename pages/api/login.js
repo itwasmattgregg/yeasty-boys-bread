@@ -1,4 +1,4 @@
-import withSession from '../../lib/session';
+import withSession from "../../lib/session";
 
 export default withSession(async (req, res) => {
   const { password } = await req.body;
@@ -6,7 +6,7 @@ export default withSession(async (req, res) => {
   try {
     if (password === process.env.PASSWORD) {
       const user = { isLoggedIn: true };
-      req.session.set('user', user);
+      req.session.set("user", user);
       await req.session.save();
       res.json(user);
     } else {

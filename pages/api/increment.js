@@ -1,24 +1,26 @@
-import { connectToDatabase } from '../../util/mongodb';
-import withSession from '../../lib/session';
-const client = require('@sendgrid/client');
-const converter = require('number-to-words');
+import { connectToDatabase } from "../../util/mongodb";
+import withSession from "../../lib/session";
+const client = require("@sendgrid/client");
+const converter = require("number-to-words");
 
 export default withSession(async (req, res) => {
-  const user = req.session.get('user');
+  const user = req.session.get("user");
 
   client.setApiKey(process.env.SENDGRID_API_KEY);
 
-  if (req.method === 'POST') {
+  if (req.method === "POST") {
     const { db } = await connectToDatabase();
     if (user) {
       try {
         const response = await db
-          .collection('sourdough')
+          .collection("sourdough")
           .findOneAndUpdate(
             { uniqueEmail: req.body.email },
-            { $inc: { numberOfBreads: 1 } }
+            { $inc: { numberOfBreads: 1 } },
+            { returnNewDocument: true }
           );
         const foundWinner = response.value;
+        const number = converter.toWordsOrdinal(foundWinner.numberOfBreads);
 
         const request = {
           method: 'POST',
@@ -45,9 +47,9 @@ export default withSession(async (req, res) => {
             ],
           },
         };
-        await client.request(request);
+        await client.request(number);
         // assume email went through
-        res.json({ user: foundWinner, email: 'ok' });
+        res.json({ user: response.value, email: "ok" });
       } catch (e) {
         console.log(e.response.body);
         res.status(500).json(e);

@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import useUser from '../lib/useUser';
-import Layout from '../components/Layout';
-import fetchJson from '../lib/fetchJson';
+import { useState } from "react";
+import useUser from "../lib/useUser";
+import Layout from "../components/Layout";
+import fetchJson from "../lib/fetchJson";
 
 const Login = () => {
   // here we just check if user is already logged in and redirect to profile
   const { mutateUser } = useUser({
-    redirectTo: '/admin',
+    redirectTo: "/admin",
     redirectIfFound: true,
   });
 
-  const [errorMsg, setErrorMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState("");
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -21,30 +21,30 @@ const Login = () => {
 
     try {
       await mutateUser(
-        fetchJson('/api/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        fetchJson("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify(body),
         })
       );
     } catch (error) {
-      console.error('An unexpected error happened:', error);
+      console.error("An unexpected error happened:", error);
       setErrorMsg(error.data.message);
     }
   }
 
   return (
     <Layout>
-      <div className='login'>
+      <div className="login">
         <form onSubmit={handleSubmit}>
           <label>
             <span>Enter password</span>
-            <input type='password' name='password' required />
+            <input type="password" name="password" required />
           </label>
 
-          <button type='submit'>Login</button>
+          <button type="submit">Login</button>
 
-          {errorMsg && <p className='error'>{errorMsg}</p>}
+          {errorMsg && <p className="error">{errorMsg}</p>}
         </form>
       </div>
       <style jsx>{`

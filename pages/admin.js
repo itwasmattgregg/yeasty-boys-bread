@@ -1,9 +1,9 @@
-import withSession from '../lib/session';
-import Layout from '../components/Layout';
-import fetchJson from '../lib/fetchJson';
-import { connectToDatabase } from '../util/mongodb';
-import { useState } from 'react';
-import useRouterRefresh from '../lib/useRouterRefresh';
+import withSession from "../lib/session";
+import Layout from "../components/Layout";
+import fetchJson from "../lib/fetchJson";
+import { connectToDatabase } from "../util/mongodb";
+import { useState } from "react";
+import useRouterRefresh from "../lib/useRouterRefresh";
 
 const Admin = ({ breadies }) => {
   const [winner, setWinner] = useState();
@@ -30,15 +30,15 @@ const Admin = ({ breadies }) => {
   const incrementBread = async (winnerEmail) => {
     setSubmitting(true);
     try {
-      await fetchJson('/api/increment', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      await fetchJson("/api/increment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: winnerEmail }),
       });
       setEmailSent(true);
       refresh();
     } catch (error) {
-      console.error('An unexpected error happened:', error);
+      console.error("An unexpected error happened:", error);
     } finally {
       setSubmitting(false);
     }
@@ -46,7 +46,7 @@ const Admin = ({ breadies }) => {
 
   return (
     <Layout>
-      <div className='container'>
+      <div className="container">
         <h1>Admin</h1>
         <button onClick={() => setWinner(pickWinner(breadies))}>
           Select winner
@@ -55,7 +55,7 @@ const Admin = ({ breadies }) => {
           <>
             <p>Winner is: {winner.name}</p>
             <button
-              disabled={emailSent || submitting}
+              // disabled={emailSent || submitting}
               onClick={() => incrementBread(winner.uniqueEmail)}
             >
               Crown winner?
@@ -89,10 +89,10 @@ const Admin = ({ breadies }) => {
 };
 
 export const getServerSideProps = withSession(async function ({ req, res }) {
-  const user = req.session.get('user');
+  const user = req.session.get("user");
 
   if (user === undefined) {
-    res.setHeader('location', '/login');
+    res.setHeader("location", "/login");
     res.statusCode = 302;
     res.end();
     return { props: {} };
@@ -102,7 +102,7 @@ export const getServerSideProps = withSession(async function ({ req, res }) {
   let breadies = [];
 
   try {
-    const response = await db.collection('sourdough').find({});
+    const response = await db.collection("sourdough").find({});
     breadies = await response.toArray();
   } catch (e) {
     console.error(e);
@@ -110,7 +110,7 @@ export const getServerSideProps = withSession(async function ({ req, res }) {
 
   return {
     props: {
-      user: req.session.get('user'),
+      user: req.session.get("user"),
       breadies: JSON.parse(JSON.stringify(breadies)),
     },
   };

@@ -1,22 +1,22 @@
-import { connectToDatabase } from '../../util/mongodb';
-const client = require('@sendgrid/client');
+import { connectToDatabase } from "../../util/mongodb";
+const client = require("@sendgrid/client");
 
 export default async (req, res) => {
-  if (req.method === 'POST') {
+  if (req.method === "POST") {
     const { db } = await connectToDatabase();
 
     client.setApiKey(process.env.SENDGRID_API_KEY);
     const request = {
-      method: 'PUT',
-      url: '/v3/marketing/contacts',
+      method: "PUT",
+      url: "/v3/marketing/contacts",
     };
 
     let regex = /\+(.*)(?=@)/gm;
     const contact = req.body;
-    const strippedEmail = contact.email.replace(regex, '');
+    const strippedEmail = contact.email.replace(regex, "");
 
     try {
-      await db.collection('sourdough').insertOne({
+      await db.collection("sourdough").insertOne({
         ...req.body,
         uniqueEmail: strippedEmail,
         numberOfBreads: 0,
