@@ -63,10 +63,10 @@ const Admin = ({ breadies }) => {
           </>
         )}
         {emailSent && <p>Email has been sent</p>}
-        <table>
+        <table className="table-auto border border-green-800">
           <thead>
             <tr>
-              <th>Name</th>
+              <th className="border border-green-600">Name</th>
               <th>Email</th>
               <th>Address</th>
               <th>Number Won</th>

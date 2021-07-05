@@ -81,7 +81,7 @@ export default function Home() {
             href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍞</text></svg>"
           />
         </Head>
-        <div className="background-wrap">
+        {/* <div className="background-wrap">
           <Image
             src="/images/IMG_3547.jpg"
             alt="Bread"
@@ -89,10 +89,10 @@ export default function Home() {
             objectFit="cover"
             quality={15}
           />
-        </div>
+        </div> */}
 
         <main>
-          <p>
+          <div>
             <h1>The Yeasty Boys Sourdough Bread Lottery</h1>
 
             <p>
@@ -153,74 +153,13 @@ export default function Home() {
                 </small>
               </p>
             )}
-          </p>
+          </div>
           <div>
             <small>
               Made by <a href="https://codegregg.com">CodeGregg</a>
             </small>
           </div>
         </main>
-
-        <style jsx>{`
-          form {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-          }
-          @media (min-width: 600px) {
-            form {
-              grid-template-columns: 1fr 1fr;
-            }
-          }
-          small {
-            font-size: 0.8em;
-            margin-top: 40px;
-            display: block;
-          }
-          label {
-            margin-bottom: 0.5rem;
-            text-align: left;
-          }
-          input {
-            display: block;
-            width: 100%;
-            font-size: 1rem;
-            border: none;
-            border-radius: 0;
-            border-bottom: 2px solid #333;
-            margin-top: 0.5rem;
-            padding: 3px 0;
-          }
-          input:focus {
-            outline: none;
-            border-bottom-color: #f54952;
-          }
-          .address {
-            grid-column: 1 / -1;
-          }
-          .submit {
-            grid-column: 1 / -1;
-            text-align: center;
-          }
-          form p {
-            grid-column: 1 / -1;
-          }
-          button {
-            cursor: pointer;
-            border: 2px solid #333;
-            color: #fff;
-            padding: 0.75rem 3rem;
-            background: #333;
-            font-size: 20px;
-            border-radius: 4px;
-            transition: 0.3s all linear;
-          }
-          button:hover,
-          button:focus {
-            color: #333;
-            background: #fff;
-          }
-        `}</style>
       </div>
     </Layout>
   );
