@@ -1,4 +1,3 @@
-import Head from "next/head";
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -75,18 +74,10 @@ export default function Home() {
   return (
     <Layout>
       <div>
-        <Head>
-          <title>Yeasty Boys Sourdough Bread Lottery</title>
-          <link
-            rel="icon"
-            href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍞</text></svg>"
-          />
-        </Head>
-
         <main>
           <div
             className="h-screen flex items-center justify-start relative
-            bg-gradient-to-t from-black to-transparent"
+            bg-gradient-to-t from-gray-800 to-transparent"
           >
             <Image
               src={BreadImg}
@@ -121,7 +112,6 @@ export default function Home() {
           </div>
 
           <div className="max-w-3xl mx-auto px-6 mb-10">
-            <h2 className="text-sm font-medium">Signup form</h2>
             <div className="p-6 shadow overflow-hidden border border-gray-300 rounded-md">
               {submitState !== SubmitStateEnum.SUCCESS && (
                 <form
