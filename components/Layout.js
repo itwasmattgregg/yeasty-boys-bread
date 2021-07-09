@@ -15,7 +15,7 @@ function Layout(props) {
         <meta property="og:description" content="yeasty" />
         <meta
           property="og:image"
-          content={`https://yeastyboysbread.vercel.app/images/logo.png`}
+          content={`${process.env.VERCEL_URL}/images/logo.png`}
         />
         <title>Yeasty Boys Sourdough Bread Lottery</title>
         <link
