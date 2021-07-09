@@ -5,7 +5,7 @@ function Layout(props) {
   return (
     <div className="relative overflow-hidden">
       <Head>
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:creator" content="@itwasmattgregg" />
         <meta
           property="og:title"
