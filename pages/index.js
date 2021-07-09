@@ -109,7 +109,7 @@ export default function Home() {
             className="grid gap-4 md:grid-cols-2 items-center container 
             mx-auto py-20 px-5"
           >
-            <p className="text-2xl m-5">What is this?</p>
+            <p className="text-2xl md:m-5">What is this?</p>
             <p>
               This is the official waiting list for Matt Gregg&lsquo;s
               sourdough. I generally make one loaf to give away for free every
@@ -120,8 +120,9 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="max-w-3xl mx-auto">
-            <div className="m-6 p-6 shadow overflow-hidden border border-gray-300 rounded-md">
+          <div className="max-w-3xl mx-auto px-6">
+            <h2 className="text-sm font-medium">Signup form</h2>
+            <div className="p-6 shadow overflow-hidden border border-gray-300 rounded-md">
               {submitState !== SubmitStateEnum.SUCCESS && (
                 <form onSubmit={submitForm} className="grid gap-6">
                   <label className="block text-sm font-medium text-gray-700">
@@ -170,8 +171,8 @@ export default function Home() {
                   </div>
                   <p className="text-center">
                     <small>
-                      This probably goes without saying, but I will never sell or
-                      distribute any of your information to anyone.
+                      This probably goes without saying, but I will never sell
+                      or distribute any of your information to anyone.
                     </small>
                   </p>
                 </form>
@@ -189,19 +190,18 @@ export default function Home() {
                   </Link>
                 </div>
               )}
-              
             </div>
           </div>
           <div className="text-center">
-          {submitState !== SubmitStateEnum.SUCCESS && (
-                <p>
-                  <small>
-                    I&lsquo;m not interested in becoming a Breadwinner, I&lsquo;m
-                    just here for the{" "}
-                    <Link href="/breadmachine">bread machine</Link>.
-                  </small>
-                </p>
-              )}
+            {submitState !== SubmitStateEnum.SUCCESS && (
+              <p>
+                <small>
+                  I&lsquo;m not interested in becoming a Breadwinner, I&lsquo;m
+                  just here for the{" "}
+                  <Link href="/breadmachine">bread machine</Link>.
+                </small>
+              </p>
+            )}
             <small>
               Made by <a href="https://codegregg.com">CodeGregg</a>
             </small>
