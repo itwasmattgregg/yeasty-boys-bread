@@ -106,10 +106,10 @@ export default function Home() {
           </div>
 
           <div
-            className="grid gap-4 md:grid-cols-2 items-center container 
-            mx-auto py-20 px-5"
+            className="items-center container 
+            mx-auto py-20 px-5 max-w-3xl"
           >
-            <p className="text-2xl md:m-5">What is this?</p>
+            <p className="text-2xl mb-6">What is this?</p>
             <p>
               This is the official waiting list for Matt Gregg&lsquo;s
               sourdough. I generally make one loaf to give away for free every
@@ -172,7 +172,7 @@ export default function Home() {
                     </button>
                     {error.length > 0 && <p>{error}</p>}
                   </div>
-                  <p className="text-center">
+                  <p className="text-center col-span-2">
                     <small>
                       This probably goes without saying, but I will never sell
                       or distribute any of your information to anyone.
