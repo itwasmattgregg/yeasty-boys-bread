@@ -45,16 +45,6 @@ export default function BreadMachine() {
           />
         </Head>
 
-        <div className="background-wrap">
-          <Image
-            src="/images/IMG_3547.jpg"
-            alt="Bread"
-            layout="fill"
-            objectFit="cover"
-            quality={15}
-          />
-        </div>
-
         <main>
           <h1>The Yeasty Boys Bread (Drum) Machine</h1>
           <p>Note: this might not work the best on safari</p>

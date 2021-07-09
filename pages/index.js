@@ -3,6 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Layout from "../components/Layout";
+import BreadImg from "../public/images/IMG_3547.jpg";
 
 const SubmitStateEnum = {
   WAITING: "waiting",
@@ -73,7 +74,7 @@ export default function Home() {
 
   return (
     <Layout>
-      <div className="container">
+      <div>
         <Head>
           <title>Yeasty Boys Sourdough Bread Lottery</title>
           <link
@@ -81,20 +82,34 @@ export default function Home() {
             href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍞</text></svg>"
           />
         </Head>
-        {/* <div className="background-wrap">
-          <Image
-            src="/images/IMG_3547.jpg"
-            alt="Bread"
-            layout="fill"
-            objectFit="cover"
-            quality={15}
-          />
-        </div> */}
 
         <main>
-          <div>
-            <h1>The Yeasty Boys Sourdough Bread Lottery</h1>
+          <div
+            className="h-screen flex items-center justify-start relative
+            bg-gradient-to-t from-black to-transparent"
+          >
+            <Image
+              src={BreadImg}
+              alt="Bread"
+              layout="fill"
+              objectFit="cover"
+              quality={15}
+              className="-z-10"
+            />
+            <h1
+              className="mx-10 relative text-4xl tracking-tight 
+              font-extrabold text-white"
+            >
+              The Yeasty Boys
+              <br /> Sourdough Bread Lottery
+            </h1>
+          </div>
 
+          <div
+            className="grid gap-4 md:grid-cols-2 items-center container 
+            mx-auto py-20 px-5"
+          >
+            <p className="text-2xl m-5">What is this?</p>
             <p>
               This is the official waiting list for Matt Gregg&lsquo;s
               sourdough. I generally make one loaf to give away for free every
@@ -103,58 +118,90 @@ export default function Home() {
               your name, email and full address below and I will notify you if
               you&lsquo;ve won a loaf and become a Breadwinner.
             </p>
-
-            {submitState !== SubmitStateEnum.SUCCESS && (
-              <form onSubmit={submitForm}>
-                <label>
-                  Name:
-                  <input type="text" name="name" required />
-                </label>
-                <label>
-                  Email:
-                  <input type="email" name="email" required />
-                </label>
-                <label className="address">
-                  Address (including city and zip code):
-                  <input type="text" name="address" required />
-                </label>
-
-                <div className="submit">
-                  <button disabled={buttonDisabled()}>
-                    {getSubmitButtonText()}
-                  </button>
-                  {error.length > 0 && <p>{error}</p>}
-                </div>
-                <p>
-                  This probably goes without saying, but I will never sell or
-                  distribute any of your information to anyone.
-                </p>
-              </form>
-            )}
-            {submitState === SubmitStateEnum.SUCCESS && (
-              <div>
-                <p>Congrats!!! You&lsquo;re one step closer to bread!</p>
-                <p>
-                  You should receive a welcome email in your inbox shortly. If
-                  you don&lsquo;t, check your spam folder and mark it as not
-                  spam.
-                </p>
-                <Link href="/breadmachine">
-                  While you&lsquo;re waiting... check out the Bread Machine
-                </Link>
-              </div>
-            )}
-            {submitState !== SubmitStateEnum.SUCCESS && (
-              <p>
-                <small>
-                  I&lsquo;m not interested in becoming a Breadwinner, I&lsquo;m
-                  just here for the{" "}
-                  <Link href="/breadmachine">bread machine</Link>.
-                </small>
-              </p>
-            )}
           </div>
-          <div>
+
+          <div className="max-w-3xl mx-auto">
+            <div className="m-6 p-6 shadow overflow-hidden border border-gray-300 rounded-md">
+              {submitState !== SubmitStateEnum.SUCCESS && (
+                <form onSubmit={submitForm} className="grid gap-6">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Name:
+                    <input
+                      name="name"
+                      type="text"
+                      required
+                      className="mt-1 focus:ring-red focus:border-red 
+                      block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    />
+                  </label>
+
+                  <label className="block text-sm font-medium text-gray-700">
+                    Email:
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      className="mt-1 focus:ring-red focus:border-red 
+                      block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    />
+                  </label>
+                  <label className="block text-sm font-medium text-gray-700">
+                    Address (including city and zip code):
+                    <input
+                      type="text"
+                      name="address"
+                      required
+                      className="mt-1 focus:ring-red focus:border-red 
+                        block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                    />
+                  </label>
+
+                  <div className="pt-3 text-center">
+                    <button
+                      disabled={buttonDisabled()}
+                      className="inline-flex justify-center py-2 px-4 border 
+                        border-transparent shadow-sm text-sm font-medium rounded-md 
+                        text-white bg-red hover:bg-red focus:outline-none 
+                        focus:ring-2 focus:ring-offset-2 focus:ring-red"
+                    >
+                      {getSubmitButtonText()}
+                    </button>
+                    {error.length > 0 && <p>{error}</p>}
+                  </div>
+                  <p className="text-center">
+                    <small>
+                      This probably goes without saying, but I will never sell or
+                      distribute any of your information to anyone.
+                    </small>
+                  </p>
+                </form>
+              )}
+              {submitState === SubmitStateEnum.SUCCESS && (
+                <div>
+                  <p>Congrats!!! You&lsquo;re one step closer to bread!</p>
+                  <p>
+                    You should receive a welcome email in your inbox shortly. If
+                    you don&lsquo;t, check your spam folder and mark it as not
+                    spam.
+                  </p>
+                  <Link href="/breadmachine">
+                    While you&lsquo;re waiting... check out the Bread Machine
+                  </Link>
+                </div>
+              )}
+              
+            </div>
+          </div>
+          <div className="text-center">
+          {submitState !== SubmitStateEnum.SUCCESS && (
+                <p>
+                  <small>
+                    I&lsquo;m not interested in becoming a Breadwinner, I&lsquo;m
+                    just here for the{" "}
+                    <Link href="/breadmachine">bread machine</Link>.
+                  </small>
+                </p>
+              )}
             <small>
               Made by <a href="https://codegregg.com">CodeGregg</a>
             </small>
