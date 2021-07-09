@@ -5,7 +5,7 @@ function Layout(props) {
   return (
     <div className="relative overflow-hidden">
       <Head>
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:card" content="summary" />
         <meta name="twitter:creator" content="@itwasmattgregg" />
         <meta
           property="og:title"
@@ -15,7 +15,7 @@ function Layout(props) {
         <meta property="og:description" content="yeasty" />
         <meta
           property="og:image"
-          content={`${process.env.VERCEL_URL}/images/logo.png`}
+          content={`${process.env.NEXT_PUBLIC_VERCEL_URL}/images/logo.png`}
         />
         <title>Yeasty Boys Sourdough Bread Lottery</title>
         <link
