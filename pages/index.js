@@ -75,21 +75,23 @@ export default function Home() {
     <Layout>
       <div>
         <main>
-          <div
-            className="h-screen flex items-center justify-start relative
-            bg-gradient-to-t from-gray-800 to-transparent"
-          >
+          <div className="absolute h-screen w-full z-0 flex">
             <Image
               src={BreadImg}
               alt="Bread"
               layout="fill"
               objectFit="cover"
               placeholder="blur"
-              className="-z-10"
+              className="z-0"
             />
+          </div>
+          <div
+            className="h-screen flex items-center justify-start relative
+            bg-gradient-to-t from-gray-800 to-transparent"
+          >
             <h1
-              className="mx-10 relative text-4xl tracking-tight 
-              font-extrabold text-white"
+              className="mx-6 md:mx-16 relative text-3xl md:text-5xl tracking-tight 
+              leading-tight md:leading-tight font-extrabold text-white text-shadow"
             >
               The Yeasty Boys
               <br /> Sourdough Bread Lottery
@@ -98,16 +100,16 @@ export default function Home() {
 
           <div
             className="items-center container 
-            mx-auto py-20 px-5 max-w-3xl"
+            mx-auto py-20 px-6 max-w-3xl"
           >
             <p className="text-2xl mb-6">What is this?</p>
             <p>
               This is the official waiting list for Matt Gregg&lsquo;s
               sourdough. I generally make one loaf to give away for free every
-              week to friends and family. If you live in the twin cities area of
-              Minnesota you are eligible to enter this lottery. Please fill out
-              your name, email and full address below and I will notify you if
-              you&lsquo;ve won a loaf and become a Breadwinner.
+              week to friends and family. If you live in the Twin Cities area of
+              Minnesota, and I know you, you are eligible to enter this lottery.
+              Please fill out your name, email and full address below and I will
+              notify you if you&lsquo;ve won a loaf and become a Breadwinner.
             </p>
           </div>
 
