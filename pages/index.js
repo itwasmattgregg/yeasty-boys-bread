@@ -114,7 +114,7 @@ export default function Home() {
           </div>
 
           <div className="max-w-3xl mx-auto px-6 mb-10">
-            <div className="p-6 shadow overflow-hidden border border-gray-300 rounded-md">
+            <div className="p-6 shadow bg-white border border-gray-300 rounded-md">
               {submitState !== SubmitStateEnum.SUCCESS && (
                 <form
                   onSubmit={submitForm}
