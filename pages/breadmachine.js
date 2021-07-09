@@ -44,7 +44,10 @@ export default function BreadMachine() {
           <h1 className="mb-10 relative text-4xl tracking-tight font-extrabold">
             The Yeasty Boys Bread (Drum) Machine
           </h1>
-          <p>Note: works best on chrome or firefox</p>
+          <p className="mb-6">
+            Note: works best on chrome or firefox. Sorry Josh, safari will not
+            work.
+          </p>
           <div className="keys">
             <div data-key="81" className="key">
               <kbd>Q</kbd>
