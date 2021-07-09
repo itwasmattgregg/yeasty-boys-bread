@@ -3,7 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Layout from "../components/Layout";
-import BreadImg from "../public/images/IMG_3547.jpg";
+import BreadImg from "../images/IMG_4261-2.jpg";
 
 const SubmitStateEnum = {
   WAITING: "waiting",
@@ -93,7 +93,7 @@ export default function Home() {
               alt="Bread"
               layout="fill"
               objectFit="cover"
-              quality={15}
+              placeholder="blur"
               className="-z-10"
             />
             <h1
@@ -120,11 +120,14 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="max-w-3xl mx-auto px-6">
+          <div className="max-w-3xl mx-auto px-6 mb-10">
             <h2 className="text-sm font-medium">Signup form</h2>
             <div className="p-6 shadow overflow-hidden border border-gray-300 rounded-md">
               {submitState !== SubmitStateEnum.SUCCESS && (
-                <form onSubmit={submitForm} className="grid gap-6">
+                <form
+                  onSubmit={submitForm}
+                  className="grid gap-6 sm:grid-cols-2"
+                >
                   <label className="block text-sm font-medium text-gray-700">
                     Name:
                     <input
@@ -146,7 +149,7 @@ export default function Home() {
                       block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     />
                   </label>
-                  <label className="block text-sm font-medium text-gray-700">
+                  <label className="block text-sm font-medium text-gray-700 col-span-2">
                     Address (including city and zip code):
                     <input
                       type="text"
@@ -157,7 +160,7 @@ export default function Home() {
                     />
                   </label>
 
-                  <div className="pt-3 text-center">
+                  <div className="pt-3 text-center col-span-2">
                     <button
                       disabled={buttonDisabled()}
                       className="inline-flex justify-center py-2 px-4 border 
