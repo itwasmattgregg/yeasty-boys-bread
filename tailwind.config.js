@@ -31,5 +31,14 @@ module.exports = {
         a: { color: theme("colors.red") },
       });
     }),
+    plugin(function ({ addUtilities }) {
+      const newUtilities = {
+        ".text-shadow": {
+          textShadow: "0 1px 1px rgba(0,0,0,0.60)",
+        },
+      };
+
+      addUtilities(newUtilities, ["responsive"]);
+    }),
   ],
 };
