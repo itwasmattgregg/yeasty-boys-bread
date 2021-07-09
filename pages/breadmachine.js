@@ -36,7 +36,7 @@ export default function BreadMachine() {
 
   return (
     <Layout>
-      <div className="container">
+      <div className="container mx-auto">
         <Head>
           <title>Yeasty Boys Bread Machine</title>
           <link
@@ -45,8 +45,10 @@ export default function BreadMachine() {
           />
         </Head>
 
-        <main>
-          <h1>The Yeasty Boys Bread (Drum) Machine</h1>
+        <main className="mt-40">
+          <h1 className="mb-10 relative text-4xl tracking-tight font-extrabold">
+            The Yeasty Boys Bread (Drum) Machine
+          </h1>
           <p>Note: this might not work the best on safari</p>
           <div className="keys">
             <div data-key="81" className="key">
