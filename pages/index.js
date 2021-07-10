@@ -102,7 +102,7 @@ export default function Home() {
             className="items-center container 
             mx-auto py-20 px-6 max-w-3xl"
           >
-            <p className="text-2xl mb-6">What is this?</p>
+            <h2 className="text-2xl mb-6">What is this?</h2>
             <p>
               This is the official waiting list for Matt Gregg&lsquo;s
               sourdough. I generally make one loaf to give away for free every
