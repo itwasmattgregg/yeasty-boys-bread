@@ -45,10 +45,14 @@ export default function BreadMachine() {
             The Yeasty Boys Bread (Drum) Machine
           </h1>
           <p className="mb-6">
+            The first row of sounds were recorded on my very own sourdough
+            bread.
+          </p>
+          <p className="mb-6">
             Note: works best on chrome or firefox. Sorry Josh, safari will not
             work.
           </p>
-          <div className="keys">
+          <div className="keys mb-6">
             <div data-key="81" className="key">
               <kbd>Q</kbd>
               <span className="sound">Tap</span>
