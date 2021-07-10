@@ -28,7 +28,7 @@ module.exports = {
     require("@tailwindcss/forms"),
     plugin(function ({ addBase, theme }) {
       addBase({
-        a: { color: theme("colors.red") },
+        a: { color: theme("colors.red"), textDecoration: "underline" },
       });
     }),
     plugin(function ({ addUtilities }) {
