@@ -46,7 +46,7 @@ const Admin = ({ breadies }) => {
 
   return (
     <Layout>
-      <div className="container mx-auto mt-20 px-6 max-w-3xl">
+      <div className="container mx-auto mt-40 px-6 max-w-3xl">
         <h1>Admin</h1>
         <button onClick={() => setWinner(pickWinner(breadies))}>
           Select winner

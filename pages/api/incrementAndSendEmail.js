@@ -12,13 +12,14 @@ export default withSession(async (req, res) => {
     const { db } = await connectToDatabase();
     if (user) {
       try {
-        const response = await db
-          .collection("sourdough")
-          .findOneAndUpdate(
-            { uniqueEmail: req.body.email },
-            { $inc: { numberOfBreads: 1 } },
-            { returnOriginal: false }
-          );
+        const response = await db.collection("sourdough").findOneAndUpdate(
+          { uniqueEmail: req.body.email },
+          {
+            $inc: { numberOfBreads: 1 },
+            $currentDate: { lastModified: true },
+          },
+          { returnDocument: "after" }
+        );
         const foundWinner = response.value;
 
         const request = {
