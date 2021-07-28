@@ -27,7 +27,7 @@ export default withSession(async (req, res) => {
           body: {
             template_id: "d-8eee7c28510044edb7200f18f43802e5",
             from: {
-              email: "mattdgregg@gmail.com",
+              email: "bread@yeastyboysbread.com",
             },
             personalizations: [
               {
