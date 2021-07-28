@@ -70,6 +70,7 @@ const Admin = ({ breadies }) => {
               <th>Email</th>
               <th>Address</th>
               <th>Number Won</th>
+              <th>Last won</th>
             </tr>
           </thead>
           <tbody>
@@ -79,6 +80,7 @@ const Admin = ({ breadies }) => {
                 <td>{breadie.email}</td>
                 <td>{breadie.address}</td>
                 <td>{breadie.numberOfBreads}</td>
+                <td>{breadie.lastModified}</td>
               </tr>
             ))}
           </tbody>
