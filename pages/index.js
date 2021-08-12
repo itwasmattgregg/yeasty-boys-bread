@@ -90,8 +90,8 @@ export default function Home() {
             bg-gradient-to-t from-gray-800 to-transparent"
           >
             <h1
-              className="mx-6 md:mx-16 relative text-3xl md:text-5xl tracking-tight 
-              leading-tight md:leading-tight font-extrabold text-white text-shadow"
+              className="mx-6 md:mx-16 relative text-3xl md:text-5xl
+              leading-tight md:leading-tight font-bold text-white text-shadow"
             >
               The Yeasty Boys
               <br /> Sourdough Bread Lottery

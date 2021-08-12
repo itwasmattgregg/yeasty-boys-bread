@@ -1,5 +1,6 @@
 const plugin = require("tailwindcss/plugin");
 const colors = require("tailwindcss/colors");
+const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
   purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
@@ -14,6 +15,9 @@ module.exports = {
       gray: colors.trueGray,
       indigo: colors.indigo,
       yellow: colors.amber,
+    },
+    fontFamily: {
+      sans: ["Sora", ...defaultTheme.fontFamily.sans],
     },
     extend: {
       zIndex: {

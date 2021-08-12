@@ -41,7 +41,7 @@ export default function BreadMachine() {
         </Head>
 
         <main className="mt-40">
-          <h1 className="mb-10 relative text-4xl tracking-tight font-extrabold">
+          <h1 className="mb-10 relative text-4xl font-extrabold">
             The Yeasty Boys Bread (Drum) Machine
           </h1>
           <p className="mb-6">
