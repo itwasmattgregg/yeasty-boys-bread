@@ -18,6 +18,7 @@ module.exports = {
     },
     fontFamily: {
       sans: ["Sora", ...defaultTheme.fontFamily.sans],
+      // serif: ["Lora", ...defaultTheme.fontFamily.serif],
     },
     extend: {
       zIndex: {
