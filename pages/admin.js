@@ -11,13 +11,15 @@ const Admin = ({ breadies }) => {
   const [submitting, setSubmitting] = useState(false);
   const refresh = useRouterRefresh();
 
-  const pickWinner = (array) => {
+  const pickWinner = (people) => {
     setEmailSent(false);
-    const lowestNumber = array.reduce(
+    // Find lowest number of wins for curve
+    const lowestNumber = people.reduce(
       (a, { numberOfBreads }) => Math.min(a, numberOfBreads),
-      array[0].numberOfBreads
+      people[0].numberOfBreads
     );
-    let weightedArray = array.reduce((acc, item) => {
+    // Create an array with peoples names where people with less wins have more entries
+    let weightedArray = people.reduce((acc, item) => {
       const wins = item.numberOfBreads;
       const weight = (num) => Math.floor(10 * 3 ** (0.1 + lowestNumber - num));
       const tempArray = new Array(weight(wins));
