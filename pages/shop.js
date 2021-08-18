@@ -8,7 +8,10 @@ const Shop = () => {
         <script type="text/javascript" src="/shopifyButton.js"></script>
       </Head>
       <Layout>
-        <div id="product-component-1627505736920" className="mt-40"></div>
+        <div
+          id="product-component-1627505736920"
+          className="mt-40 min-h-screen"
+        ></div>
       </Layout>
     </>
   );
