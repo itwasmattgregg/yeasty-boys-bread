@@ -35,17 +35,19 @@ const Login = () => {
 
   return (
     <Layout>
-      <div className="login">
-        <form onSubmit={handleSubmit}>
-          <label>
-            <span>Enter password</span>
-            <input type="password" name="password" required />
-          </label>
+      <div className="container mx-auto mt-40 px-6 max-w-3xl">
+        <div className="login">
+          <form onSubmit={handleSubmit}>
+            <label>
+              <span>Enter password</span>
+              <input type="password" name="password" required />
+            </label>
 
-          <button type="submit">Login</button>
+            <button type="submit">Login</button>
 
-          {errorMsg && <p className="error">{errorMsg}</p>}
-        </form>
+            {errorMsg && <p className="error">{errorMsg}</p>}
+          </form>
+        </div>
       </div>
       <style jsx>{`
         .login {
