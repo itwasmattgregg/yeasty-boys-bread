@@ -50,7 +50,13 @@ const Admin = ({ breadies }) => {
     <Layout>
       <div className="container mx-auto mt-40 px-6 max-w-3xl">
         <h1>Admin</h1>
-        <button onClick={() => setWinner(pickWinner(breadies))}>
+        <button
+          className="inline-flex justify-center py-2 px-4 border 
+                        border-transparent shadow-sm text-sm font-medium rounded-md 
+                        text-white bg-red hover:bg-red focus:outline-none 
+                        focus:ring-2 focus:ring-offset-2 focus:ring-red"
+          onClick={() => setWinner(pickWinner(breadies))}
+        >
           Select winner
         </button>
         {winner && (
@@ -58,6 +64,10 @@ const Admin = ({ breadies }) => {
             <p>Winner is: {winner.name}</p>
             <button
               disabled={emailSent || submitting}
+              className="inline-flex justify-center py-2 px-4 border 
+                        border-transparent shadow-sm text-sm font-medium rounded-md 
+                        text-white bg-red hover:bg-red focus:outline-none 
+                        focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
               onClick={() => incrementAndSendEmail(winner.uniqueEmail)}
             >
               Crown winner?
@@ -65,7 +75,7 @@ const Admin = ({ breadies }) => {
           </>
         )}
         {emailSent && <p>Email has been sent</p>}
-        <table className="table-auto border border-green-800">
+        <table className="table-auto border border-green-800 bg-white">
           <thead>
             <tr>
               <th className="border border-green-600">Name</th>
