@@ -1,15 +1,10 @@
 import Layout from "components/Layout";
-import Head from "next/head";
+import Script from "next/script";
 
 const Shop = () => {
   return (
     <>
-      <Head>
-        <script
-          type="text/javascript"
-          src="/shopifyButtonHeathered.js"
-        ></script>
-      </Head>
+      <Script src="/shopifyButtonHeathered.js"></Script>
       <Layout>
         <div
           id="product-component-1627505736920"
