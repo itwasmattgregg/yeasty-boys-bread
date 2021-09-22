@@ -28,8 +28,8 @@
     });
     ShopifyBuy.UI.onReady(client).then(function (ui) {
       ui.createComponent("product", {
-        id: "6572237750294",
-        node: document.getElementById("product-component-1627505736920"),
+        id: "6888022179862",
+        node: document.getElementById("product-component-1631655763917"),
         moneyFormat: "%24%7B%7Bamount%7D%7D",
         options: {
           product: {
@@ -46,6 +46,7 @@
                 "font-size": "26px",
               },
               button: {
+                "font-weight": "bold",
                 ":hover": {
                   "background-color": "#ff0202",
                 },
@@ -101,6 +102,7 @@
                 },
               },
               button: {
+                "font-weight": "bold",
                 ":hover": {
                   "background-color": "#ff0202",
                 },
@@ -143,6 +145,7 @@
           cart: {
             styles: {
               button: {
+                "font-weight": "bold",
                 ":hover": {
                   "background-color": "#ff0202",
                 },
@@ -203,6 +206,7 @@
           toggle: {
             styles: {
               toggle: {
+                "font-weight": "bold",
                 "background-color": "#c40101",
                 ":hover": {
                   "background-color": "#ff0202",
