@@ -4,9 +4,6 @@ import Head from "next/head";
 const Shop = () => {
   return (
     <>
-      <Head>
-        <script type="text/javascript" src="/shopifyButton.js"></script>
-      </Head>
       <Layout>
         <div
           id="product-component-1631655763917"
