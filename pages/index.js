@@ -71,6 +71,15 @@ export default function Home() {
     return false;
   };
 
+  const renderRandomGif = () => {
+    const gifs = [
+      "https://i.giphy.com/media/3o7ZeFpK0qqSpsWNsA/giphy.webp",
+      "https://i.giphy.com/media/Y7O3LHmhllEk/giphy.webp",
+      "https://i.giphy.com/media/YOI55oGPCfife/giphy.webp",
+    ];
+    return <img src={gifs[Math.floor(Math.random() * gifs.length)]} />;
+  };
+
   return (
     <Layout>
       <div>
@@ -172,17 +181,24 @@ export default function Home() {
                   </p>
                 </form>
               )}
-              {submitState === SubmitStateEnum.SUCCESS && (
+              {submitState !== SubmitStateEnum.SUCCESS && (
                 <div>
-                  <p>Congrats!!! You&lsquo;re one step closer to bread!</p>
+                  <p className="text-xl mb-4">
+                    Congrats!!! You&lsquo;re one step closer to bread!
+                  </p>
                   <p>
                     You should receive a welcome email in your inbox shortly. If
                     you don&lsquo;t, check your spam folder and mark it as not
                     spam.
                   </p>
-                  <Link href="/breadmachine">
-                    While you&lsquo;re waiting... check out the Bread Machine
-                  </Link>
+                  <div className="my-4 flex justify-center">
+                    {renderRandomGif()}
+                  </div>
+                  <div className="text-center">
+                    <Link href="/breadmachine" className="font-bold">
+                      While you&lsquo;re waiting... check out the Bread Machine
+                    </Link>
+                  </div>
                 </div>
               )}
             </div>
