@@ -181,7 +181,7 @@ export default function Home() {
                   </p>
                 </form>
               )}
-              {submitState !== SubmitStateEnum.SUCCESS && (
+              {submitState === SubmitStateEnum.SUCCESS && (
                 <div>
                   <p className="text-xl mb-4">
                     Congrats!!! You&lsquo;re one step closer to bread!
