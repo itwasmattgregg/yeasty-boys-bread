@@ -2,14 +2,14 @@ module.exports = {
   async rewrites() {
     return [
       {
-        source: "/:path*",
+        source: "/",
         has: [
           {
             type: "host",
             value: "popup.yeastyboysbread.com",
           },
         ],
-        destination: "/popup/:path*",
+        destination: "/popup",
       },
     ];
   },
