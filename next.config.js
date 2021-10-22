@@ -1,5 +1,5 @@
-const nextConfig = {
-  rewrites() {
+module.exports = {
+  async rewrites() {
     return [
       {
         source: "/:path*",
@@ -14,5 +14,3 @@ const nextConfig = {
     ];
   },
 };
-
-module.exports = nextConfig;
