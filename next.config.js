@@ -1,7 +1,7 @@
 module.exports = {
   async rewrites() {
     return {
-      afterFiles: [
+      beforeFiles: [
         {
           source: "/:path*",
           has: [
