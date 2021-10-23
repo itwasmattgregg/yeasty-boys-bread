@@ -1,16 +1,18 @@
 module.exports = {
   async rewrites() {
-    return [
-      {
-        source: "/",
-        has: [
-          {
-            type: "host",
-            value: "popup.yeastyboysbread.com",
-          },
-        ],
-        destination: "/popup",
-      },
-    ];
+    return {
+      beforeFiles: [
+        {
+          source: "/:path*",
+          has: [
+            {
+              type: "host",
+              value: "popup.yeastyboysbread.com",
+            },
+          ],
+          destination: "/popup/:path*",
+        },
+      ],
+    };
   },
 };
