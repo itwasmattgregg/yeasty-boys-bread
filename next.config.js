@@ -4,14 +4,14 @@ module.exports = {
     return {
       beforeFiles: [
         {
-          source: "/:path*",
+          source: "/",
           has: [
             {
               type: "host",
               value: "popup.yeastyboysbread.com",
             },
           ],
-          destination: "yeastyboysbread.com/popup/:path*",
+          destination: "/popup",
         },
       ],
     };
