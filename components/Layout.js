@@ -18,7 +18,10 @@ function Layout(props) {
           content="Yeasty Boys Sourdough Bread Lottery"
           key="title"
         />
-        <meta property="og:description" content="yeasty" />
+        <meta
+          property="og:description"
+          content="Sign up to win the bread lottery and purchase merch!"
+        />
         <meta
           property="og:image"
           content={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/images/logo.png`}
