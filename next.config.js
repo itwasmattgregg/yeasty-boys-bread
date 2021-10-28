@@ -11,7 +11,7 @@ module.exports = {
               value: "popup.yeastyboysbread.com",
             },
           ],
-          destination: "/popup/:path*",
+          destination: "yeastyboysbread.com/popup/:path*",
         },
       ],
     };
