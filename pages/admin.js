@@ -49,9 +49,14 @@ const Admin = ({ breadies }) => {
   return (
     <Layout>
       <div className="container mx-auto mt-40 px-6 max-w-3xl">
-        <h1>Admin</h1>
+        <h1
+          className="mb-8 relative text-3xl md:text-5xl
+              leading-tight md:leading-tight font-bold"
+        >
+          Admin
+        </h1>
         <button
-          className="inline-flex justify-center py-2 px-4 border 
+          className="inline-flex justify-center mb-8 py-2 px-4 border 
                         border-transparent shadow-sm text-sm font-medium rounded-md 
                         text-white bg-red hover:bg-red focus:outline-none 
                         focus:ring-2 focus:ring-offset-2 focus:ring-red"
@@ -64,7 +69,7 @@ const Admin = ({ breadies }) => {
             <p>Winner is: {winner.name}</p>
             <button
               disabled={emailSent || submitting}
-              className="inline-flex justify-center py-2 px-4 border 
+              className="inline-flex justify-center mb-8 py-2 px-4 border 
                         border-transparent shadow-sm text-sm font-medium rounded-md 
                         text-white bg-red hover:bg-red focus:outline-none 
                         focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
@@ -75,28 +80,30 @@ const Admin = ({ breadies }) => {
           </>
         )}
         {emailSent && <p>Email has been sent</p>}
-        <table className="table-auto border border-green-800 bg-white">
-          <thead>
-            <tr>
-              <th className="border border-green-600">Name</th>
-              <th>Email</th>
-              <th>Address</th>
-              <th>Number Won</th>
-              <th>Last won</th>
-            </tr>
-          </thead>
-          <tbody>
-            {breadies.map((breadie) => (
-              <tr key={breadie._id}>
-                <td>{breadie.name}</td>
-                <td>{breadie.email}</td>
-                <td>{breadie.address}</td>
-                <td>{breadie.numberOfBreads}</td>
-                <td>{breadie.lastModified}</td>
+        <div className="overflow-x-auto">
+          <table className="table-auto border bg-white">
+            <thead>
+              <tr>
+                <th className="text-left p-2">Name</th>
+                <th className="text-left p-2">Email</th>
+                <th className="text-left p-2">Address</th>
+                <th className="text-left p-2">Number Won</th>
+                <th className="text-left p-2">Last won</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {breadies.map((breadie) => (
+                <tr key={breadie._id}>
+                  <td className="p-2 text-sm">{breadie.name}</td>
+                  <td className="p-2 text-sm">{breadie.email}</td>
+                  <td className="p-2 text-sm">{breadie.address}</td>
+                  <td className="p-2 text-sm">{breadie.numberOfBreads}</td>
+                  <td className="p-2 text-sm">{breadie.lastModified}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </Layout>
   );
@@ -124,7 +131,6 @@ export const getServerSideProps = withSession(async function ({ req, res }) {
 
   return {
     props: {
-      user: req.session.get("user"),
       breadies: JSON.parse(JSON.stringify(breadies)),
     },
   };
