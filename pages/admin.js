@@ -80,8 +80,8 @@ const Admin = ({ breadies }) => {
           </>
         )}
         {emailSent && <p>Email has been sent</p>}
-        <div className="overflow-x-auto">
-          <table className="table-auto border bg-white">
+        <div className="overflow-x-auto border">
+          <table className="table-auto bg-white">
             <thead>
               <tr>
                 <th className="text-left p-2">Name</th>
