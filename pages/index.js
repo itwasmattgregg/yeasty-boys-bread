@@ -1,8 +1,13 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
 import Layout from "../components/Layout";
 import BreadImg from "../images/IMG_4261-2.jpg";
+import Script from "next/script";
 import { connectToDatabase } from "../util/mongodb";
 
 const SubmitStateEnum = {
@@ -15,6 +20,46 @@ const SubmitStateEnum = {
 export default function Home({ lotteryBreads, totalBreads }) {
   const [submitState, setSubmitState] = useState(SubmitStateEnum.WAITING);
   const [error, setError] = useState("");
+
+  const {
+    ready,
+    value,
+    suggestions: { status, data },
+    setValue,
+    clearSuggestions,
+  } = usePlacesAutocomplete({
+    requestOptions: {
+      fields: ["address_components"],
+      componentRestrictions: { country: "us" },
+      types: ["address"],
+    },
+    debounce: 300,
+  });
+
+  const handleInput = (e) => {
+    setValue(e.target.value);
+  };
+
+  const handleSelect =
+    ({ description }) =>
+    () => {
+      setValue(description, false);
+      clearSuggestions();
+    };
+
+  const renderSuggestions = () =>
+    data.map((suggestion) => {
+      const {
+        id,
+        structured_formatting: { main_text, secondary_text },
+      } = suggestion;
+
+      return (
+        <li key={id} onClick={handleSelect(suggestion)}>
+          <strong>{main_text}</strong> <small>{secondary_text}</small>
+        </li>
+      );
+    });
 
   const submitForm = async (e) => {
     e.preventDefault();
@@ -83,6 +128,11 @@ export default function Home({ lotteryBreads, totalBreads }) {
 
   return (
     <Layout>
+      <Script
+        strategy="beforeInteractive"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDX6Ox-aNWq-VGn84ZRI82VbrKmlBMuypo&libraries=places&callback=initMap"
+      />
+
       <div>
         <main>
           <div className="absolute h-screen w-full z-0 flex">
@@ -186,14 +236,18 @@ export default function Home({ lotteryBreads, totalBreads }) {
                     />
                   </label>
                   <label className="block text-sm font-medium text-gray-700 col-span-2">
-                    Address (including city and zip code):
+                    Address:
                     <input
+                      value={value}
+                      onChange={handleInput}
+                      disabled={!ready}
                       type="text"
                       name="address"
                       required
                       className="mt-1 focus:ring-red focus:border-red 
                         block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     />
+                    {status === "OK" && <ul>{renderSuggestions()}</ul>}
                   </label>
 
                   <div className="pt-3 text-center col-span-2">
