@@ -1,10 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import usePlacesAutocomplete, {
-  getGeocode,
-  getLatLng,
-} from "use-places-autocomplete";
+import usePlacesAutocomplete from "use-places-autocomplete";
 import Layout from "../components/Layout";
 import BreadImg from "../images/IMG_4261-2.jpg";
 import Script from "next/script";
