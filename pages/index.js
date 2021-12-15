@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import usePlacesAutocomplete from "use-places-autocomplete";
+import usePlacesAutocomplete from "../lib/usePlacesAutocomplete";
 import Layout from "../components/Layout";
 import BreadImg from "../images/IMG_4261-2.jpg";
 import Script from "next/script";
@@ -16,38 +16,27 @@ const SubmitStateEnum = {
 
 export default function Home({ lotteryBreads, totalBreads }) {
   const [submitState, setSubmitState] = useState(SubmitStateEnum.WAITING);
+  const [value, setValue] = useState("");
   const [error, setError] = useState("");
 
-  const {
-    ready,
-    value,
-    suggestions: { status, data },
-    setValue,
-    clearSuggestions,
-  } = usePlacesAutocomplete({
-    requestOptions: {
-      fields: ["address_components"],
-      componentRestrictions: { country: "us" },
-      types: ["address"],
-    },
-    debounce: 300,
-  });
+  const { suggestions: data, getSuggestions, clearSuggestions } = usePlacesAutocomplete();
 
   const handleInput = (e) => {
     setValue(e.target.value);
+    getSuggestions(e.target.value);
   };
 
   const handleSelect =
     ({ description }) =>
     () => {
-      setValue(description, false);
+      setValue(description);
       clearSuggestions();
     };
 
   const renderSuggestions = () =>
     data.map((suggestion) => {
       const {
-        id,
+        place_id: id,
         structured_formatting: { main_text, secondary_text },
       } = suggestion;
 
@@ -230,7 +219,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
                       className="mt-1 focus:ring-red focus:border-red 
                         block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     />
-                    {status === "OK" && <ul>{renderSuggestions()}</ul>}
+                    {data.length > 0 && <ul>{renderSuggestions()}</ul>}
                   </label>
 
                   <div className="pt-3 text-center col-span-2">
