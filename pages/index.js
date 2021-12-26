@@ -247,8 +247,8 @@ export default function Home({ lotteryBreads, totalBreads }) {
 export async function getStaticProps() {
   const { db } = await connectToDatabase();
   let lotteryBreads = 0;
-  const numberSold = 4;
-  const numberDonated = 7;
+  const numberSold = 5;
+  const numberDonated = 8;
 
   try {
     const response = await db
