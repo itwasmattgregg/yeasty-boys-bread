@@ -248,7 +248,7 @@ export async function getStaticProps() {
   const { db } = await connectToDatabase();
   let lotteryBreads = 0;
   const numberSold = 5;
-  const numberDonated = 8;
+  const numberDonated = 9;
 
   try {
     const response = await db
