@@ -130,15 +130,15 @@ export default function Home({ lotteryBreads, totalBreads }) {
           >
             <div className="text-center">
               <p>Lottery winners</p>
-              <p className="text-red text-4xl mt-6">{lotteryBreads}</p>
+              <p className="text-red text-4xl mt-4">{lotteryBreads}</p>
             </div>
             <div className="text-center">
               <p>Total loaves made</p>
-              <p className="text-red text-4xl mt-6">{totalBreads}</p>
+              <p className="text-red text-4xl mt-4">{totalBreads}</p>
             </div>
             <div className="text-center">
               <p>Flour used</p>
-              <p className="text-red text-4xl mt-6">{totalBreads * 440}g</p>
+              <p className="text-red text-4xl mt-4">{totalBreads * 440}g</p>
               <p>({Math.floor((totalBreads * 440) / 453.59)}lbs)</p>
             </div>
           </div>
@@ -248,7 +248,7 @@ export async function getStaticProps() {
   const { db } = await connectToDatabase();
   let lotteryBreads = 0;
   const numberSold = 5;
-  const numberDonated = 9;
+  const numberDonated = 11;
 
   try {
     const response = await db

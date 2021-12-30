@@ -5,10 +5,12 @@ import { connectToDatabase } from "../util/mongodb";
 import { useState } from "react";
 import useRouterRefresh from "../lib/useRouterRefresh";
 
-const Admin = ({ breadies }) => {
+const Admin = ({ breadies, meta }) => {
   const [winner, setWinner] = useState();
   const [emailSent, setEmailSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [incrementingDonated, setIncrementingDonated] = useState(false);
+  const [incrementingSold, setIncrementingSold] = useState(false);
   const refresh = useRouterRefresh();
 
   const pickWinner = (people) => {
@@ -46,6 +48,45 @@ const Admin = ({ breadies }) => {
     }
   };
 
+  // const decrement = async (email) => {
+
+  // }
+
+  const incrementMeta = async (type) => {
+    switch (type) {
+      case "donated":
+        setIncrementingDonated(true);
+        try {
+          await fetchJson("/api/incrementMeta", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ donated: true }),
+          });
+          refresh();
+        } catch (error) {
+          console.error("An unexpected error happened:", error);
+        } finally {
+          setIncrementingDonated(false);
+        }
+        break;
+      case "sold":
+        setIncrementingSold(true);
+        try {
+          await fetchJson("/api/incrementMeta", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ sold: true }),
+          });
+          refresh();
+        } catch (error) {
+          console.error("An unexpected error happened:", error);
+        } finally {
+          setIncrementingSold(false);
+        }
+        break;
+    }
+  };
+
   return (
     <Layout>
       <div className="container mx-auto mt-40 px-6 max-w-3xl">
@@ -55,6 +96,34 @@ const Admin = ({ breadies }) => {
         >
           Admin
         </h1>
+        <div className="mb-8">
+          <p>
+            Donated: {meta.donated}{" "}
+            <button
+              onClick={() => incrementMeta("donated")}
+              disabled={incrementingDonated}
+              className="inline-flex justify-center mb-8 py-2 px-4 border 
+                         border-transparent shadow-sm text-sm font-medium rounded-md 
+                       border-gray-800 bg-white focus:outline-none focus:ring-2 
+                         focus:ring-offset-2 focus:ring-red disabled:opacity-50"
+            >
+              🔥
+            </button>
+          </p>
+          <p>
+            Sold: {meta.sold}{" "}
+            <button
+              onClick={() => incrementMeta("sold")}
+              disabled={incrementingSold}
+              className="inline-flex justify-center mb-8 py-2 px-4 border 
+                         border-transparent shadow-sm text-sm font-medium rounded-md 
+                       border-gray-800 bg-white focus:outline-none focus:ring-2 
+                         focus:ring-offset-2 focus:ring-red disabled:opacity-50"
+            >
+              🔥
+            </button>
+          </p>
+        </div>
         <button
           className="inline-flex justify-center mb-8 py-2 px-4 border 
                         border-transparent shadow-sm text-sm font-medium rounded-md 
@@ -129,8 +198,12 @@ export const getServerSideProps = withSession(async function ({ req, res }) {
     console.error(e);
   }
 
+  const response = await db.collection("otherBread").findOne({});
+  const meta = await response;
+
   return {
     props: {
+      meta: JSON.parse(JSON.stringify(meta)),
       breadies: JSON.parse(JSON.stringify(breadies)),
     },
   };
