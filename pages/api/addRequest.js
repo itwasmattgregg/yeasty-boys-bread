@@ -12,20 +12,22 @@ export default async (req, res) => {
     };
 
     let regex = /\+(.*)(?=@)/gm;
-    const contact = req.body;
-    const strippedEmail = contact.email.replace(regex, "");
+    const { email, name, address } = req.body;
+    const strippedEmail = email.replace(regex, "");
 
     try {
       await db.collection("sourdough").insertOne({
-        ...req.body,
+        email,
+        name,
+        address,
         uniqueEmail: strippedEmail,
         numberOfBreads: 0,
       });
       request.body = {
         contacts: [
           {
-            email: contact.email,
-            first_name: contact.name,
+            email: email,
+            first_name: name,
           },
         ],
       };
