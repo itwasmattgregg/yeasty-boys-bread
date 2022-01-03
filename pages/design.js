@@ -8,6 +8,8 @@ export default function Design() {
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
   const [bgImage, setBgImage] = useState(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [name, setName] = useState("");
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -56,7 +58,33 @@ export default function Design() {
     context.drawImage(bgImage, 0, 0, canvas.width / 2, canvas.height / 2);
   };
 
-  const submitDesign = (base64Img) => {};
+  const submitDesign = async (base64Img) => {
+    setSubmitting(true);
+    try {
+      const settings = {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          image: base64Img,
+          name,
+        }),
+      };
+      const fetchResponse = await fetch(`/api/submitDesign`, settings);
+      if (fetchResponse.ok) {
+        setSubmitting(false);
+        clearCanvas();
+      } else {
+        throw new Error();
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const submitDisabled = name.length < 3 || submitting;
 
   return (
     <Layout>
@@ -77,24 +105,43 @@ export default function Design() {
             onMouseUp={finishDrawing}
             onMouseOut={finishDrawing}
           ></canvas>
-          <button
-            className="justify-center m-8 py-2 px-4 border 
+          <div className="m-8 max-w-xl mx-auto text-left">
+            <label className="block text-sm font-medium text-gray-700">
+              Your name:
+              <input
+                value={name}
+                type="text"
+                onChange={(e) => setName(e.target.value)}
+                className="mt-1 focus:ring-red focus:border-red 
+                      block w-full shadow-sm sm:text-sm border border-gray-300 rounded-md"
+              ></input>
+            </label>
+          </div>
+          <div>
+            <button
+              className="justify-center m-8 py-2 px-4 border 
                         border-transparent shadow-sm text-sm font-medium rounded-md 
                         text-white bg-red hover:bg-red focus:outline-none 
                         focus:ring-2 focus:ring-offset-2 focus:ring-red"
-            onClick={clearCanvas}
-          >
-            Clear
-          </button>
-          <button
-            className="justify-center m-8 py-2 px-4 border 
+              onClick={clearCanvas}
+            >
+              Clear
+            </button>
+            <button
+              disabled={submitDisabled}
+              className={`justify-center m-8 py-2 px-4 border 
                         border-transparent shadow-sm text-sm font-medium rounded-md 
-                        text-white bg-red hover:bg-red focus:outline-none 
-                        focus:ring-2 focus:ring-offset-2 focus:ring-red"
-            onClick={() => submitDesign(getDataURL())}
-          >
-            Submit
-          </button>
+                        text-white bg-red focus:outline-none 
+                         focus:ring-offset-2 ${
+                           submitDisabled
+                             ? "bg-gray-400 cursor-default"
+                             : "focus:ring-2 focus:ring-red hover:bg-red"
+                         }`}
+              onClick={() => submitDesign(getDataURL())}
+            >
+              Submit
+            </button>
+          </div>
         </main>
       </div>
     </Layout>
@@ -107,7 +154,7 @@ export default function Design() {
       const { devicePixelRatio: ratio = 1 } = window;
       const context = canvas.getContext("2d");
       canvas.width = width * ratio;
-      canvas.height = 2 * height * ratio;
+      canvas.height = width * ratio;
       context.scale(ratio, ratio);
       return true;
     }

@@ -110,7 +110,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
 
           <div
             className="items-center container 
-            mx-auto py-20 px-6 max-w-3xl"
+            mx-auto my-20 px-6 max-w-3xl"
           >
             <h2 className="text-2xl mb-6">What the fuck is this?</h2>
             <p>
@@ -121,6 +121,17 @@ export default function Home({ lotteryBreads, totalBreads }) {
               Please fill out your name, email and full address below and I will
               notify you if you&lsquo;ve won a loaf and have become a
               Breadwinner.
+            </p>
+          </div>
+
+          <div
+            className="container 
+            mx-auto my-20 px-6 max-w-3xl"
+          >
+            <p>
+              If you would like to submit a design for me to attempt to score
+              into the top of a loaf of bread please use this awesome{" "}
+              <Link href="/design">tool</Link> I made!
             </p>
           </div>
 
