@@ -27,6 +27,9 @@ export default function Design() {
     };
     setBgImage(oval);
     contextRef.current = context;
+
+    canvas.ontouchstart = startTouch;
+    canvas.ontouchmove = handleTouchMove;
   }, []);
 
   const startDrawing = ({ nativeEvent }) => {
@@ -40,6 +43,31 @@ export default function Design() {
     contextRef.current.closePath();
     setIsDrawing(false);
   };
+
+  const startTouch = (event) => {
+    event.preventDefault();
+
+    const { touches } = event;
+    const { clientX, clientY } = touches[0];
+    var bcr = event.target.getBoundingClientRect();
+    contextRef.current.beginPath();
+    contextRef.current.moveTo(clientX - bcr.x, clientY - bcr.y);
+    setIsDrawing(true);
+  };
+
+  function handleTouchMove(event) {
+    event.preventDefault();
+
+    var bcr = event.target.getBoundingClientRect();
+    var touch = event.touches[0];
+    var { clientX, clientY } = touch;
+    draw({
+      nativeEvent: {
+        offsetX: clientX - bcr.x,
+        offsetY: clientY - bcr.y,
+      },
+    });
+  }
 
   const draw = ({ nativeEvent }) => {
     if (!isDrawing) {
@@ -104,6 +132,9 @@ export default function Design() {
             onMouseMove={draw}
             onMouseUp={finishDrawing}
             onMouseOut={finishDrawing}
+            // onTouchStart={startTouch}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={finishDrawing}
           ></canvas>
           <div className="m-8 max-w-xl mx-auto text-left">
             <label className="block text-sm font-medium text-gray-700">
@@ -151,11 +182,11 @@ export default function Design() {
     const { width, height } = canvas.getBoundingClientRect();
 
     if (canvas.width !== width || canvas.height !== height) {
-      const { devicePixelRatio: ratio = 1 } = window;
+      // const { devicePixelRatio: ratio = 1 } = window;
+      canvas.width = width * 2;
+      canvas.height = width * 2;
       const context = canvas.getContext("2d");
-      canvas.width = width * ratio;
-      canvas.height = width * ratio;
-      context.scale(ratio, ratio);
+      context.scale(2, 2);
       return true;
     }
 
