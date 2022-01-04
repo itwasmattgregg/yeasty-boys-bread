@@ -263,9 +263,9 @@ export default function Home({ lotteryBreads, totalBreads }) {
 
                   <div className="pt-3 text-center col-span-2">
                     <button
-                      data-sitekey="reCAPTCHA_site_key" 
-                      data-callback='onSubmit' 
-                      data-action='submit'
+                      data-sitekey="reCAPTCHA_site_key"
+                      data-callback="onSubmit"
+                      data-action="submit"
                       disabled={buttonDisabled()}
                       className="g-recaptcha inline-flex justify-center py-2 px-4 border 
                         border-transparent shadow-sm text-sm font-medium rounded-md 
