@@ -19,7 +19,6 @@ export default function Home({ lotteryBreads, totalBreads }) {
   const [error, setError] = useState("");
 
   const {
-    ready,
     value,
     suggestions: { status, data },
     setValue,
@@ -241,7 +240,6 @@ export default function Home({ lotteryBreads, totalBreads }) {
                     <input
                       value={value}
                       onChange={handleInput}
-                      disabled={!ready}
                       type="text"
                       name="address"
                       required
