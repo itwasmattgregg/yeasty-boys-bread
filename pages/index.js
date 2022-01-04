@@ -52,7 +52,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
       } = suggestion;
 
       return (
-        <li key={id} onClick={handleSelect(suggestion)}>
+        <li key={id} onClick={handleSelect(suggestion)} className="cursor-pointer py-2">
           <strong>{main_text}</strong> <small>{secondary_text}</small>
         </li>
       );
@@ -230,7 +230,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
                       className="mt-1 focus:ring-red focus:border-red 
                         block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     />
-                    {status === "OK" && <ul>{renderSuggestions()}</ul>}
+                    {status === "OK" && <ul className="absolute bg-red w-full py-2 px-4 radius-4">{renderSuggestions()}</ul>}
                   </label>
 
                   <div className="pt-3 text-center col-span-2">
