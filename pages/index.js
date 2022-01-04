@@ -255,6 +255,13 @@ export default function Home({ lotteryBreads, totalBreads }) {
                     )}
                   </label>
 
+                  <p className="text-center col-span-2">
+                    <small>
+                      This probably goes without saying, but I will never sell
+                      or distribute any of your information to anyone.
+                    </small>
+                  </p>
+
                   <div className="pt-3 text-center col-span-2">
                     <button
                       disabled={buttonDisabled()}
@@ -267,12 +274,6 @@ export default function Home({ lotteryBreads, totalBreads }) {
                     </button>
                     {error.length > 0 && <p>{error}</p>}
                   </div>
-                  <p className="text-center col-span-2">
-                    <small>
-                      This probably goes without saying, but I will never sell
-                      or distribute any of your information to anyone.
-                    </small>
-                  </p>
                 </form>
               )}
               {submitState === SubmitStateEnum.SUCCESS && (
