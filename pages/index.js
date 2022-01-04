@@ -52,7 +52,11 @@ export default function Home({ lotteryBreads, totalBreads }) {
       } = suggestion;
 
       return (
-        <li key={id} onClick={handleSelect(suggestion)} className="cursor-pointer py-2">
+        <li
+          key={id}
+          onClick={handleSelect(suggestion)}
+          className="cursor-pointer py-2"
+        >
           <strong>{main_text}</strong> <small>{secondary_text}</small>
         </li>
       );
@@ -232,7 +236,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
                       block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     />
                   </label>
-                  <label className="block text-sm font-medium text-gray-700 col-span-2">
+                  <label className="block text-sm font-medium text-gray-700 col-span-2 relative">
                     Address:
                     <input
                       value={value}
@@ -244,7 +248,11 @@ export default function Home({ lotteryBreads, totalBreads }) {
                       className="mt-1 focus:ring-red focus:border-red 
                         block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     />
-                    {status === "OK" && <ul className="absolute bg-red w-full py-2 px-4 radius-4">{renderSuggestions()}</ul>}
+                    {status === "OK" && (
+                      <ul className="absolute bg-gray-100 rounded-md w-full py-2 px-4 radius-4">
+                        {renderSuggestions()}
+                      </ul>
+                    )}
                   </label>
 
                   <div className="pt-3 text-center col-span-2">
