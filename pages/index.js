@@ -19,7 +19,6 @@ export default function Home({ lotteryBreads, totalBreads }) {
   const [error, setError] = useState("");
 
   const {
-    ready,
     value,
     suggestions: { status, data },
     setValue,
@@ -133,6 +132,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
         strategy="beforeInteractive"
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDX6Ox-aNWq-VGn84ZRI82VbrKmlBMuypo&libraries=places"
       />
+      <Script src="https://www.google.com/recaptcha/api.js" />
 
       <div>
         <main>
@@ -241,7 +241,6 @@ export default function Home({ lotteryBreads, totalBreads }) {
                     <input
                       value={value}
                       onChange={handleInput}
-                      disabled={!ready}
                       type="text"
                       name="address"
                       required
@@ -264,8 +263,11 @@ export default function Home({ lotteryBreads, totalBreads }) {
 
                   <div className="pt-3 text-center col-span-2">
                     <button
+                      data-sitekey="reCAPTCHA_site_key" 
+                      data-callback='onSubmit' 
+                      data-action='submit'
                       disabled={buttonDisabled()}
-                      className="inline-flex justify-center py-2 px-4 border 
+                      className="g-recaptcha inline-flex justify-center py-2 px-4 border 
                         border-transparent shadow-sm text-sm font-medium rounded-md 
                         text-white bg-red hover:bg-red focus:outline-none 
                         focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
