@@ -131,7 +131,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
     <Layout>
       <Script
         strategy="beforeInteractive"
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDX6Ox-aNWq-VGn84ZRI82VbrKmlBMuypo&libraries=places&callback=initMap"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDX6Ox-aNWq-VGn84ZRI82VbrKmlBMuypo&libraries=places"
       />
 
       <div>
