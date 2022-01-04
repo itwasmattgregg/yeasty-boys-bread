@@ -8,13 +8,15 @@ function Nav() {
     <>
       <div className="z-10 fixed p-6">
         <Link href="/">
-          <Image
-            src={logo}
-            className="cursor-pointer"
-            height={70}
-            width={126}
-            alt="Logo"
-          />
+          <a>
+            <Image
+              src={logo}
+              className="cursor-pointer"
+              height={70}
+              width={126}
+              alt="Logo"
+            />
+          </a>
         </Link>
       </div>
       <div className="z-10 absolute right-10 top-10 grid gap-5 sm:flex sm:gap-10">
