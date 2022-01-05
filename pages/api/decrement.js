@@ -11,14 +11,14 @@ export default withSession(async (req, res) => {
         const response = await db.collection("sourdough").findOneAndUpdate(
           { uniqueEmail: req.body.email },
           {
-            $dec: { numberOfBreads: 1 },
+            $inc: { numberOfBreads: -1 },
             $currentDate: { lastModified: true },
           }
         );
 
         res.json({ user: response.value });
       } catch (e) {
-        console.log(e.response.body);
+        console.log(e);
         res.status(500).json(e);
       }
     } else res.status(403).end();
