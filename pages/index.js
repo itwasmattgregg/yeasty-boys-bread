@@ -63,6 +63,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
     });
 
   const captchaShit = (token) => {
+    console.log(token);
     theForm.submit();
   }
 
