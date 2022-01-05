@@ -49,9 +49,20 @@ const Admin = ({ breadies, meta }) => {
     }
   };
 
-  // const decrement = async (email) => {
-
-  // }
+  const decrement = async (email) => {
+    try {
+      await fetchJson("/api/decrement", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      refresh();
+    } catch (error) {
+      console.error("An unexpected error happened:", error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   const incrementMeta = async (type) => {
     switch (type) {
@@ -195,7 +206,12 @@ const Admin = ({ breadies, meta }) => {
                   <td className="p-2 text-sm">{breadie.name}</td>
                   <td className="p-2 text-sm">{breadie.email}</td>
                   <td className="p-2 text-sm">{breadie.address}</td>
-                  <td className="p-2 text-sm">{breadie.numberOfBreads}</td>
+                  <td className="p-2 text-sm">
+                    {breadie.numberOfBreads}
+                    <button onClick={() => decrement(breadie.email)}>
+                      Decrement
+                    </button>
+                  </td>
                   <td className="p-2 text-sm">{breadie.lastModified}</td>
                 </tr>
               ))}
