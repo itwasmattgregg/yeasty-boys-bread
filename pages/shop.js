@@ -7,7 +7,7 @@ const Shop = () => {
       <Script src="/shopScript.js"></Script>
       <Layout>
         <div
-          id="product-component-1641352868576"
+          id="collection-component-1641352868576"
           className="mt-40 min-h-screen px-5"
         ></div>
       </Layout>
