@@ -263,7 +263,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
 
                   <div className="pt-3 text-center col-span-2">
                     <button
-                      data-sitekey="reCAPTCHA_site_key"
+                      data-sitekey="6Lepq-8dAAAAANI4llyx3BHkxK_tABdeUTKx4j6v"
                       data-callback="onSubmit"
                       data-action="submit"
                       disabled={buttonDisabled()}
