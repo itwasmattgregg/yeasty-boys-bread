@@ -11,6 +11,7 @@ const Admin = ({ breadies, meta }) => {
   const [submitting, setSubmitting] = useState(false);
   const [incrementingDonated, setIncrementingDonated] = useState(false);
   const [incrementingSold, setIncrementingSold] = useState(false);
+  const [incrementingKept, setIncrementingKept] = useState(false);
   const refresh = useRouterRefresh();
 
   const pickWinner = (people) => {
@@ -84,6 +85,21 @@ const Admin = ({ breadies, meta }) => {
           setIncrementingSold(false);
         }
         break;
+      case "kept":
+        setIncrementingKept(true);
+        try {
+          await fetchJson("/api/incrementMeta", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ kept: true }),
+          });
+          refresh();
+        } catch (error) {
+          console.error("An unexpected error happened:", error);
+        } finally {
+          setIncrementingKept(false);
+        }
+        break;
     }
   };
 
@@ -115,6 +131,19 @@ const Admin = ({ breadies, meta }) => {
             <button
               onClick={() => incrementMeta("sold")}
               disabled={incrementingSold}
+              className="inline-flex justify-center mb-8 py-2 px-4 border 
+                         border-transparent shadow-sm text-sm font-medium rounded-md 
+                       border-gray-800 bg-white focus:outline-none focus:ring-2 
+                         focus:ring-offset-2 focus:ring-red disabled:opacity-50"
+            >
+              🔥
+            </button>
+          </p>
+          <p>
+            Kept: {meta.kept}{" "}
+            <button
+              onClick={() => incrementMeta("kept")}
+              disabled={incrementingKept}
               className="inline-flex justify-center mb-8 py-2 px-4 border 
                          border-transparent shadow-sm text-sm font-medium rounded-md 
                        border-gray-800 bg-white focus:outline-none focus:ring-2 

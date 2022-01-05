@@ -28,6 +28,13 @@ export default withSession(async (req, res) => {
               $inc: { sold: 1 },
             }
           );
+        } else if (body.kept) {
+          response = await db.collection("otherBread").findOneAndUpdate(
+            {},
+            {
+              $inc: { kept: 1 },
+            }
+          );
         } else {
           throw new Error("Error");
         }
