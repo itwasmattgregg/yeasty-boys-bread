@@ -132,7 +132,7 @@ export default function Design() {
             onMouseMove={draw}
             onMouseUp={finishDrawing}
             onMouseOut={finishDrawing}
-            // onTouchStart={startTouch}
+            onTouchStart={startTouch}
             onTouchMove={handleTouchMove}
             onTouchEnd={finishDrawing}
           ></canvas>
