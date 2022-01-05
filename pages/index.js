@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import usePlacesAutocomplete from "use-places-autocomplete";
@@ -17,6 +17,7 @@ const SubmitStateEnum = {
 export default function Home({ lotteryBreads, totalBreads }) {
   const [submitState, setSubmitState] = useState(SubmitStateEnum.WAITING);
   const [error, setError] = useState("");
+  const theForm = useRef();
 
   const {
     value,
@@ -60,6 +61,10 @@ export default function Home({ lotteryBreads, totalBreads }) {
         </li>
       );
     });
+
+  const captchaShit = (token) => {
+    theForm.submit();
+  }
 
   const submitForm = async (e) => {
     e.preventDefault();
@@ -212,6 +217,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
             <div className="p-6 shadow bg-white  rounded-md">
               {submitState !== SubmitStateEnum.SUCCESS && (
                 <form
+                  ref={theForm}
                   onSubmit={submitForm}
                   className="grid gap-6 sm:grid-cols-2"
                 >
@@ -264,7 +270,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
                   <div className="pt-3 text-center col-span-2">
                     <button
                       data-sitekey="6Lepq-8dAAAAANI4llyx3BHkxK_tABdeUTKx4j6v"
-                      data-callback="onSubmit"
+                      data-callback={captchaShit}
                       data-action="submit"
                       disabled={buttonDisabled()}
                       className="g-recaptcha inline-flex justify-center py-2 px-4 border 
