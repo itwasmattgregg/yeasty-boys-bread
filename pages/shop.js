@@ -4,7 +4,7 @@ import Script from "next/script";
 const Shop = () => {
   return (
     <>
-      <Script src="/shop.js"></Script>
+      <Script src="/shopScript.js"></Script>
       <Layout>
         <div
           id="product-component-1641352868576"
