@@ -324,23 +324,25 @@ export default function Home({ lotteryBreads, totalBreads }) {
 
 export async function getStaticProps() {
   const { db } = await connectToDatabase();
+  let totalBreadCount = 0;
   let lotteryBreads = 0;
-  const numberSold = 5;
-  const numberDonated = 11;
 
   try {
     const response = await db
       .collection("sourdough")
       .aggregate([{ $group: { _id: 1, count: { $sum: "$numberOfBreads" } } }]);
     [lotteryBreads] = await response.toArray();
-    lotteryBreads = lotteryBreads.count + numberDonated;
+    const stats = await db.collection("otherBread").findOne({});
+    const meta = await stats;
+    totalBreadCount =
+      lotteryBreads.count + meta.donated + meta.sold + meta.kept;
   } catch (e) {
     console.error(e);
   }
   return {
     props: {
-      lotteryBreads,
-      totalBreads: lotteryBreads * 2 + numberSold,
+      lotteryBreads: lotteryBreads.count,
+      totalBreads: totalBreadCount,
     },
   };
 }
