@@ -5,13 +5,14 @@ import { connectToDatabase } from "../util/mongodb";
 import { useState } from "react";
 import useRouterRefresh from "../lib/useRouterRefresh";
 
-const Admin = ({ breadies, meta }) => {
+const Admin = ({ breadies, meta, images }) => {
   const [winner, setWinner] = useState();
   const [emailSent, setEmailSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [incrementingDonated, setIncrementingDonated] = useState(false);
   const [incrementingSold, setIncrementingSold] = useState(false);
   const [incrementingKept, setIncrementingKept] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState("");
   const refresh = useRouterRefresh();
 
   const pickWinner = (people) => {
@@ -61,6 +62,26 @@ const Admin = ({ breadies, meta }) => {
       console.error("An unexpected error happened:", error);
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const deleteUser = async (email) => {
+    if (confirmDelete === "") {
+      setConfirmDelete(email);
+    } else if (confirmDelete !== email) {
+      setConfirmDelete("");
+    } else {
+      setConfirmDelete("");
+      try {
+        await fetchJson("/api/deleteUser", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
+        refresh();
+      } catch (error) {
+        console.error("An unexpected error happened:", error);
+      }
     }
   };
 
@@ -204,8 +225,16 @@ const Admin = ({ breadies, meta }) => {
               {breadies.map((breadie) => (
                 <tr key={breadie._id}>
                   <td className="p-2 text-sm">{breadie.name}</td>
-                  <td className="p-2 text-sm">{breadie.email}</td>
-                  <td className="p-2 text-sm">{breadie.address}</td>
+                  <td className="p-2 text-sm">
+                    <a href={`mailto: ${breadie.email}`}>{breadie.email}</a>
+                  </td>
+                  <td className="p-2 text-sm">
+                    <a
+                      href={`https://www.google.com/maps/search/?api=1&query=${breadie.address}`}
+                    >
+                      {breadie.address}
+                    </a>
+                  </td>
                   <td className="p-2 text-sm">
                     {breadie.numberOfBreads}
                     <button onClick={() => decrement(breadie.email)}>
@@ -213,11 +242,30 @@ const Admin = ({ breadies, meta }) => {
                     </button>
                   </td>
                   <td className="p-2 text-sm">{breadie.lastModified}</td>
+                  <td>
+                    <button onClick={() => deleteUser(breadie.email)}>
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+      </div>
+      <h2
+        className="mb-8 relative text-xl md:text-3xl
+              leading-tight md:leading-tight font-bold"
+      >
+        Image submissions
+      </h2>
+      <div className="grid grid-cols-3 md:grid-cols-6">
+        {images.map(({ image, name, _id }) => (
+          <div key={_id}>
+            <p>{name}</p>
+            <img src={image} width="200" />
+          </div>
+        ))}
       </div>
     </Layout>
   );
@@ -243,6 +291,9 @@ export const getServerSideProps = withSession(async function ({ req, res }) {
     console.error(e);
   }
 
+  const imagesRes = await db.collection("designs").find({});
+  const images = await imagesRes.toArray();
+
   const response = await db.collection("otherBread").findOne({});
   const meta = await response;
 
@@ -250,6 +301,7 @@ export const getServerSideProps = withSession(async function ({ req, res }) {
     props: {
       meta: JSON.parse(JSON.stringify(meta)),
       breadies: JSON.parse(JSON.stringify(breadies)),
+      images: JSON.parse(JSON.stringify(images)),
     },
   };
 });
