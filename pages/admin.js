@@ -68,6 +68,9 @@ const Admin = ({ breadies, meta, images }) => {
   const deleteUser = async (email) => {
     if (confirmDelete === "") {
       setConfirmDelete(email);
+      setTimeout(() => {
+        setConfirmDelete("");
+      }, 5000);
     } else if (confirmDelete !== email) {
       setConfirmDelete("");
     } else {
@@ -244,7 +247,7 @@ const Admin = ({ breadies, meta, images }) => {
                   <td className="p-2 text-sm">{breadie.lastModified}</td>
                   <td>
                     <button onClick={() => deleteUser(breadie.email)}>
-                      Delete
+                      {breadie.email === confirmDelete ? "Confirm?" : "Delete"}
                     </button>
                   </td>
                 </tr>
