@@ -167,7 +167,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
               This is the official waiting list for Matt Gregg&lsquo;s
               sourdough. I generally make one loaf to give away for free every
               week to friends and family. If you live in the Twin Cities area of
-              Minnesota, and you love bread, you are eligible to enter this
+              Minnesota, you know me, and you love bread, you are eligible to enter this
               lottery. Please fill out your name, email and full address below
               and I will notify you if you&lsquo;ve won a loaf and have become a
               Breadwinner.
