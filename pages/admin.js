@@ -140,7 +140,7 @@ const Admin = ({ breadies, meta, images }) => {
 
   return (
     <Layout>
-      <div className="container mx-auto mt-40 px-6 max-w-3xl">
+      <div className="container mx-auto mt-40 px-6">
         <h1
           className="mb-8 relative text-3xl md:text-5xl
               leading-tight md:leading-tight font-bold"
