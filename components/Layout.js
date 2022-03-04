@@ -1,4 +1,4 @@
-import Nav from "components/Nav";
+import Nav from "./Nav";
 import Head from "next/head";
 
 function Layout(props) {

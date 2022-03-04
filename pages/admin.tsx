@@ -2,11 +2,12 @@ import withSession from "../lib/session";
 import Layout from "../components/Layout";
 import fetchJson from "../lib/fetchJson";
 import { connectToDatabase } from "../util/mongodb";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useRouterRefresh from "../lib/useRouterRefresh";
+import { Images } from "./api/getImages";
 
-const Admin = ({ breadies, meta, images }) => {
-  const [winner, setWinner] = useState();
+const Admin = ({ breadies, meta }) => {
+  const [winner, setWinner] = useState<any>();
   const [emailSent, setEmailSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [incrementingDonated, setIncrementingDonated] = useState(false);
@@ -14,6 +15,15 @@ const Admin = ({ breadies, meta, images }) => {
   const [incrementingKept, setIncrementingKept] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState("");
   const refresh = useRouterRefresh();
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    const data: Promise<Partial<Images>> = fetchJson("/api/getImages", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    data.then((data) => setImages(data.images));
+  }, []);
 
   const pickWinner = (people) => {
     setEmailSent(false);
@@ -266,7 +276,7 @@ const Admin = ({ breadies, meta, images }) => {
         {images.map(({ image, name, _id }) => (
           <div key={_id}>
             <p>{name}</p>
-            <img src={image} width="200" />
+            <img src={image} alt="" width="200" />
           </div>
         ))}
       </div>
@@ -294,9 +304,6 @@ export const getServerSideProps = withSession(async function ({ req, res }) {
     console.error(e);
   }
 
-  const imagesRes = await db.collection("designs").find({});
-  const images = await imagesRes.toArray();
-
   const response = await db.collection("otherBread").findOne({});
   const meta = await response;
 
@@ -304,7 +311,6 @@ export const getServerSideProps = withSession(async function ({ req, res }) {
     props: {
       meta: JSON.parse(JSON.stringify(meta)),
       breadies: JSON.parse(JSON.stringify(breadies)),
-      images: JSON.parse(JSON.stringify(images)),
     },
   };
 });
