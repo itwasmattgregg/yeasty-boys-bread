@@ -344,5 +344,6 @@ export async function getStaticProps() {
       lotteryBreads: lotteryBreads.count,
       totalBreads: totalBreadCount,
     },
+    revalidate: 120,
   };
 }
