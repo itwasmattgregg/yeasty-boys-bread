@@ -2,17 +2,28 @@ import withSession from "../lib/session";
 import Layout from "../components/Layout";
 import fetchJson from "../lib/fetchJson";
 import { connectToDatabase } from "../util/mongodb";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useRouterRefresh from "../lib/useRouterRefresh";
+import { Images } from "./api/getImages";
 
 const Admin = ({ breadies, meta }) => {
-  const [winner, setWinner] = useState();
+  const [winner, setWinner] = useState<any>();
   const [emailSent, setEmailSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [incrementingDonated, setIncrementingDonated] = useState(false);
   const [incrementingSold, setIncrementingSold] = useState(false);
   const [incrementingKept, setIncrementingKept] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState("");
   const refresh = useRouterRefresh();
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    const data: Promise<Partial<Images>> = fetchJson("/api/getImages", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    });
+    data.then((data) => setImages(data.images));
+  }, []);
 
   const pickWinner = (people) => {
     setEmailSent(false);
@@ -61,6 +72,29 @@ const Admin = ({ breadies, meta }) => {
       console.error("An unexpected error happened:", error);
     } finally {
       setSubmitting(false);
+    }
+  };
+
+  const deleteUser = async (email) => {
+    if (confirmDelete === "") {
+      setConfirmDelete(email);
+      setTimeout(() => {
+        setConfirmDelete("");
+      }, 5000);
+    } else if (confirmDelete !== email) {
+      setConfirmDelete("");
+    } else {
+      setConfirmDelete("");
+      try {
+        await fetchJson("/api/deleteUser", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        });
+        refresh();
+      } catch (error) {
+        console.error("An unexpected error happened:", error);
+      }
     }
   };
 
@@ -116,7 +150,7 @@ const Admin = ({ breadies, meta }) => {
 
   return (
     <Layout>
-      <div className="container mx-auto mt-40 px-6 max-w-3xl">
+      <div className="container mx-auto mt-40 px-6">
         <h1
           className="mb-8 relative text-3xl md:text-5xl
               leading-tight md:leading-tight font-bold"
@@ -207,8 +241,16 @@ const Admin = ({ breadies, meta }) => {
               {breadies.map((breadie) => (
                 <tr key={breadie._id}>
                   <td className="p-2 text-sm">{breadie.name}</td>
-                  <td className="p-2 text-sm">{breadie.email}</td>
-                  <td className="p-2 text-sm">{breadie.address}</td>
+                  <td className="p-2 text-sm">
+                    <a href={`mailto: ${breadie.email}`}>{breadie.email}</a>
+                  </td>
+                  <td className="p-2 text-sm">
+                    <a
+                      href={`https://www.google.com/maps/search/?api=1&query=${breadie.address}`}
+                    >
+                      {breadie.address}
+                    </a>
+                  </td>
                   <td className="p-2 text-sm">
                     {breadie.numberOfBreads}
                     <button onClick={() => decrement(breadie.email)}>
@@ -216,11 +258,30 @@ const Admin = ({ breadies, meta }) => {
                     </button>
                   </td>
                   <td className="p-2 text-sm">{breadie.lastModified}</td>
+                  <td>
+                    <button onClick={() => deleteUser(breadie.email)}>
+                      {breadie.email === confirmDelete ? "Confirm?" : "Delete"}
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
+      </div>
+      <h2
+        className="mb-8 relative text-xl md:text-3xl
+              leading-tight md:leading-tight font-bold"
+      >
+        Image submissions
+      </h2>
+      <div className="grid grid-cols-3 md:grid-cols-6">
+        {images.map(({ image, name, _id }) => (
+          <div key={_id}>
+            <p>{name}</p>
+            <img src={image} alt="" width="200" />
+          </div>
+        ))}
       </div>
     </Layout>
   );
