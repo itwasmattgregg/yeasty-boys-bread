@@ -175,7 +175,10 @@ const Admin = ({ breadies, meta }) => {
         </button>
         {winner && (
           <>
-            <p>Winner is: {winner.name}</p>
+            <p>
+              Winner is: {winner.name} | wins: {winner.numberOfBreads} |{" "}
+              {winner.address}
+            </p>
             <button
               disabled={emailSent || submitting}
               className="inline-flex justify-center mb-8 py-2 px-4 border 
