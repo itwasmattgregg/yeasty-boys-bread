@@ -160,23 +160,23 @@ export default function Home({ lotteryBreads, totalBreads }) {
 
           <div
             className="items-center container 
-            mx-auto my-20 px-6 max-w-3xl"
+            mx-auto my-10 px-6 max-w-3xl"
           >
-            <h2 className="text-2xl mb-6">What the fuck is this?</h2>
+            <h2 className="text-2xl mb-12">What the fuck is this?</h2>
             <p>
               This is the official waiting list for Matt Gregg&lsquo;s
               sourdough. I generally make one loaf to give away for free every
               week to friends and family. If you live in the Twin Cities area of
-              Minnesota, you know me, and you love bread, you are eligible to enter this
-              lottery. Please fill out your name, email and full address below
-              and I will notify you if you&lsquo;ve won a loaf and have become a
-              Breadwinner.
+              Minnesota, you know me, and you love bread, you are eligible to
+              enter this lottery. Please fill out your name, email and full
+              address below and I will notify you if you&lsquo;ve won a loaf and
+              have become a Breadwinner.
             </p>
           </div>
 
           <div
             className="container 
-            mx-auto my-20 px-6 max-w-3xl"
+            mx-auto my-10 px-6 max-w-3xl"
           >
             <p>
               If you would like to submit a design for me to attempt to score
@@ -193,15 +193,15 @@ export default function Home({ lotteryBreads, totalBreads }) {
             mx-auto pb-10 px-6 max-w-3xl grid sm:grid-cols-3 gap-10"
           >
             <div className="text-center">
-              <p>Lottery winners</p>
+              <p className="font-semibold">Lottery winners</p>
               <p className="text-red text-4xl mt-4">{lotteryBreads}</p>
             </div>
             <div className="text-center">
-              <p>Total loaves made</p>
+              <p className="font-semibold">Total loaves made</p>
               <p className="text-red text-4xl mt-4">{totalBreads}</p>
             </div>
             <div className="text-center">
-              <p>Flour used</p>
+              <p className="font-semibold">Flour used</p>
               <p className="text-red text-4xl mt-4">{totalBreads * 440}g</p>
               <p>({Math.floor((totalBreads * 440) / 453.59)}lbs)</p>
             </div>
@@ -209,10 +209,11 @@ export default function Home({ lotteryBreads, totalBreads }) {
 
           <div className="max-w-3xl mx-auto px-6 mb-10">
             <div className="p-6 shadow bg-white  rounded-md">
+              <h3 className="text-xl mb-6">Signup form</h3>
               {submitState !== SubmitStateEnum.SUCCESS && (
                 <form
                   onSubmit={submitForm}
-                  className="grid gap-6 sm:grid-cols-2"
+                  className="grid gap-6 grid-cols-1 sm:grid-cols-2"
                 >
                   <label className="block text-sm font-medium text-gray-700">
                     Name:
@@ -235,7 +236,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
                       block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     />
                   </label>
-                  <label className="block text-sm font-medium text-gray-700 col-span-2 relative">
+                  <label className="block text-sm font-medium text-gray-700 sm:col-span-2 relative">
                     Address:
                     <input
                       value={value}
@@ -253,14 +254,14 @@ export default function Home({ lotteryBreads, totalBreads }) {
                     )}
                   </label>
 
-                  <p className="text-center col-span-2">
+                  <p className="text-center sm:col-span-2">
                     <small>
                       This probably goes without saying, but I will never sell
                       or distribute any of your information to anyone.
                     </small>
                   </p>
 
-                  <div className="pt-3 text-center col-span-2">
+                  <div className="text-center sm:col-span-2">
                     <button
                       disabled={buttonDisabled()}
                       className="inline-flex justify-center py-2 px-4 border 
