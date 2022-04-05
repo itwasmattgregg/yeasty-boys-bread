@@ -1,5 +1,8 @@
 module.exports = {
   swcMinify: true,
+  experimental: {
+    scrollRestoration: true,
+  },
   async rewrites() {
     return {
       beforeFiles: [
