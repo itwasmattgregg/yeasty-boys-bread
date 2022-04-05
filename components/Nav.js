@@ -19,15 +19,15 @@ function Nav() {
           </a>
         </Link>
       </div>
-      <div className="z-10 absolute right-10 top-10 grid gap-5 sm:flex sm:gap-10">
+      <div className="z-10 absolute right-10 top-10 grid gap-4 sm:flex sm:gap-10">
         <Link href="/breadmachine">
-          <a className="font-bold flex p-3 items-center justify-center no-underline relative">
+          <a className="font-bold flex p-2 sm:p-3 items-center justify-center no-underline relative">
             <div className="bg-white transform skew-x-12 h-full w-full absolute -z-10 border-black border"></div>
             The Bread Machine
           </a>
         </Link>
         <Link href="/shop">
-          <a className="font-bold flex p-3 items-center justify-center no-underline relative">
+          <a className="font-bold flex p-2 sm:p-3 items-center justify-center no-underline relative">
             <div className="bg-white transform skew-x-12 h-full w-full absolute -z-10 border-black border"></div>
             Shop
           </a>
