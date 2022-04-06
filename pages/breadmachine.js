@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { useEffect } from "react";
 import Layout from "../components/Layout";
+import * as Tone from "tone";
 
 export default function BreadMachine() {
   function removeTransition(e) {
@@ -8,29 +9,46 @@ export default function BreadMachine() {
     e.target.classList.remove("playing");
   }
 
-  function playSound(e) {
+  function playSound(e, sampler) {
     let keyCode;
     if (e.keyCode) {
       keyCode = e.keyCode;
     } else {
       keyCode = e.currentTarget.dataset.key;
     }
-    const audio = document.querySelector(`audio[data-key="${keyCode}"]`);
     const key = document.querySelector(`div[data-key="${keyCode}"]`);
-    if (!audio) return;
+    if (!key) return;
+
+    Tone.loaded().then(() => {
+      if (sampler[keyCode]) {
+        sampler[keyCode].start();
+      }
+    });
 
     key.classList.add("playing");
-    audio.currentTime = 0;
-    audio.play();
   }
 
   useEffect(() => {
     const keys = Array.from(document.querySelectorAll(".key"));
     keys.forEach((key) => {
       key.addEventListener("transitionend", removeTransition);
-      key.addEventListener("click", playSound);
+      key.addEventListener("click", (e) => playSound(e, sequencer));
     });
-    window.addEventListener("keydown", playSound);
+    window.addEventListener("keydown", (e) => playSound(e, sequencer));
+    const sequencer = {
+      81: new Tone.Player("/sounds/Tap.m4a").toDestination(),
+      87: new Tone.Player("/sounds/Crunch.m4a").toDestination(),
+      69: new Tone.Player("/sounds/Knife.m4a").toDestination(),
+      82: new Tone.Player("/sounds/Soft.m4a").toDestination(),
+      65: new Tone.Player("/sounds/guitar1.m4a").toDestination(),
+      83: new Tone.Player("/sounds/guitar2.m4a").toDestination(),
+      68: new Tone.Player("/sounds/guitar3.m4a").toDestination(),
+      70: new Tone.Player("/sounds/guitar4.m4a").toDestination(),
+      71: new Tone.Player("/sounds/kick.m4a").toDestination(),
+      72: new Tone.Player("/sounds/nosleep.m4a").toDestination(),
+      74: new Tone.Player("/sounds/brooklyn.m4a").toDestination(),
+      75: new Tone.Player("/sounds/snare.m4a").toDestination(),
+    };
   }, []);
 
   return (
@@ -102,20 +120,6 @@ export default function BreadMachine() {
               <span className="sound">Snare</span>
             </div>
           </div>
-
-          <audio preload="auto" data-key="81" src="sounds/Tap.m4a"></audio>
-          <audio preload="auto" data-key="87" src="sounds/Crunch.m4a"></audio>
-          <audio preload="auto" data-key="69" src="sounds/Knife.m4a"></audio>
-          <audio preload="auto" data-key="82" src="sounds/Soft.m4a"></audio>
-
-          <audio preload="auto" data-key="65" src="sounds/guitar1.m4a"></audio>
-          <audio preload="auto" data-key="83" src="sounds/guitar2.m4a"></audio>
-          <audio preload="auto" data-key="68" src="sounds/guitar3.m4a"></audio>
-          <audio preload="auto" data-key="70" src="sounds/guitar4.m4a"></audio>
-          <audio preload="auto" data-key="71" src="sounds/kick.m4a"></audio>
-          <audio preload="auto" data-key="72" src="sounds/nosleep.m4a"></audio>
-          <audio preload="auto" data-key="74" src="sounds/brooklyn.m4a"></audio>
-          <audio preload="auto" data-key="75" src="sounds/snare.m4a"></audio>
         </main>
         <style jsx>{`
           .keys {
