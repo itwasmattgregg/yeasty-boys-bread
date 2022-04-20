@@ -22,7 +22,7 @@
   }
   function ShopifyBuyInit() {
     var client = ShopifyBuy.buildClient({
-      domain: "codegregg.myshopify.com",
+      domain: "shop.yeastyboysbread.com",
       storefrontAccessToken: "f08a3409c3b6471c0f3cd718e7651446",
     });
     ShopifyBuy.UI.onReady(client).then(function (ui) {
