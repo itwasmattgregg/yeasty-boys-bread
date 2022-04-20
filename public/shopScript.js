@@ -207,6 +207,7 @@
             contents: {
               note: true,
             },
+            "popup": false,
             googleFonts: ["Oxygen"],
           },
           toggle: {

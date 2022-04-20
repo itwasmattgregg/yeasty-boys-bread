@@ -202,6 +202,7 @@
               total: "Subtotal",
               button: "Checkout",
             },
+            "popup": false,
           },
           toggle: {
             styles: {
