@@ -172,7 +172,7 @@ const Admin = ({ breadies, meta }) => {
         >
           Admin
         </h1>
-        <div className="mb-8">
+        <div className="mb-8 flex gap-4 flex-wrap">
           <p>
             Donated: {meta.donated}{" "}
             <button
@@ -278,7 +278,7 @@ const Admin = ({ breadies, meta }) => {
                   <td className="p-2 text-sm">{breadie.lastModified}</td>
                   <td>
                     <button onClick={() => deleteUser(breadie.email)}>
-                      {breadie.email === confirmDelete ? "Confirm?" : "Delete"}
+                      {breadie.email === confirmDelete ? "Confirm?" : "🗑"}
                     </button>
                   </td>
                 </tr>
