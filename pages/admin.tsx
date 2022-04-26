@@ -75,6 +75,21 @@ const Admin = ({ breadies, meta }) => {
     }
   };
 
+  const increment = async (email) => {
+    try {
+      await fetchJson("/api/increment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      refresh();
+    } catch (error) {
+      console.error("An unexpected error happened:", error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
   const deleteUser = async (email) => {
     if (confirmDelete === "") {
       setConfirmDelete(email);
@@ -254,7 +269,10 @@ const Admin = ({ breadies, meta }) => {
                   <td className="p-2 text-sm">
                     {breadie.numberOfBreads}
                     <button onClick={() => decrement(breadie.email)}>
-                      Decrement
+                      👎
+                    </button>
+                    <button onClick={() => increment(breadie.email)}>
+                      ☝️
                     </button>
                   </td>
                   <td className="p-2 text-sm">{breadie.lastModified}</td>
