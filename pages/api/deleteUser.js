@@ -46,6 +46,7 @@ export default withSession(async (req, res) => {
           throw new Error("Couldn't find user");
         }
       } catch (e) {
+        console.log(e)
         res.status(500).end();
       }
     } else res.status(403).end();
