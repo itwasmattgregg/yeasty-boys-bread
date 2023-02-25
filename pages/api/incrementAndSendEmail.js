@@ -42,6 +42,7 @@ export default withSession(async (req, res) => {
                   num_wins: converter.toWordsOrdinal(
                     foundWinner.numberOfBreads
                   ),
+                  address: foundWinner.address
                 },
               },
             ],
