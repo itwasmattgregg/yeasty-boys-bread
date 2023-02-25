@@ -165,23 +165,19 @@ const Admin = ({ breadies, meta }) => {
 
   return (
     <Layout>
-      <div className="container mx-auto mt-40 px-6">
+      <div className="container px-6 mx-auto mt-40">
         <h1
-          className="mb-8 relative text-3xl md:text-5xl
-              leading-tight md:leading-tight font-bold"
+          className="relative mb-8 text-3xl font-bold leading-tight md:text-5xl md:leading-tight"
         >
           Admin
         </h1>
-        <div className="mb-8 flex gap-4 flex-wrap">
+        <div className="flex flex-wrap gap-4 mb-8">
           <p>
             Donated: {meta.donated}{" "}
             <button
               onClick={() => incrementMeta("donated")}
               disabled={incrementingDonated}
-              className="inline-flex justify-center mb-8 py-2 px-4 border 
-                         border-transparent shadow-sm text-sm font-medium rounded-md 
-                       border-gray-800 bg-white focus:outline-none focus:ring-2 
-                         focus:ring-offset-2 focus:ring-red disabled:opacity-50"
+              className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium bg-white border border-transparent border-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
             >
               🔥
             </button>
@@ -191,10 +187,7 @@ const Admin = ({ breadies, meta }) => {
             <button
               onClick={() => incrementMeta("sold")}
               disabled={incrementingSold}
-              className="inline-flex justify-center mb-8 py-2 px-4 border 
-                         border-transparent shadow-sm text-sm font-medium rounded-md 
-                       border-gray-800 bg-white focus:outline-none focus:ring-2 
-                         focus:ring-offset-2 focus:ring-red disabled:opacity-50"
+              className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium bg-white border border-transparent border-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
             >
               🔥
             </button>
@@ -204,20 +197,14 @@ const Admin = ({ breadies, meta }) => {
             <button
               onClick={() => incrementMeta("kept")}
               disabled={incrementingKept}
-              className="inline-flex justify-center mb-8 py-2 px-4 border 
-                         border-transparent shadow-sm text-sm font-medium rounded-md 
-                       border-gray-800 bg-white focus:outline-none focus:ring-2 
-                         focus:ring-offset-2 focus:ring-red disabled:opacity-50"
+              className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium bg-white border border-transparent border-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
             >
               🔥
             </button>
           </p>
         </div>
         <button
-          className="inline-flex justify-center mb-8 py-2 px-4 border 
-                        border-transparent shadow-sm text-sm font-medium rounded-md 
-                        text-white bg-red hover:bg-red focus:outline-none 
-                        focus:ring-2 focus:ring-offset-2 focus:ring-red"
+          className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-red hover:bg-red focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red"
           onClick={() => setWinner(pickWinner(breadies))}
         >
           Select winner
@@ -230,10 +217,7 @@ const Admin = ({ breadies, meta }) => {
             </p>
             <button
               disabled={emailSent || submitting}
-              className="inline-flex justify-center mb-8 py-2 px-4 border 
-                        border-transparent shadow-sm text-sm font-medium rounded-md 
-                        text-white bg-red hover:bg-red focus:outline-none 
-                        focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
+              className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-red hover:bg-red focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
               onClick={() => incrementAndSendEmail(winner.uniqueEmail)}
             >
               Crown winner?
@@ -242,14 +226,14 @@ const Admin = ({ breadies, meta }) => {
         )}
         {emailSent && <p>Email has been sent</p>}
         <div className="overflow-x-auto border">
-          <table className="table-auto bg-white">
+          <table className="bg-white table-auto">
             <thead>
               <tr>
-                <th className="text-left p-2">Name</th>
-                <th className="text-left p-2">Email</th>
-                <th className="text-left p-2">Address</th>
-                <th className="text-left p-2">Number Won</th>
-                <th className="text-left p-2">Last won</th>
+                <th className="p-2 text-left">Name</th>
+                <th className="p-2 text-left">Email</th>
+                <th className="p-2 text-left">Address</th>
+                <th className="p-2 text-left">Number Won</th>
+                <th className="p-2 text-left">Last won</th>
               </tr>
             </thead>
             <tbody>
@@ -288,8 +272,7 @@ const Admin = ({ breadies, meta }) => {
         </div>
       </div>
       <h2
-        className="mb-8 relative text-xl md:text-3xl
-              leading-tight md:leading-tight font-bold"
+        className="relative mb-8 text-xl font-bold leading-tight md:text-3xl md:leading-tight"
       >
         Image submissions
       </h2>
