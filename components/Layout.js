@@ -11,6 +11,7 @@ function Layout(props) {
       }}
     >
       <Head>
+        <meta name="robots" content="noindex" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:creator" content="@itwasmattgregg" />
         <meta
