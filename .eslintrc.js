@@ -5,7 +5,12 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: ["eslint:recommended", "plugin:react/recommended",'plugin:@next/next/recommended'],
+  extends: [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@next/next/recommended",
+    "plugin:react/jsx-runtime",
+  ],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
