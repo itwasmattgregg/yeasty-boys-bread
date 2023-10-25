@@ -4,7 +4,6 @@ import fetchJson from "../lib/fetchJson";
 import { connectToDatabase } from "../util/mongodb";
 import { useState, useEffect } from "react";
 import useRouterRefresh from "../lib/useRouterRefresh";
-import { Images } from "./api/getImages";
 
 const Admin = ({ breadies, meta }) => {
   const [winner, setWinner] = useState<any>();
@@ -15,15 +14,6 @@ const Admin = ({ breadies, meta }) => {
   const [incrementingKept, setIncrementingKept] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState("");
   const refresh = useRouterRefresh();
-  const [images, setImages] = useState([]);
-
-  useEffect(() => {
-    const data: Promise<Partial<Images>> = fetchJson("/api/getImages", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    });
-    data.then((data) => setImages(data.images));
-  }, []);
 
   const pickWinner = (people) => {
     setEmailSent(false);
@@ -270,19 +260,6 @@ const Admin = ({ breadies, meta }) => {
             </tbody>
           </table>
         </div>
-      </div>
-      <h2
-        className="relative mb-8 text-xl font-bold leading-tight md:text-3xl md:leading-tight"
-      >
-        Image submissions
-      </h2>
-      <div className="grid grid-cols-3 md:grid-cols-6">
-        {images.map(({ image, name, _id }) => (
-          <div key={_id}>
-            <p>{name}</p>
-            <img src={image} alt="" width="200" />
-          </div>
-        ))}
       </div>
     </Layout>
   );
