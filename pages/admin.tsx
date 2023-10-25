@@ -2,7 +2,7 @@ import withSession from "../lib/session";
 import Layout from "../components/Layout";
 import fetchJson from "../lib/fetchJson";
 import { connectToDatabase } from "../util/mongodb";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useRouterRefresh from "../lib/useRouterRefresh";
 
 const Admin = ({ breadies, meta }) => {
