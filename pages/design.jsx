@@ -1,8 +1,6 @@
 import Head from "next/head";
 import { useRef, useEffect, useState } from "react";
 
-import Layout from "../components/Layout";
-
 export default function Design() {
   const [isDrawing, setIsDrawing] = useState(false);
   const canvasRef = useRef(null);
@@ -115,52 +113,47 @@ export default function Design() {
   const submitDisabled = name.length < 3 || submitting;
 
   return (
-    <Layout>
-      <div className="container mx-auto">
-        <Head>
-          <title>Yeasty Boys Bread Machine</title>
-        </Head>
+    <div className="container mx-auto">
+      <Head>
+        <title>Yeasty Boys Bread Machine</title>
+      </Head>
 
-        <main className="mt-40 text-center">
-          <canvas
-            ref={canvasRef}
-            style={{
-              cursor: "crosshair",
-            }}
-            className=" w-full max-w-2xl border-2 m-auto"
-            onMouseDown={startDrawing}
-            onMouseMove={draw}
-            onMouseUp={finishDrawing}
-            onMouseOut={finishDrawing}
-            onTouchStart={startTouch}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={finishDrawing}
-          ></canvas>
-          <div className="m-8 max-w-xl mx-auto text-left">
-            <label className="block text-sm font-medium text-gray-700">
-              Your name:
-              <input
-                value={name}
-                type="text"
-                onChange={(e) => setName(e.target.value)}
-                className="mt-1 focus:ring-red focus:border-red 
-                      block w-full shadow-sm sm:text-sm border border-gray-300 rounded-md"
-              ></input>
-            </label>
-          </div>
-          <div>
-            <button
-              className="justify-center m-8 py-2 px-4 border 
-                        border-transparent shadow-sm text-sm font-medium rounded-md 
-                        text-white bg-red hover:bg-red focus:outline-none 
-                        focus:ring-2 focus:ring-offset-2 focus:ring-red"
-              onClick={clearCanvas}
-            >
-              Clear
-            </button>
-            <button
-              disabled={submitDisabled}
-              className={`justify-center m-8 py-2 px-4 border 
+      <main className="mt-40 text-center">
+        <canvas
+          ref={canvasRef}
+          style={{
+            cursor: "crosshair",
+          }}
+          className="w-full max-w-2xl m-auto border-2 "
+          onMouseDown={startDrawing}
+          onMouseMove={draw}
+          onMouseUp={finishDrawing}
+          onMouseOut={finishDrawing}
+          onTouchStart={startTouch}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={finishDrawing}
+        ></canvas>
+        <div className="max-w-xl m-8 mx-auto text-left">
+          <label className="block text-sm font-medium text-gray-700">
+            Your name:
+            <input
+              value={name}
+              type="text"
+              onChange={(e) => setName(e.target.value)}
+              className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-red focus:border-red sm:text-sm"
+            ></input>
+          </label>
+        </div>
+        <div>
+          <button
+            className="justify-center px-4 py-2 m-8 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-red hover:bg-red focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red"
+            onClick={clearCanvas}
+          >
+            Clear
+          </button>
+          <button
+            disabled={submitDisabled}
+            className={`justify-center m-8 py-2 px-4 border 
                         border-transparent shadow-sm text-sm font-medium rounded-md 
                         text-white bg-red focus:outline-none 
                          focus:ring-offset-2 ${
@@ -168,14 +161,13 @@ export default function Design() {
                              ? "bg-gray-400 cursor-default"
                              : "focus:ring-2 focus:ring-red hover:bg-red"
                          }`}
-              onClick={() => submitDesign(getDataURL())}
-            >
-              Submit
-            </button>
-          </div>
-        </main>
-      </div>
-    </Layout>
+            onClick={() => submitDesign(getDataURL())}
+          >
+            Submit
+          </button>
+        </div>
+      </main>
+    </div>
   );
 
   function resizeCanvasToDisplaySize(canvas) {

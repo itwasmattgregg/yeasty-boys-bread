@@ -1,6 +1,5 @@
 import { useState } from "react";
 import useUser from "../lib/useUser";
-import Layout from "../components/Layout";
 import fetchJson from "../lib/fetchJson";
 
 const Login = () => {
@@ -34,8 +33,8 @@ const Login = () => {
   }
 
   return (
-    <Layout>
-      <div className="container mx-auto mt-40 px-6 max-w-3xl">
+    <>
+      <div className="container max-w-3xl px-6 mx-auto mt-40">
         <div className="login">
           <form onSubmit={handleSubmit}>
             <label>
@@ -76,7 +75,7 @@ const Login = () => {
           margin: 1rem 0 0;
         }
       `}</style>
-    </Layout>
+    </>
   );
 };
 

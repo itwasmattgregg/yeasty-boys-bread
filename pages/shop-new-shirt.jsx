@@ -1,16 +1,13 @@
-import Layout from "components/Layout";
 import Script from "next/script";
 
 const Shop = () => {
   return (
     <>
       <Script src="/shopifyNewShirtButton.js"></Script>
-      <Layout>
-        <div
-          id="product-component-1641349948140"
-          className="mt-40 min-h-screen px-5"
-        ></div>
-      </Layout>
+      <div
+        id="product-component-1641349948140"
+        className="min-h-screen px-5 mt-40"
+      ></div>
     </>
   );
 };

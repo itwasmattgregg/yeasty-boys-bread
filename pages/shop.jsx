@@ -1,16 +1,13 @@
-import Layout from "components/Layout";
 import Script from "next/script";
 
 const Shop = () => {
   return (
     <>
       <Script src="/shopScript.js"></Script>
-      <Layout>
-        <div
-          id="collection-component-1641352868576"
-          className="mt-40 min-h-screen px-5"
-        ></div>
-      </Layout>
+      <div
+        id="collection-component-1641352868576"
+        className="min-h-screen px-5 mt-40"
+      ></div>
     </>
   );
 };

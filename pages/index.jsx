@@ -2,7 +2,6 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import usePlacesAutocomplete from "use-places-autocomplete";
-import Layout from "../components/Layout";
 import BreadImg from "../images/IMG_4261-2.jpg";
 import Script from "next/script";
 import { connectToDatabase } from "../util/mongodb";
@@ -54,7 +53,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
         <li
           key={id}
           onClick={handleSelect(suggestion)}
-          className="cursor-pointer py-2"
+          className="py-2 cursor-pointer"
         >
           <strong>{main_text}</strong> <small>{secondary_text}</small>
         </li>
@@ -127,7 +126,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
   };
 
   return (
-    <Layout>
+    <>
       <Script
         strategy="beforeInteractive"
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDX6Ox-aNWq-VGn84ZRI82VbrKmlBMuypo&libraries=places&callback=initMap"
@@ -135,7 +134,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
 
       <div>
         <main>
-          <div className="absolute h-screen w-full z-0 flex">
+          <div className="absolute z-0 flex w-full h-screen">
             <Image
               src={BreadImg}
               alt="Bread"
@@ -145,24 +144,15 @@ export default function Home({ lotteryBreads, totalBreads }) {
               className="z-0"
             />
           </div>
-          <div
-            className="h-screen flex items-center justify-start relative
-            bg-gradient-to-t from-gray-800 to-transparent"
-          >
-            <h1
-              className="mx-6 md:mx-16 relative text-3xl md:text-5xl
-              leading-tight md:leading-tight font-bold text-white text-shadow"
-            >
+          <div className="relative flex items-center justify-start h-screen bg-gradient-to-t from-gray-800 to-transparent">
+            <h1 className="relative mx-6 text-3xl font-bold leading-tight text-white md:mx-16 md:text-5xl md:leading-tight text-shadow">
               The Yeasty Boys
               <br /> Sourdough Bread Lottery
             </h1>
           </div>
 
-          <div
-            className="items-center container 
-            mx-auto my-10 px-6 max-w-3xl"
-          >
-            <h2 className="text-2xl mb-12">What the fuck is this?</h2>
+          <div className="container items-center max-w-3xl px-6 mx-auto my-10">
+            <h2 className="mb-12 text-2xl">What the fuck is this?</h2>
             <p>
               This is the official waiting list for Matt Gregg&lsquo;s
               sourdough. I generally make one loaf to give away for free every
@@ -174,10 +164,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
             </p>
           </div>
 
-          <div
-            className="container 
-            mx-auto my-10 px-6 max-w-3xl"
-          >
+          <div className="container max-w-3xl px-6 mx-auto my-10">
             <p>
               If you would like to submit a design for me to attempt to score
               into the top of a loaf of bread please use this awesome{" "}
@@ -188,32 +175,29 @@ export default function Home({ lotteryBreads, totalBreads }) {
             </p>
           </div>
 
-          <div
-            className="container 
-            mx-auto pb-10 px-6 max-w-3xl grid sm:grid-cols-3 gap-10"
-          >
+          <div className="container grid max-w-3xl gap-10 px-6 pb-10 mx-auto sm:grid-cols-3">
             <div className="text-center">
               <p className="font-semibold">Lottery winners</p>
-              <p className="text-red text-4xl mt-4">{lotteryBreads}</p>
+              <p className="mt-4 text-4xl text-red">{lotteryBreads}</p>
             </div>
             <div className="text-center">
               <p className="font-semibold">Total loaves made</p>
-              <p className="text-red text-4xl mt-4">{totalBreads}</p>
+              <p className="mt-4 text-4xl text-red">{totalBreads}</p>
             </div>
             <div className="text-center">
               <p className="font-semibold">Flour used</p>
-              <p className="text-red text-4xl mt-4">{totalBreads * 440}g</p>
+              <p className="mt-4 text-4xl text-red">{totalBreads * 440}g</p>
               <p>({Math.floor((totalBreads * 440) / 453.59)}lbs)</p>
             </div>
           </div>
 
-          <div className="max-w-3xl mx-auto px-6 mb-10">
-            <div className="p-6 shadow bg-white  rounded-md">
-              <h3 className="text-xl mb-6">Signup form</h3>
+          <div className="max-w-3xl px-6 mx-auto mb-10">
+            <div className="p-6 bg-white rounded-md shadow">
+              <h3 className="mb-6 text-xl">Signup form</h3>
               {submitState !== SubmitStateEnum.SUCCESS && (
                 <form
                   onSubmit={submitForm}
-                  className="grid gap-6 grid-cols-1 sm:grid-cols-2"
+                  className="grid grid-cols-1 gap-6 sm:grid-cols-2"
                 >
                   <label className="block text-sm font-medium text-gray-700">
                     Name:
@@ -221,8 +205,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
                       name="name"
                       type="text"
                       required
-                      className="mt-1 focus:ring-red focus:border-red 
-                      block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-red focus:border-red sm:text-sm"
                     />
                   </label>
 
@@ -232,11 +215,10 @@ export default function Home({ lotteryBreads, totalBreads }) {
                       type="email"
                       name="email"
                       required
-                      className="mt-1 focus:ring-red focus:border-red 
-                      block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-red focus:border-red sm:text-sm"
                     />
                   </label>
-                  <label className="block text-sm font-medium text-gray-700 sm:col-span-2 relative">
+                  <label className="relative block text-sm font-medium text-gray-700 sm:col-span-2">
                     Address:
                     <input
                       value={value}
@@ -244,11 +226,10 @@ export default function Home({ lotteryBreads, totalBreads }) {
                       type="text"
                       name="address"
                       required
-                      className="mt-1 focus:ring-red focus:border-red 
-                        block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+                      className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-red focus:border-red sm:text-sm"
                     />
                     {status === "OK" && (
-                      <ul className="absolute bg-gray-100 rounded-md w-full py-2 px-4 radius-4">
+                      <ul className="absolute w-full px-4 py-2 bg-gray-100 rounded-md radius-4">
                         {renderSuggestions()}
                       </ul>
                     )}
@@ -264,10 +245,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
                   <div className="text-center sm:col-span-2">
                     <button
                       disabled={buttonDisabled()}
-                      className="inline-flex justify-center py-2 px-4 border 
-                        border-transparent shadow-sm text-sm font-medium rounded-md 
-                        text-white bg-red hover:bg-red focus:outline-none 
-                        focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
+                      className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-red hover:bg-red focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
                     >
                       {getSubmitButtonText()}
                     </button>
@@ -277,7 +255,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
               )}
               {submitState === SubmitStateEnum.SUCCESS && (
                 <div>
-                  <p className="text-xl mb-4">
+                  <p className="mb-4 text-xl">
                     Congrats!!! You&lsquo;re one step closer to bread!
                   </p>
                   <p>
@@ -285,7 +263,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
                     you don&lsquo;t, check your spam folder and mark it as not
                     spam.
                   </p>
-                  <div className="my-4 flex justify-center">
+                  <div className="flex justify-center my-4">
                     {renderRandomGif()}
                   </div>
                   <div className="text-center">
@@ -319,7 +297,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
           </div>
         </main>
       </div>
-    </Layout>
+    </>
   );
 }
 

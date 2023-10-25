@@ -1,5 +1,4 @@
 import withSession from "../lib/session";
-import Layout from "../components/Layout";
 import fetchJson from "../lib/fetchJson";
 import { connectToDatabase } from "../util/mongodb";
 import { useState } from "react";
@@ -154,114 +153,106 @@ const Admin = ({ breadies, meta }) => {
   };
 
   return (
-    <Layout>
-      <div className="container px-6 mx-auto mt-40">
-        <h1
-          className="relative mb-8 text-3xl font-bold leading-tight md:text-5xl md:leading-tight"
-        >
-          Admin
-        </h1>
-        <div className="flex flex-wrap gap-4 mb-8">
-          <p>
-            Donated: {meta.donated}{" "}
-            <button
-              onClick={() => incrementMeta("donated")}
-              disabled={incrementingDonated}
-              className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium bg-white border border-transparent border-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
-            >
-              🔥
-            </button>
-          </p>
-          <p>
-            Sold: {meta.sold}{" "}
-            <button
-              onClick={() => incrementMeta("sold")}
-              disabled={incrementingSold}
-              className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium bg-white border border-transparent border-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
-            >
-              🔥
-            </button>
-          </p>
-          <p>
-            Kept: {meta.kept}{" "}
-            <button
-              onClick={() => incrementMeta("kept")}
-              disabled={incrementingKept}
-              className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium bg-white border border-transparent border-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
-            >
-              🔥
-            </button>
-          </p>
-        </div>
-        <button
-          className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-red hover:bg-red focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red"
-          onClick={() => setWinner(pickWinner(breadies))}
-        >
-          Select winner
-        </button>
-        {winner && (
-          <>
-            <p>
-              Winner is: {winner.name} | wins: {winner.numberOfBreads} |{" "}
-              {winner.address}
-            </p>
-            <button
-              disabled={emailSent || submitting}
-              className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-red hover:bg-red focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
-              onClick={() => incrementAndSendEmail(winner.uniqueEmail)}
-            >
-              Crown winner?
-            </button>
-          </>
-        )}
-        {emailSent && <p>Email has been sent</p>}
-        <div className="overflow-x-auto border">
-          <table className="bg-white table-auto">
-            <thead>
-              <tr>
-                <th className="p-2 text-left">Name</th>
-                <th className="p-2 text-left">Email</th>
-                <th className="p-2 text-left">Address</th>
-                <th className="p-2 text-left">Number Won</th>
-                <th className="p-2 text-left">Last won</th>
-              </tr>
-            </thead>
-            <tbody>
-              {breadies.map((breadie) => (
-                <tr key={breadie._id}>
-                  <td className="p-2 text-sm">{breadie.name}</td>
-                  <td className="p-2 text-sm">
-                    <a href={`mailto: ${breadie.email}`}>{breadie.email}</a>
-                  </td>
-                  <td className="p-2 text-sm">
-                    <a
-                      href={`https://www.google.com/maps/search/?api=1&query=${breadie.address}`}
-                    >
-                      {breadie.address}
-                    </a>
-                  </td>
-                  <td className="p-2 text-sm">
-                    {breadie.numberOfBreads}
-                    <button onClick={() => decrement(breadie.email)}>
-                      👎
-                    </button>
-                    <button onClick={() => increment(breadie.email)}>
-                      ☝️
-                    </button>
-                  </td>
-                  <td className="p-2 text-sm">{breadie.lastModified}</td>
-                  <td>
-                    <button onClick={() => deleteUser(breadie.email)}>
-                      {breadie.email === confirmDelete ? "Confirm?" : "🗑"}
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+    <div className="container px-6 mx-auto mt-40">
+      <h1 className="relative mb-8 text-3xl font-bold leading-tight md:text-5xl md:leading-tight">
+        Admin
+      </h1>
+      <div className="flex flex-wrap gap-4 mb-8">
+        <p>
+          Donated: {meta.donated}{" "}
+          <button
+            onClick={() => incrementMeta("donated")}
+            disabled={incrementingDonated}
+            className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium bg-white border border-transparent border-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
+          >
+            🔥
+          </button>
+        </p>
+        <p>
+          Sold: {meta.sold}{" "}
+          <button
+            onClick={() => incrementMeta("sold")}
+            disabled={incrementingSold}
+            className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium bg-white border border-transparent border-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
+          >
+            🔥
+          </button>
+        </p>
+        <p>
+          Kept: {meta.kept}{" "}
+          <button
+            onClick={() => incrementMeta("kept")}
+            disabled={incrementingKept}
+            className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium bg-white border border-transparent border-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
+          >
+            🔥
+          </button>
+        </p>
       </div>
-    </Layout>
+      <button
+        className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-red hover:bg-red focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red"
+        onClick={() => setWinner(pickWinner(breadies))}
+      >
+        Select winner
+      </button>
+      {winner && (
+        <>
+          <p>
+            Winner is: {winner.name} | wins: {winner.numberOfBreads} |{" "}
+            {winner.address}
+          </p>
+          <button
+            disabled={emailSent || submitting}
+            className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-red hover:bg-red focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
+            onClick={() => incrementAndSendEmail(winner.uniqueEmail)}
+          >
+            Crown winner?
+          </button>
+        </>
+      )}
+      {emailSent && <p>Email has been sent</p>}
+      <div className="overflow-x-auto border">
+        <table className="bg-white table-auto">
+          <thead>
+            <tr>
+              <th className="p-2 text-left">Name</th>
+              <th className="p-2 text-left">Email</th>
+              <th className="p-2 text-left">Address</th>
+              <th className="p-2 text-left">Number Won</th>
+              <th className="p-2 text-left">Last won</th>
+            </tr>
+          </thead>
+          <tbody>
+            {breadies.map((breadie) => (
+              <tr key={breadie._id}>
+                <td className="p-2 text-sm">{breadie.name}</td>
+                <td className="p-2 text-sm">
+                  <a href={`mailto: ${breadie.email}`}>{breadie.email}</a>
+                </td>
+                <td className="p-2 text-sm">
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${breadie.address}`}
+                  >
+                    {breadie.address}
+                  </a>
+                </td>
+                <td className="p-2 text-sm">
+                  {breadie.numberOfBreads}
+                  <button onClick={() => decrement(breadie.email)}>👎</button>
+                  <button onClick={() => increment(breadie.email)}>☝️</button>
+                </td>
+                <td className="p-2 text-sm">{breadie.lastModified}</td>
+                <td>
+                  <button onClick={() => deleteUser(breadie.email)}>
+                    {breadie.email === confirmDelete ? "Confirm?" : "🗑"}
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 };
 
