@@ -1,9 +1,14 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
+import Script from "next/script";
 
 class MyDocument extends Document {
   render() {
     return (
       <Html>
+        <Script
+          strategy="beforeInteractive"
+          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDX6Ox-aNWq-VGn84ZRI82VbrKmlBMuypo&libraries=places&callback=initMap"
+        />
         <Head>
           <meta name="robots" content="noindex" />
           <meta name="twitter:card" content="summary_large_image" />

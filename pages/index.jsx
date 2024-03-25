@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import usePlacesAutocomplete from "use-places-autocomplete";
 import BreadImg from "../images/IMG_4261-2.jpg";
-import Script from "next/script";
 import { connectToDatabase } from "../util/mongodb";
 
 const SubmitStateEnum = {
@@ -127,11 +126,6 @@ export default function Home({ lotteryBreads, totalBreads }) {
 
   return (
     <>
-      <Script
-        strategy="beforeInteractive"
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDX6Ox-aNWq-VGn84ZRI82VbrKmlBMuypo&libraries=places&callback=initMap"
-      />
-
       <div>
         <main>
           <div className="absolute z-0 flex w-full h-screen">
@@ -191,9 +185,18 @@ export default function Home({ lotteryBreads, totalBreads }) {
             </div>
           </div>
 
+          <div className="container flex justify-center max-w-3xl px-6 pb-10 mx-auto">
+            <a
+              href="https://shop.yeastyboysbread.com/products/whole-sourdough-loaf"
+              className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-red hover:bg-red focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
+            >
+              Order sourdough for pickup
+            </a>
+          </div>
+
           <div className="max-w-3xl px-6 mx-auto mb-10">
             <div className="p-6 bg-white rounded-md shadow">
-              <h3 className="mb-6 text-xl">Signup form</h3>
+              <h3 className="mb-6 text-xl">Lottery signup form</h3>
               {submitState !== SubmitStateEnum.SUCCESS && (
                 <form
                   onSubmit={submitForm}
@@ -302,7 +305,13 @@ export default function Home({ lotteryBreads, totalBreads }) {
 }
 
 export async function getStaticProps() {
-  const { db } = await connectToDatabase();
+  let db;
+  try {
+    db = await connectToDatabase();
+  } catch (e) {
+    console.error(e);
+    return { props: {} };
+  }
   let totalBreadCount = 0;
   let lotteryBreads = 0;
 
@@ -317,6 +326,7 @@ export async function getStaticProps() {
       lotteryBreads.count + meta.donated + meta.sold + meta.kept;
   } catch (e) {
     console.error(e);
+    return { props: {} };
   }
   return {
     props: {
