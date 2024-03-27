@@ -3,6 +3,8 @@ import withSession from "../../lib/session";
 export default withSession(async (req, res) => {
   const { password } = await req.body;
 
+  console.log("here");
+
   try {
     if (password === process.env.PASSWORD) {
       const user = { isLoggedIn: true };

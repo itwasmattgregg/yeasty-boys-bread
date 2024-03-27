@@ -3,6 +3,7 @@ import fetchJson from "../lib/fetchJson";
 import { connectToDatabase } from "../util/mongodb";
 import { useState } from "react";
 import useRouterRefresh from "../lib/useRouterRefresh";
+import classNames from "classnames";
 
 const Admin = ({ breadies, meta }) => {
   const [winner, setWinner] = useState<any>();
@@ -163,7 +164,7 @@ const Admin = ({ breadies, meta }) => {
           <button
             onClick={() => incrementMeta("donated")}
             disabled={incrementingDonated}
-            className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium bg-white border border-transparent border-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
+            className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium bg-white border border-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
           >
             🔥
           </button>
@@ -173,7 +174,7 @@ const Admin = ({ breadies, meta }) => {
           <button
             onClick={() => incrementMeta("sold")}
             disabled={incrementingSold}
-            className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium bg-white border border-transparent border-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
+            className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium bg-white border border-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
           >
             🔥
           </button>
@@ -183,7 +184,7 @@ const Admin = ({ breadies, meta }) => {
           <button
             onClick={() => incrementMeta("kept")}
             disabled={incrementingKept}
-            className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium bg-white border border-transparent border-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
+            className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium bg-white border border-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
           >
             🔥
           </button>
@@ -218,8 +219,8 @@ const Admin = ({ breadies, meta }) => {
               <th className="p-2 text-left">Name</th>
               <th className="p-2 text-left">Email</th>
               <th className="p-2 text-left">Address</th>
-              <th className="p-2 text-left">Number Won</th>
-              <th className="p-2 text-left">Last won</th>
+              <th className="p-2 text-left">Number won</th>
+              <th className="p-2 text-left">Last updated</th>
             </tr>
           </thead>
           <tbody>
@@ -236,15 +237,30 @@ const Admin = ({ breadies, meta }) => {
                     {breadie.address}
                   </a>
                 </td>
-                <td className="p-2 text-sm">
+                <td className="flex items-center gap-1 p-2 text-sm">
                   {breadie.numberOfBreads}
-                  <button onClick={() => decrement(breadie.email)}>👎</button>
-                  <button onClick={() => increment(breadie.email)}>☝️</button>
+                  <button
+                    onClick={() => decrement(breadie.email)}
+                    className="p-2 border"
+                  >
+                    🔻
+                  </button>
+                  <button
+                    onClick={() => increment(breadie.email)}
+                    className="p-2 border"
+                  >
+                    🔺
+                  </button>
                 </td>
                 <td className="p-2 text-sm">{breadie.lastModified}</td>
                 <td>
-                  <button onClick={() => deleteUser(breadie.email)}>
-                    {breadie.email === confirmDelete ? "Confirm?" : "🗑"}
+                  <button
+                    onClick={() => deleteUser(breadie.email)}
+                    className={classNames("p-3 ", {
+                      "bg-red": breadie.email === confirmDelete,
+                    })}
+                  >
+                    {breadie.email === confirmDelete ? "🔥" : "🗑"}
                   </button>
                 </td>
               </tr>

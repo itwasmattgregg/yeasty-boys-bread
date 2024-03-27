@@ -12,6 +12,11 @@ export default withSession(async (req, res) => {
     const { db } = await connectToDatabase();
     if (user) {
       try {
+        const findToCopy = await db
+          .collection("sourdough")
+          .findOne({ uniqueEmail: email });
+        await db.collection("archived").insertOne(findToCopy);
+
         const result = await db
           .collection("sourdough")
           .deleteOne({ uniqueEmail: email });
@@ -46,7 +51,7 @@ export default withSession(async (req, res) => {
           throw new Error("Couldn't find user");
         }
       } catch (e) {
-        console.log(e)
+        console.log(e);
         res.status(500).end();
       }
     } else res.status(403).end();

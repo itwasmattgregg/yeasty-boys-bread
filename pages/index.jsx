@@ -307,7 +307,8 @@ export default function Home({ lotteryBreads, totalBreads }) {
 export async function getStaticProps() {
   let db;
   try {
-    db = await connectToDatabase();
+    const dbConnection = await connectToDatabase();
+    db = dbConnection.db;
   } catch (e) {
     console.error(e);
     return { props: {} };
