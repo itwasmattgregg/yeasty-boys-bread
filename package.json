@@ -2,6 +2,7 @@
   "name": "yeasty-boys-bread",
   "version": "0.1.0",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
@@ -41,5 +42,6 @@
     "prettier": "^2.3.2",
     "typescript": "^4.6.3",
     "url-loader": "^4.1.1"
-  }
+  },
+  "packageManager": "pnpm@8.15.5+sha256.4b4efa12490e5055d59b9b9fc9438b7d581a6b7af3b5675eb5c5f447cee1a589"
 }
