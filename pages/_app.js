@@ -1,6 +1,8 @@
 import Head from "next/head";
 import Nav from "../components/Nav";
 import "tailwindcss/tailwind.css";
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -8,6 +10,8 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <title>Yeasty Boys Sourdough Bread Lottery</title>
       </Head>
+      <Analytics />
+      <SpeedInsights />
       <div
         className="relative overflow-hidden subpixel-antialiased"
         style={{

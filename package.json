@@ -10,6 +10,8 @@
   "dependencies": {
     "@sendgrid/client": "^7.4.2",
     "@tailwindcss/forms": "^0.5.7",
+    "@vercel/analytics": "^1.2.2",
+    "@vercel/speed-insights": "^1.0.10",
     "autoprefixer": "^10.4.19",
     "classnames": "^2.5.1",
     "mongodb": "^3.6.0",
@@ -20,7 +22,7 @@
     "react": "^18.2.0",
     "react-canvas-draw": "^1.2.1",
     "react-dom": "^18.2.0",
-    "swr": "^0.5.5",
+    "swr": "^2.2.5",
     "tailwindcss": "^3.4.1",
     "tone": "^14.7.77",
     "use-places-autocomplete": "^1.11.0"
