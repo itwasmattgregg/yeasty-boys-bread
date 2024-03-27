@@ -162,10 +162,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
             <p>
               If you would like to submit a design for me to attempt to score
               into the top of a loaf of bread please use this awesome{" "}
-              <Link href="/design">
-                <a>tool</a>
-              </Link>{" "}
-              I made!
+              <Link href="/design">tool</Link> I made!
             </p>
           </div>
 
@@ -271,10 +268,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
                   </div>
                   <div className="text-center">
                     <Link href="/breadmachine" className="font-bold">
-                      <a>
-                        While you&lsquo;re waiting... check out the Bread
-                        Machine
-                      </a>
+                      While you&lsquo;re waiting... check out the Bread Machine
                     </Link>
                   </div>
                 </div>
@@ -287,10 +281,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
                 <small>
                   I&lsquo;m not interested in becoming a Breadwinner, I&lsquo;m
                   just here for the{" "}
-                  <Link href="/breadmachine">
-                    <a>bread machine</a>
-                  </Link>
-                  .
+                  <Link href="/breadmachine">bread machine</Link>.
                 </small>
               </p>
             )}

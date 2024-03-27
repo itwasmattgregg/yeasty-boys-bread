@@ -6,31 +6,31 @@ import logo from "../images/logo.png";
 function Nav() {
   return (
     <>
-      <div className="z-10 fixed p-6">
+      <div className="fixed z-10 p-6">
         <Link href="/">
-          <a>
-            <Image
-              src={logo}
-              className="cursor-pointer"
-              height={70}
-              width={126}
-              alt="Logo"
-            />
-          </a>
+          <Image
+            src={logo}
+            className="cursor-pointer"
+            height={70}
+            width={126}
+            alt="Logo"
+          />
         </Link>
       </div>
-      <div className="z-10 absolute right-10 top-10 grid gap-4 sm:flex sm:gap-10">
-        <Link href="/breadmachine">
-          <a className="font-bold flex p-2 sm:p-3 items-center justify-center no-underline relative">
-            <div className="bg-white transform skew-x-12 h-full w-full absolute -z-10 border-black border"></div>
-            The Bread Machine
-          </a>
+      <div className="absolute z-10 grid gap-4 right-10 top-10 sm:flex sm:gap-10">
+        <Link
+          href="/breadmachine"
+          className="relative flex items-center justify-center p-2 font-bold no-underline sm:p-3"
+        >
+          <div className="absolute w-full h-full transform skew-x-12 bg-white border border-black -z-10"></div>
+          The Bread Machine
         </Link>
-        <Link href="/shop">
-          <a className="font-bold flex p-2 sm:p-3 items-center justify-center no-underline relative">
-            <div className="bg-white transform skew-x-12 h-full w-full absolute -z-10 border-black border"></div>
-            Shop
-          </a>
+        <Link
+          href="/shop"
+          className="relative flex items-center justify-center p-2 font-bold no-underline sm:p-3"
+        >
+          <div className="absolute w-full h-full transform skew-x-12 bg-white border border-black -z-10"></div>
+          Shop
         </Link>
       </div>
     </>
