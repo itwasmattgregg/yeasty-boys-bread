@@ -315,23 +315,32 @@ export async function getStaticProps() {
   }
   let totalBreadCount = 0;
   let lotteryBreads = 0;
+  let archivedBreads = 0;
 
   try {
     const response = await db
       .collection("sourdough")
       .aggregate([{ $group: { _id: 1, count: { $sum: "$numberOfBreads" } } }]);
     [lotteryBreads] = await response.toArray();
+    const archivedResponse = await db
+      .collection("archived")
+      .aggregate([{ $group: { _id: 1, count: { $sum: "$numberOfBreads" } } }]);
+    [archivedBreads] = await archivedResponse.toArray();
     const stats = await db.collection("otherBread").findOne({});
     const meta = await stats;
     totalBreadCount =
-      lotteryBreads.count + meta.donated + meta.sold + meta.kept;
+      lotteryBreads.count +
+      archivedBreads.count +
+      meta.donated +
+      meta.sold +
+      meta.kept;
   } catch (e) {
     console.error(e);
     return { props: {} };
   }
   return {
     props: {
-      lotteryBreads: lotteryBreads.count,
+      lotteryBreads: lotteryBreads.count + archivedBreads.count,
       totalBreads: totalBreadCount,
     },
     revalidate: 120,
