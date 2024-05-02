@@ -6,7 +6,6 @@ class MyDocument extends Document {
     return (
       <Html>
         <Script
-          strategy="beforeInteractive"
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDX6Ox-aNWq-VGn84ZRI82VbrKmlBMuypo&libraries=places&callback=initMap"
         />
         <Head>

@@ -22,6 +22,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
     setValue,
     clearSuggestions,
   } = usePlacesAutocomplete({
+    callbackName: "initMap",
     requestOptions: {
       fields: ["address_components"],
       componentRestrictions: { country: "us" },
