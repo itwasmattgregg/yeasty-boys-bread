@@ -26,7 +26,7 @@ function Nav() {
           The Bread Machine
         </Link>
         <Link
-          href="/shop"
+          href="https://shop.yeastyboysbread.com"
           className="relative flex items-center justify-center p-2 font-bold no-underline sm:p-3"
         >
           <div className="absolute w-full h-full transform skew-x-12 bg-white border border-black -z-10"></div>
