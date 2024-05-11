@@ -64,8 +64,7 @@ export default function BreadMachine() {
           The first row of sounds were recorded on my very own sourdough bread.
         </p>
         <p className="mb-6">
-          Note: works best on chrome or firefox. Sorry Josh, safari will not
-          work.
+          Note: works best on chrome or firefox.
         </p>
         <div className="mb-6 keys">
           <div data-key="81" className="key">
