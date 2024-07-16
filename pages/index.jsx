@@ -122,7 +122,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
       "https://i.giphy.com/media/Y7O3LHmhllEk/giphy.webp",
       "https://i.giphy.com/media/YOI55oGPCfife/giphy.webp",
     ];
-    return <img src={gifs[Math.floor(Math.random() * gifs.length)]} />;
+    return <Image src={gifs[Math.floor(Math.random() * gifs.length)]} />;
   };
 
   return (

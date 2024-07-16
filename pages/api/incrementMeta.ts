@@ -1,15 +1,16 @@
+import { getIronSession } from "iron-session";
+import { SessionData, sessionOptions } from "lib/session";
 import { connectToDatabase } from "../../util/mongodb";
-import withSession from "../../lib/session";
 const client = require("@sendgrid/client");
 
-export default withSession(async (req, res) => {
-  const user = req.session.get("user");
+export default async (req, res) => {
+  const session = await getIronSession<SessionData>(req, res, sessionOptions);
 
   client.setApiKey(process.env.SENDGRID_API_KEY);
 
   if (req.method === "POST") {
     const { db } = await connectToDatabase();
-    if (user) {
+    if (session.isLoggedIn) {
       const { body } = req;
       try {
         let response;
@@ -49,4 +50,4 @@ export default withSession(async (req, res) => {
     // Method not permitted
     res.status(405).end();
   }
-});
+};

@@ -1,16 +1,18 @@
 import { connectToDatabase } from "../../util/mongodb";
-import withSession from "../../lib/session";
+import { SessionData, sessionOptions } from "../../lib/session";
+import { getIronSession } from "iron-session";
 const client = require("@sendgrid/client");
 
-export default withSession(async (req, res) => {
-  const user = req.session.get("user");
+export default async (req, res) => {
+  const session = await getIronSession<SessionData>(req, res, sessionOptions);
+
   const { email } = req.body;
 
   client.setApiKey(process.env.SENDGRID_API_KEY);
 
   if (req.method === "POST") {
     const { db } = await connectToDatabase();
-    if (user) {
+    if (session.isLoggedIn) {
       try {
         const findToCopy = await db
           .collection("sourdough")
@@ -59,4 +61,4 @@ export default withSession(async (req, res) => {
     // Method not permitted
     res.status(405).end();
   }
-});
+};

@@ -1,12 +1,13 @@
+import { getIronSession } from "iron-session";
+import { SessionData, sessionOptions } from "lib/session";
 import { connectToDatabase } from "../../util/mongodb";
-import withSession from "../../lib/session";
 
-export default withSession(async (req, res) => {
-  const user = req.session.get("user");
+export default async (req, res) => {
+  const session = await getIronSession<SessionData>(req, res, sessionOptions);
 
   if (req.method === "POST") {
     const { db } = await connectToDatabase();
-    if (user) {
+    if (session.isLoggedIn) {
       try {
         const response = await db.collection("sourdough").findOneAndUpdate(
           { uniqueEmail: req.body.email },
@@ -26,4 +27,4 @@ export default withSession(async (req, res) => {
     // Method not permitted
     res.status(405).end();
   }
-});
+};

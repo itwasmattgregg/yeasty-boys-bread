@@ -1,9 +1,10 @@
-import withSession from "../lib/session";
+import { SessionData, sessionOptions } from "../lib/session";
 import fetchJson from "../lib/fetchJson";
 import { connectToDatabase } from "../util/mongodb";
 import { useState } from "react";
 import useRouterRefresh from "../lib/useRouterRefresh";
 import classNames from "classnames";
+import { getIronSession } from "iron-session";
 
 const Admin = ({ breadies, meta }) => {
   const [winner, setWinner] = useState<any>();
@@ -160,7 +161,7 @@ const Admin = ({ breadies, meta }) => {
       </h1>
       <div className="flex flex-wrap gap-4 mb-8">
         <p>
-          Donated: {meta.donated}{" "}
+          Donated: {meta?.donated}{" "}
           <button
             onClick={() => incrementMeta("donated")}
             disabled={incrementingDonated}
@@ -170,7 +171,7 @@ const Admin = ({ breadies, meta }) => {
           </button>
         </p>
         <p>
-          Sold: {meta.sold}{" "}
+          Sold: {meta?.sold}{" "}
           <button
             onClick={() => incrementMeta("sold")}
             disabled={incrementingSold}
@@ -180,7 +181,7 @@ const Admin = ({ breadies, meta }) => {
           </button>
         </p>
         <p>
-          Kept: {meta.kept}{" "}
+          Kept: {meta?.kept}{" "}
           <button
             onClick={() => incrementMeta("kept")}
             disabled={incrementingKept}
@@ -224,47 +225,48 @@ const Admin = ({ breadies, meta }) => {
             </tr>
           </thead>
           <tbody>
-            {breadies.map((breadie) => (
-              <tr key={breadie._id}>
-                <td className="p-2 text-sm">{breadie.name}</td>
-                <td className="p-2 text-sm">
-                  <a href={`mailto: ${breadie.email}`}>{breadie.email}</a>
-                </td>
-                <td className="p-2 text-sm">
-                  <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${breadie.address}`}
-                  >
-                    {breadie.address}
-                  </a>
-                </td>
-                <td className="flex items-center gap-1 p-2 text-sm">
-                  {breadie.numberOfBreads}
-                  <button
-                    onClick={() => decrement(breadie.email)}
-                    className="p-2 border"
-                  >
-                    🔻
-                  </button>
-                  <button
-                    onClick={() => increment(breadie.email)}
-                    className="p-2 border"
-                  >
-                    🔺
-                  </button>
-                </td>
-                <td className="p-2 text-sm">{breadie.lastModified}</td>
-                <td>
-                  <button
-                    onClick={() => deleteUser(breadie.email)}
-                    className={classNames("p-3 ", {
-                      "bg-red": breadie.email === confirmDelete,
-                    })}
-                  >
-                    {breadie.email === confirmDelete ? "🔥" : "🗑"}
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {breadies?.length > 0 &&
+              breadies.map((breadie) => (
+                <tr key={breadie._id}>
+                  <td className="p-2 text-sm">{breadie.name}</td>
+                  <td className="p-2 text-sm">
+                    <a href={`mailto: ${breadie.email}`}>{breadie.email}</a>
+                  </td>
+                  <td className="p-2 text-sm">
+                    <a
+                      href={`https://www.google.com/maps/search/?api=1&query=${breadie.address}`}
+                    >
+                      {breadie.address}
+                    </a>
+                  </td>
+                  <td className="flex items-center gap-1 p-2 text-sm">
+                    {breadie.numberOfBreads}
+                    <button
+                      onClick={() => decrement(breadie.email)}
+                      className="p-2 border"
+                    >
+                      🔻
+                    </button>
+                    <button
+                      onClick={() => increment(breadie.email)}
+                      className="p-2 border"
+                    >
+                      🔺
+                    </button>
+                  </td>
+                  <td className="p-2 text-sm">{breadie.lastModified}</td>
+                  <td>
+                    <button
+                      onClick={() => deleteUser(breadie.email)}
+                      className={classNames("p-3 ", {
+                        "bg-red": breadie.email === confirmDelete,
+                      })}
+                    >
+                      {breadie.email === confirmDelete ? "🔥" : "🗑"}
+                    </button>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
@@ -272,28 +274,35 @@ const Admin = ({ breadies, meta }) => {
   );
 };
 
-export const getServerSideProps = withSession(async function ({ req, res }) {
-  const user = req.session.get("user");
+export const getServerSideProps = async function ({ req, res }) {
+  const session = await getIronSession<SessionData>(req, res, sessionOptions);
 
-  if (user === undefined) {
+  if (!session.isLoggedIn) {
+    console.log("here");
     res.setHeader("location", "/login");
     res.statusCode = 302;
     res.end();
     return { props: {} };
   }
 
-  const { db } = await connectToDatabase();
   let breadies = [];
+  let meta;
 
   try {
+    const { db } = await connectToDatabase();
     const response = await db.collection("sourdough").find({});
     breadies = await response.toArray();
+    const metaResponse = await db.collection("otherBread").findOne({});
+    meta = await metaResponse;
   } catch (e) {
     console.error(e);
+    return {
+      props: {
+        meta: null,
+        breadies: null,
+      },
+    };
   }
-
-  const response = await db.collection("otherBread").findOne({});
-  const meta = await response;
 
   return {
     props: {
@@ -301,6 +310,6 @@ export const getServerSideProps = withSession(async function ({ req, res }) {
       breadies: JSON.parse(JSON.stringify(breadies)),
     },
   };
-});
+};
 
 export default Admin;
