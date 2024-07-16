@@ -3,10 +3,13 @@ import Nav from "../components/Nav";
 import "tailwindcss/tailwind.css";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Sora } from "next/font/google";
+
+const sora = Sora({ weight: ["400", "700"], subsets: ["latin"] });
 
 function MyApp({ Component, pageProps }) {
   return (
-    <>
+    <main className={sora.className}>
       <Head>
         <title>Yeasty Boys Sourdough Bread Lottery</title>
       </Head>
@@ -22,7 +25,7 @@ function MyApp({ Component, pageProps }) {
         <Nav />
         <Component {...pageProps} />
       </div>
-    </>
+    </main>
   );
 }
 

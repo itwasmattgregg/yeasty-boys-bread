@@ -1,6 +1,5 @@
 const plugin = require("tailwindcss/plugin");
 const colors = require("tailwindcss/colors");
-const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
   content: [
@@ -17,11 +16,6 @@ module.exports = {
       gray: colors.neutral,
       indigo: colors.indigo,
       yellow: colors.amber,
-    },
-    fontFamily: {
-      sans: ["Sora", ...defaultTheme.fontFamily.sans],
-      // serif: ["Lora", ...defaultTheme.fontFamily.serif],
-      // Maybe also Poppins or Nunito?
     },
     extend: {
       zIndex: {

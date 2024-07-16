@@ -26,16 +26,6 @@ class MyDocument extends Document {
             content={`https://${process.env.NEXT_PUBLIC_VERCEL_URL}/images/logo.png`}
           />
           <link rel="icon" href="/images/BreadEmoji.png" />
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link
-            rel="preconnect"
-            href="https://fonts.gstatic.com"
-            crossOrigin="true"
-          />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700&display=swap"
-            rel="stylesheet"
-          />
         </Head>
         <body>
           <Main />
