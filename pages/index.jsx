@@ -4,6 +4,7 @@ import Link from "next/link";
 import usePlacesAutocomplete from "use-places-autocomplete";
 import BreadImg from "../images/IMG_4261-2.jpg";
 import { connectToDatabase } from "../util/mongodb";
+import Script from "next/script";
 
 const SubmitStateEnum = {
   WAITING: "waiting",
@@ -135,6 +136,10 @@ export default function Home({ lotteryBreads, totalBreads }) {
 
   return (
     <>
+      <Script
+        strategy="lazyOnload"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDX6Ox-aNWq-VGn84ZRI82VbrKmlBMuypo&libraries=places&callback=initMap"
+      />
       <div>
         <main>
           <div className="absolute z-0 flex w-full h-screen">

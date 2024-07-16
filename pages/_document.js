@@ -4,10 +4,6 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <script
-          defer
-          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDX6Ox-aNWq-VGn84ZRI82VbrKmlBMuypo&libraries=places&callback=initMap"
-        />
         <Head>
           <meta name="robots" content="noindex" />
           <meta name="twitter:card" content="summary_large_image" />
