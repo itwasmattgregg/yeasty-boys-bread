@@ -32,6 +32,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.24.8",
     "@next/eslint-plugin-next": "^12.3.4",
+    "@types/google.maps": "^3.55.11",
     "@types/node": "^20.14.10",
     "@types/react": "^17.0.80",
     "@typescript-eslint/eslint-plugin": "^5.62.0",

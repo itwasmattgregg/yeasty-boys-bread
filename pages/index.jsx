@@ -45,13 +45,13 @@ export default function Home({ lotteryBreads, totalBreads }) {
   const renderSuggestions = () =>
     data.map((suggestion) => {
       const {
-        id,
+        place_id,
         structured_formatting: { main_text, secondary_text },
       } = suggestion;
 
       return (
         <li
-          key={id}
+          key={place_id}
           onClick={handleSelect(suggestion)}
           className="py-2 cursor-pointer"
         >
@@ -122,7 +122,15 @@ export default function Home({ lotteryBreads, totalBreads }) {
       "https://i.giphy.com/media/Y7O3LHmhllEk/giphy.webp",
       "https://i.giphy.com/media/YOI55oGPCfife/giphy.webp",
     ];
-    return <Image src={gifs[Math.floor(Math.random() * gifs.length)]} />;
+    return (
+      <Image
+        src={gifs[Math.floor(Math.random() * gifs.length)]}
+        style={{
+          maxWidth: "100%",
+          height: "auto",
+        }}
+      />
+    );
   };
 
   return (
@@ -133,10 +141,13 @@ export default function Home({ lotteryBreads, totalBreads }) {
             <Image
               src={BreadImg}
               alt="Bread"
-              layout="fill"
-              objectFit="cover"
               placeholder="blur"
               className="z-0"
+              fill
+              sizes="100vw"
+              style={{
+                objectFit: "cover",
+              }}
             />
           </div>
           <div className="relative flex items-center justify-start h-screen bg-gradient-to-t from-gray-800 to-transparent">

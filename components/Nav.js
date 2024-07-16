@@ -14,6 +14,10 @@ function Nav() {
             height={70}
             width={126}
             alt="Logo"
+            style={{
+              maxWidth: "100%",
+              height: "auto",
+            }}
           />
         </Link>
       </div>

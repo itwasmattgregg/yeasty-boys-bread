@@ -1,11 +1,11 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
-import Script from "next/script";
 
 class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Script
+        <script
+          defer
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDX6Ox-aNWq-VGn84ZRI82VbrKmlBMuypo&libraries=places&callback=initMap"
         />
         <Head>
@@ -36,10 +36,6 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Sora:wght@400;700&display=swap"
             rel="stylesheet"
           />
-          {/* <link
-          href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600&display=swap"
-          rel="stylesheet"
-        /> */}
         </Head>
         <body>
           <Main />
