@@ -6,7 +6,23 @@ import useRouterRefresh from "../lib/useRouterRefresh";
 import classNames from "classnames";
 import { getIronSession } from "iron-session";
 
-const Admin = ({ breadies, meta }) => {
+interface Breadie {
+  name: string;
+  email: string;
+  _id: string;
+  address: string;
+  numberOfBreads: number;
+  lastModified: Date;
+  paused: boolean;
+}
+
+interface Meta {
+  sold: number;
+  donated: number;
+  kept: number;
+}
+
+const Admin = ({ breadies, meta }: { breadies: Breadie[]; meta: Meta }) => {
   const [winner, setWinner] = useState<any>();
   const [emailSent, setEmailSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -16,7 +32,7 @@ const Admin = ({ breadies, meta }) => {
   const [confirmDelete, setConfirmDelete] = useState("");
   const refresh = useRouterRefresh();
 
-  const pickWinner = (people) => {
+  const pickWinner = (people: Breadie[]) => {
     setEmailSent(false);
     // Find lowest number of wins for curve
     const lowestNumber = people.reduce(
@@ -24,13 +40,16 @@ const Admin = ({ breadies, meta }) => {
       people[0].numberOfBreads
     );
     // Create an array with peoples names where people with less wins have more entries
-    let weightedArray = people.reduce((acc, item) => {
-      const wins = item.numberOfBreads;
-      const weight = (num) => Math.floor(10 * 3 ** (0.1 + lowestNumber - num));
-      const tempArray = new Array(weight(wins));
-      tempArray.fill(item);
-      return [...acc, ...tempArray];
-    }, []);
+    let weightedArray = people
+      .filter((person) => !person.paused)
+      .reduce((acc, person) => {
+        const wins = person.numberOfBreads;
+        const weight = (num) =>
+          Math.floor(10 * 3 ** (0.1 + lowestNumber - num));
+        const tempArray = new Array(weight(wins));
+        tempArray.fill(person);
+        return [...acc, ...tempArray];
+      }, []);
     return weightedArray[Math.floor(Math.random() * weightedArray.length)];
   };
 
@@ -61,8 +80,6 @@ const Admin = ({ breadies, meta }) => {
       refresh();
     } catch (error) {
       console.error("An unexpected error happened:", error);
-    } finally {
-      setSubmitting(false);
     }
   };
 
@@ -76,8 +93,32 @@ const Admin = ({ breadies, meta }) => {
       refresh();
     } catch (error) {
       console.error("An unexpected error happened:", error);
-    } finally {
-      setSubmitting(false);
+    }
+  };
+
+  const pauseUser = async (email) => {
+    try {
+      await fetchJson("/api/pauseUser", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      refresh();
+    } catch (error) {
+      console.error("An unexpected error happened:", error);
+    }
+  };
+
+  const resumeUser = async (email) => {
+    try {
+      await fetchJson("/api/resumeUser", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      refresh();
+    } catch (error) {
+      console.error("An unexpected error happened:", error);
     }
   };
 
@@ -255,10 +296,24 @@ const Admin = ({ breadies, meta }) => {
                     </button>
                   </td>
                   <td className="p-2 text-sm">{breadie.lastModified}</td>
-                  <td>
+                  <td className="flex gap-2">
+                    {breadie.paused ? (
+                      <button onClick={() => resumeUser(breadie.email)}>
+                        ▶️
+                      </button>
+                    ) : (
+                      <button onClick={() => pauseUser(breadie.email)}>
+                        ⏸️
+                      </button>
+                    )}
+                    <button
+                      onClick={() => incrementAndSendEmail(breadie.email)}
+                    >
+                      ✉️
+                    </button>
                     <button
                       onClick={() => deleteUser(breadie.email)}
-                      className={classNames("p-3 ", {
+                      className={classNames({
                         "bg-red": breadie.email === confirmDelete,
                       })}
                     >
