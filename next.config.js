@@ -1,5 +1,5 @@
-const withBundleAnalyzer = require("@next/bundle-analyzer")({
-  enabled: process.env.ANALYZE === "true",
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
 });
 
 module.exports = withBundleAnalyzer({
@@ -8,14 +8,14 @@ module.exports = withBundleAnalyzer({
     return {
       beforeFiles: [
         {
-          source: "/",
+          source: '/',
           has: [
             {
-              type: "host",
-              value: "popup.yeastyboysbread.com",
+              type: 'host',
+              value: 'popup.yeastyboysbread.com',
             },
           ],
-          destination: "/",
+          destination: '/',
         },
       ],
     };

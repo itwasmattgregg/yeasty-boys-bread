@@ -1,5 +1,5 @@
-import Head from "next/head";
-import { useRef, useEffect, useState } from "react";
+import Head from 'next/head';
+import {useRef, useEffect, useState} from 'react';
 
 export default function Design() {
   const [isDrawing, setIsDrawing] = useState(false);
@@ -7,19 +7,19 @@ export default function Design() {
   const contextRef = useRef(null);
   const [bgImage, setBgImage] = useState(null);
   const [submitting, setSubmitting] = useState(false);
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
 
   useEffect(() => {
     const canvas = canvasRef.current;
     resizeCanvasToDisplaySize(canvas);
 
-    const context = canvas.getContext("2d");
-    context.strokeStyle = "#C40101";
-    context.lineJoin = "round";
-    context.lineCap = "round";
+    const context = canvas.getContext('2d');
+    context.strokeStyle = '#C40101';
+    context.lineJoin = 'round';
+    context.lineCap = 'round';
     context.lineWidth = 3;
     let oval = new Image();
-    oval.src = "/images/oval.png";
+    oval.src = '/images/oval.png';
     oval.onload = function () {
       context.drawImage(oval, 0, 0, canvas.width / 2, canvas.height / 2);
     };
@@ -30,8 +30,8 @@ export default function Design() {
     canvas.ontouchmove = handleTouchMove;
   }, []);
 
-  const startDrawing = ({ nativeEvent }) => {
-    const { offsetX, offsetY } = nativeEvent;
+  const startDrawing = ({nativeEvent}) => {
+    const {offsetX, offsetY} = nativeEvent;
     contextRef.current.beginPath();
     contextRef.current.moveTo(offsetX, offsetY);
     setIsDrawing(true);
@@ -45,8 +45,8 @@ export default function Design() {
   const startTouch = (event) => {
     event.preventDefault();
 
-    const { touches } = event;
-    const { clientX, clientY } = touches[0];
+    const {touches} = event;
+    const {clientX, clientY} = touches[0];
     var bcr = event.target.getBoundingClientRect();
     contextRef.current.beginPath();
     contextRef.current.moveTo(clientX - bcr.x, clientY - bcr.y);
@@ -58,7 +58,7 @@ export default function Design() {
 
     var bcr = event.target.getBoundingClientRect();
     var touch = event.touches[0];
-    var { clientX, clientY } = touch;
+    var {clientX, clientY} = touch;
     draw({
       nativeEvent: {
         offsetX: clientX - bcr.x,
@@ -67,19 +67,19 @@ export default function Design() {
     });
   }
 
-  const draw = ({ nativeEvent }) => {
+  const draw = ({nativeEvent}) => {
     if (!isDrawing) {
       return;
     }
-    const { offsetX, offsetY } = nativeEvent;
+    const {offsetX, offsetY} = nativeEvent;
     contextRef.current.lineTo(offsetX, offsetY);
     contextRef.current.stroke();
   };
 
   const clearCanvas = () => {
     const canvas = canvasRef.current;
-    const context = canvas.getContext("2d");
-    context.fillStyle = "white";
+    const context = canvas.getContext('2d');
+    context.fillStyle = 'white';
     context.fillRect(0, 0, canvas.width, canvas.height);
     context.drawImage(bgImage, 0, 0, canvas.width / 2, canvas.height / 2);
   };
@@ -88,10 +88,10 @@ export default function Design() {
     setSubmitting(true);
     try {
       const settings = {
-        method: "POST",
+        method: 'POST',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           image: base64Img,
@@ -122,9 +122,9 @@ export default function Design() {
         <canvas
           ref={canvasRef}
           style={{
-            cursor: "crosshair",
+            cursor: 'crosshair',
           }}
-          className="w-full max-w-2xl m-auto border-2 "
+          className="m-auto w-full max-w-2xl border-2"
           onMouseDown={startDrawing}
           onMouseMove={draw}
           onMouseUp={finishDrawing}
@@ -133,34 +133,31 @@ export default function Design() {
           onTouchMove={handleTouchMove}
           onTouchEnd={finishDrawing}
         ></canvas>
-        <div className="max-w-xl m-8 mx-auto text-left">
+        <div className="m-8 mx-auto max-w-xl text-left">
           <label className="block text-sm font-medium text-gray-700">
             Your name:
             <input
               value={name}
               type="text"
               onChange={(e) => setName(e.target.value)}
-              className="block w-full mt-1 border border-gray-300 rounded-md shadow-sm focus:ring-red focus:border-red sm:text-sm"
+              className="mt-1 block w-full rounded-md border border-gray-300 shadow-sm focus:border-red focus:ring-red sm:text-sm"
             ></input>
           </label>
         </div>
         <div>
           <button
-            className="justify-center px-4 py-2 m-8 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-red hover:bg-red focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red"
+            className="m-8 justify-center rounded-md border border-transparent bg-red px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red focus:outline-none focus:ring-2 focus:ring-red focus:ring-offset-2"
             onClick={clearCanvas}
           >
             Clear
           </button>
           <button
             disabled={submitDisabled}
-            className={`justify-center m-8 py-2 px-4 border 
-                        border-transparent shadow-sm text-sm font-medium rounded-md 
-                        text-white bg-red focus:outline-none 
-                         focus:ring-offset-2 ${
-                           submitDisabled
-                             ? "bg-gray-400 cursor-default"
-                             : "focus:ring-2 focus:ring-red hover:bg-red"
-                         }`}
+            className={`m-8 justify-center rounded-md border border-transparent bg-red px-4 py-2 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-offset-2 ${
+              submitDisabled
+                ? 'cursor-default bg-gray-400'
+                : 'hover:bg-red focus:ring-2 focus:ring-red'
+            }`}
             onClick={() => submitDesign(getDataURL())}
           >
             Submit
@@ -171,13 +168,13 @@ export default function Design() {
   );
 
   function resizeCanvasToDisplaySize(canvas) {
-    const { width, height } = canvas.getBoundingClientRect();
+    const {width, height} = canvas.getBoundingClientRect();
 
     if (canvas.width !== width || canvas.height !== height) {
       // const { devicePixelRatio: ratio = 1 } = window;
       canvas.width = width * 2;
       canvas.height = width * 2;
-      const context = canvas.getContext("2d");
+      const context = canvas.getContext('2d');
       context.scale(2, 2);
       return true;
     }
@@ -200,7 +197,7 @@ export default function Design() {
     // Get a reference to the "drawing" layer of the canvas
     let canvasToExport = canvasRef.current;
 
-    let context = canvasToExport.getContext("2d");
+    let context = canvasToExport.getContext('2d');
 
     //cache height and width
     let width = canvasToExport.width;
@@ -213,10 +210,10 @@ export default function Design() {
     var compositeOperation = context.globalCompositeOperation;
 
     //set to draw behind current content
-    context.globalCompositeOperation = "destination-over";
+    context.globalCompositeOperation = 'destination-over';
 
     // If the file type has not been specified, default to PNG
-    if (!fileType) fileType = "png";
+    if (!fileType) fileType = 'png';
 
     // Export the canvas to data URL
     let imageData = canvasToExport.toDataURL(`image/${fileType}`);

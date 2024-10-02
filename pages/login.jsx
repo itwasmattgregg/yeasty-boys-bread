@@ -1,15 +1,15 @@
-import { useState } from "react";
-import useUser from "../lib/useUser";
-import fetchJson from "../lib/fetchJson";
+import {useState} from 'react';
+import useUser from '../lib/useUser';
+import fetchJson from '../lib/fetchJson';
 
 const Login = () => {
   // here we just check if user is already logged in and redirect to profile
-  const { mutateUser } = useUser({
-    redirectTo: "/admin",
+  const {mutateUser} = useUser({
+    redirectTo: '/admin',
     redirectIfFound: true,
   });
 
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState('');
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -20,21 +20,21 @@ const Login = () => {
 
     try {
       await mutateUser(
-        fetchJson("/api/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+        fetchJson('/api/login', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(body),
         })
       );
     } catch (error) {
-      console.error("An unexpected error happened:", error);
+      console.error('An unexpected error happened:', error);
       setErrorMsg(error.data.message);
     }
   }
 
   return (
     <>
-      <div className="container max-w-3xl px-6 mx-auto mt-40">
+      <div className="container mx-auto mt-40 max-w-3xl px-6">
         <div className="login">
           <form onSubmit={handleSubmit}>
             <label>

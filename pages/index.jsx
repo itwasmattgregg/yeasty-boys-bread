@@ -1,33 +1,33 @@
-import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import usePlacesAutocomplete from "use-places-autocomplete";
-import BreadImg from "../images/IMG_4261-2.jpg";
-import { connectToDatabase } from "../util/mongodb";
-import Script from "next/script";
+import {useState} from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import usePlacesAutocomplete from 'use-places-autocomplete';
+import BreadImg from '../images/IMG_4261-2.jpg';
+import {connectToDatabase} from '../util/mongodb';
+import Script from 'next/script';
 
 const SubmitStateEnum = {
-  WAITING: "waiting",
-  LOADING: "loading",
-  SUCCESS: "success",
-  ERROR: "error",
+  WAITING: 'waiting',
+  LOADING: 'loading',
+  SUCCESS: 'success',
+  ERROR: 'error',
 };
 
-export default function Home({ lotteryBreads, totalBreads }) {
+export default function Home({lotteryBreads, totalBreads}) {
   const [submitState, setSubmitState] = useState(SubmitStateEnum.WAITING);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   const {
     value,
-    suggestions: { status, data },
+    suggestions: {status, data},
     setValue,
     clearSuggestions,
   } = usePlacesAutocomplete({
-    callbackName: "initMap",
+    callbackName: 'initMap',
     requestOptions: {
-      fields: ["address_components"],
-      componentRestrictions: { country: "us" },
-      types: ["address"],
+      fields: ['address_components'],
+      componentRestrictions: {country: 'us'},
+      types: ['address'],
     },
     debounce: 300,
   });
@@ -37,7 +37,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
   };
 
   const handleSelect =
-    ({ description }) =>
+    ({description}) =>
     () => {
       setValue(description, false);
       clearSuggestions();
@@ -47,14 +47,14 @@ export default function Home({ lotteryBreads, totalBreads }) {
     data.map((suggestion) => {
       const {
         place_id,
-        structured_formatting: { main_text, secondary_text },
+        structured_formatting: {main_text, secondary_text},
       } = suggestion;
 
       return (
         <li
           key={place_id}
           onClick={handleSelect(suggestion)}
-          className="py-2 cursor-pointer"
+          className="cursor-pointer py-2"
         >
           <strong>{main_text}</strong> <small>{secondary_text}</small>
         </li>
@@ -64,20 +64,20 @@ export default function Home({ lotteryBreads, totalBreads }) {
   const submitForm = async (e) => {
     e.preventDefault();
     setSubmitState(SubmitStateEnum.LOADING);
-    setError("");
+    setError('');
 
     const data = new FormData(e.target);
     const body = JSON.stringify({
-      email: data.get("email"),
-      name: data.get("name"),
-      address: data.get("address"),
+      email: data.get('email'),
+      name: data.get('name'),
+      address: data.get('address'),
     });
     try {
       const settings = {
-        method: "POST",
+        method: 'POST',
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         },
         body,
       };
@@ -97,13 +97,13 @@ export default function Home({ lotteryBreads, totalBreads }) {
   const getSubmitButtonText = () => {
     switch (submitState) {
       case SubmitStateEnum.LOADING:
-        return "Submitting";
+        return 'Submitting';
       case SubmitStateEnum.SUCCESS:
-        return "Success!";
+        return 'Success!';
       case SubmitStateEnum.ERROR:
-        return "There was an error!";
+        return 'There was an error!';
       default:
-        return "Submit";
+        return 'Submit';
     }
   };
 
@@ -119,16 +119,16 @@ export default function Home({ lotteryBreads, totalBreads }) {
 
   const renderRandomGif = () => {
     const gifs = [
-      "https://i.giphy.com/media/3o7ZeFpK0qqSpsWNsA/giphy.webp",
-      "https://i.giphy.com/media/Y7O3LHmhllEk/giphy.webp",
-      "https://i.giphy.com/media/YOI55oGPCfife/giphy.webp",
+      'https://i.giphy.com/media/3o7ZeFpK0qqSpsWNsA/giphy.webp',
+      'https://i.giphy.com/media/Y7O3LHmhllEk/giphy.webp',
+      'https://i.giphy.com/media/YOI55oGPCfife/giphy.webp',
     ];
     return (
       <Image
         src={gifs[Math.floor(Math.random() * gifs.length)]}
         style={{
-          maxWidth: "100%",
-          height: "auto",
+          maxWidth: '100%',
+          height: 'auto',
         }}
       />
     );
@@ -142,7 +142,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
       />
       <div>
         <main>
-          <div className="absolute z-0 flex w-full h-screen">
+          <div className="absolute z-0 flex h-screen w-full">
             <Image
               src={BreadImg}
               alt="Bread"
@@ -151,18 +151,18 @@ export default function Home({ lotteryBreads, totalBreads }) {
               fill
               sizes="100vw"
               style={{
-                objectFit: "cover",
+                objectFit: 'cover',
               }}
             />
           </div>
-          <div className="relative flex items-center justify-start h-screen bg-gradient-to-t from-gray-800 to-transparent">
-            <h1 className="relative mx-6 text-3xl font-bold leading-tight text-white md:mx-16 md:text-5xl md:leading-tight text-shadow">
+          <div className="relative flex h-screen items-center justify-start bg-gradient-to-t from-gray-800 to-transparent">
+            <h1 className="relative mx-6 text-3xl font-bold leading-tight text-white text-shadow md:mx-16 md:text-5xl md:leading-tight">
               The Yeasty Boys
               <br /> Sourdough Bread Lottery
             </h1>
           </div>
 
-          <div className="container items-center max-w-3xl px-6 mx-auto my-10">
+          <div className="container mx-auto my-10 max-w-3xl items-center px-6">
             <h2 className="mb-12 text-2xl">What the fuck is this?</h2>
             <p>
               This is the official waiting list for Matt Gregg&lsquo;s
@@ -175,15 +175,15 @@ export default function Home({ lotteryBreads, totalBreads }) {
             </p>
           </div>
 
-          <div className="container max-w-3xl px-6 mx-auto my-10">
+          <div className="container mx-auto my-10 max-w-3xl px-6">
             <p>
               If you would like to submit a design for me to attempt to score
-              into the top of a loaf of bread please use this awesome{" "}
+              into the top of a loaf of bread please use this awesome{' '}
               <Link href="/design">tool</Link> I made!
             </p>
           </div>
 
-          <div className="container grid max-w-3xl gap-10 px-6 pb-10 mx-auto sm:grid-cols-3">
+          <div className="container mx-auto grid max-w-3xl gap-10 px-6 pb-10 sm:grid-cols-3">
             <div className="text-center">
               <p className="font-semibold">Lottery winners</p>
               <p className="mt-4 text-4xl text-red">{lotteryBreads}</p>
@@ -199,17 +199,17 @@ export default function Home({ lotteryBreads, totalBreads }) {
             </div>
           </div>
 
-          <div className="container flex justify-center max-w-3xl px-6 pb-10 mx-auto">
+          <div className="container mx-auto flex max-w-3xl justify-center px-6 pb-10">
             <a
               href="https://shop.yeastyboysbread.com/products/whole-sourdough-loaf"
-              className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-red hover:bg-red focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
+              className="inline-flex justify-center rounded-md border border-transparent bg-red px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red focus:outline-none focus:ring-2 focus:ring-red focus:ring-offset-2 disabled:opacity-50"
             >
               Order sourdough for pickup
             </a>
           </div>
 
-          <div className="max-w-3xl px-6 mx-auto mb-10">
-            <div className="p-6 bg-white rounded-md shadow">
+          <div className="mx-auto mb-10 max-w-3xl px-6">
+            <div className="rounded-md bg-white p-6 shadow">
               <h3 className="mb-6 text-xl">Lottery signup form</h3>
               {submitState !== SubmitStateEnum.SUCCESS && (
                 <form
@@ -222,7 +222,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
                       name="name"
                       type="text"
                       required
-                      className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-red focus:border-red sm:text-sm"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red focus:ring-red sm:text-sm"
                     />
                   </label>
 
@@ -232,7 +232,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
                       type="email"
                       name="email"
                       required
-                      className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-red focus:border-red sm:text-sm"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red focus:ring-red sm:text-sm"
                     />
                   </label>
                   <label className="relative block text-sm font-medium text-gray-700 sm:col-span-2">
@@ -243,10 +243,10 @@ export default function Home({ lotteryBreads, totalBreads }) {
                       type="text"
                       name="address"
                       required
-                      className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-red focus:border-red sm:text-sm"
+                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-red focus:ring-red sm:text-sm"
                     />
-                    {status === "OK" && (
-                      <ul className="absolute w-full px-4 py-2 bg-gray-100 rounded-md radius-4">
+                    {status === 'OK' && (
+                      <ul className="radius-4 absolute w-full rounded-md bg-gray-100 px-4 py-2">
                         {renderSuggestions()}
                       </ul>
                     )}
@@ -262,7 +262,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
                   <div className="text-center sm:col-span-2">
                     <button
                       disabled={buttonDisabled()}
-                      className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-red hover:bg-red focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
+                      className="inline-flex justify-center rounded-md border border-transparent bg-red px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red focus:outline-none focus:ring-2 focus:ring-red focus:ring-offset-2 disabled:opacity-50"
                     >
                       {getSubmitButtonText()}
                     </button>
@@ -280,7 +280,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
                     you don&lsquo;t, check your spam folder and mark it as not
                     spam.
                   </p>
-                  <div className="flex justify-center my-4">
+                  <div className="my-4 flex justify-center">
                     {renderRandomGif()}
                   </div>
                   <div className="text-center">
@@ -297,7 +297,7 @@ export default function Home({ lotteryBreads, totalBreads }) {
               <p>
                 <small>
                   I&lsquo;m not interested in becoming a Breadwinner, I&lsquo;m
-                  just here for the{" "}
+                  just here for the{' '}
                   <Link href="/breadmachine">bread machine</Link>.
                 </small>
               </p>
@@ -319,7 +319,7 @@ export async function getStaticProps() {
     db = dbConnection.db;
   } catch (e) {
     console.error(e);
-    return { props: {} };
+    return {props: {}};
   }
   let totalBreadCount = 0;
   let lotteryBreads = 0;
@@ -327,14 +327,14 @@ export async function getStaticProps() {
 
   try {
     const response = await db
-      .collection("sourdough")
-      .aggregate([{ $group: { _id: 1, count: { $sum: "$numberOfBreads" } } }]);
+      .collection('sourdough')
+      .aggregate([{$group: {_id: 1, count: {$sum: '$numberOfBreads'}}}]);
     [lotteryBreads] = await response.toArray();
     const archivedResponse = await db
-      .collection("archived")
-      .aggregate([{ $group: { _id: 1, count: { $sum: "$numberOfBreads" } } }]);
+      .collection('archived')
+      .aggregate([{$group: {_id: 1, count: {$sum: '$numberOfBreads'}}}]);
     [archivedBreads] = await archivedResponse.toArray();
-    const stats = await db.collection("otherBread").findOne({});
+    const stats = await db.collection('otherBread').findOne({});
     const meta = await stats;
     totalBreadCount =
       lotteryBreads.count +
@@ -344,7 +344,7 @@ export async function getStaticProps() {
       meta.kept;
   } catch (e) {
     console.error(e);
-    return { props: {} };
+    return {props: {}};
   }
   return {
     props: {

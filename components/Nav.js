@@ -1,7 +1,7 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
 
-import logo from "../images/logo.png";
+import logo from '../images/logo.png';
 
 function Nav() {
   return (
@@ -15,25 +15,25 @@ function Nav() {
             width={126}
             alt="Logo"
             style={{
-              maxWidth: "100%",
-              height: "auto",
+              maxWidth: '100%',
+              height: 'auto',
             }}
           />
         </Link>
       </div>
-      <div className="absolute z-10 grid gap-4 right-10 top-10 sm:flex sm:gap-10">
+      <div className="absolute right-10 top-10 z-10 grid gap-4 sm:flex sm:gap-10">
         <Link
           href="/breadmachine"
           className="relative flex items-center justify-center p-2 font-bold no-underline sm:p-3"
         >
-          <div className="absolute w-full h-full transform skew-x-12 bg-white border border-black -z-10"></div>
+          <div className="absolute -z-10 h-full w-full skew-x-12 transform border border-black bg-white"></div>
           The Bread Machine
         </Link>
         <Link
           href="https://shop.yeastyboysbread.com"
           className="relative flex items-center justify-center p-2 font-bold no-underline sm:p-3"
         >
-          <div className="absolute w-full h-full transform skew-x-12 bg-white border border-black -z-10"></div>
+          <div className="absolute -z-10 h-full w-full skew-x-12 transform border border-black bg-white"></div>
           Shop
         </Link>
       </div>

@@ -1,8 +1,8 @@
 export const sessionOptions = {
   password: process.env.SECRET_COOKIE_PASSWORD,
-  cookieName: "yeasty-boys-bread-cookie",
+  cookieName: 'yeasty-boys-bread-cookie',
   cookieOptions: {
-    secure: process.env.NODE_ENV === "production",
+    secure: process.env.NODE_ENV === 'production',
   },
 };
 

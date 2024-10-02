@@ -1,11 +1,11 @@
-import Head from "next/head";
-import { useEffect } from "react";
-import * as Tone from "tone";
+import Head from 'next/head';
+import {useEffect} from 'react';
+import * as Tone from 'tone';
 
 export default function BreadMachine() {
   function removeTransition(e) {
-    if (e.propertyName !== "transform") return;
-    e.target.classList.remove("playing");
+    if (e.propertyName !== 'transform') return;
+    e.target.classList.remove('playing');
   }
 
   function playSound(e, sampler) {
@@ -24,29 +24,29 @@ export default function BreadMachine() {
       }
     });
 
-    key.classList.add("playing");
+    key.classList.add('playing');
   }
 
   useEffect(() => {
-    const keys = Array.from(document.querySelectorAll(".key"));
+    const keys = Array.from(document.querySelectorAll('.key'));
     keys.forEach((key) => {
-      key.addEventListener("transitionend", removeTransition);
-      key.addEventListener("click", (e) => playSound(e, sequencer));
+      key.addEventListener('transitionend', removeTransition);
+      key.addEventListener('click', (e) => playSound(e, sequencer));
     });
-    window.addEventListener("keydown", (e) => playSound(e, sequencer));
+    window.addEventListener('keydown', (e) => playSound(e, sequencer));
     const sequencer = {
-      81: new Tone.Player("/sounds/Tap.m4a").toDestination(),
-      87: new Tone.Player("/sounds/Crunch.m4a").toDestination(),
-      69: new Tone.Player("/sounds/Knife.m4a").toDestination(),
-      82: new Tone.Player("/sounds/Soft.m4a").toDestination(),
-      65: new Tone.Player("/sounds/guitar1.m4a").toDestination(),
-      83: new Tone.Player("/sounds/guitar2.m4a").toDestination(),
-      68: new Tone.Player("/sounds/guitar3.m4a").toDestination(),
-      70: new Tone.Player("/sounds/guitar4.m4a").toDestination(),
-      71: new Tone.Player("/sounds/kick.m4a").toDestination(),
-      72: new Tone.Player("/sounds/nosleep.m4a").toDestination(),
-      74: new Tone.Player("/sounds/brooklyn.m4a").toDestination(),
-      75: new Tone.Player("/sounds/snare.m4a").toDestination(),
+      81: new Tone.Player('/sounds/Tap.m4a').toDestination(),
+      87: new Tone.Player('/sounds/Crunch.m4a').toDestination(),
+      69: new Tone.Player('/sounds/Knife.m4a').toDestination(),
+      82: new Tone.Player('/sounds/Soft.m4a').toDestination(),
+      65: new Tone.Player('/sounds/guitar1.m4a').toDestination(),
+      83: new Tone.Player('/sounds/guitar2.m4a').toDestination(),
+      68: new Tone.Player('/sounds/guitar3.m4a').toDestination(),
+      70: new Tone.Player('/sounds/guitar4.m4a').toDestination(),
+      71: new Tone.Player('/sounds/kick.m4a').toDestination(),
+      72: new Tone.Player('/sounds/nosleep.m4a').toDestination(),
+      74: new Tone.Player('/sounds/brooklyn.m4a').toDestination(),
+      75: new Tone.Player('/sounds/snare.m4a').toDestination(),
     };
   }, []);
 
@@ -63,10 +63,8 @@ export default function BreadMachine() {
         <p className="mb-6">
           The first row of sounds were recorded on my very own sourdough bread.
         </p>
-        <p className="mb-6">
-          Note: works best on chrome or firefox.
-        </p>
-        <div className="mb-6 keys">
+        <p className="mb-6">Note: works best on chrome or firefox.</p>
+        <div className="keys mb-6">
           <div data-key="81" className="key">
             <kbd>Q</kbd>
             <span className="sound">Tap</span>

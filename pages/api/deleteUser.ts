@@ -1,34 +1,34 @@
-import { connectToDatabase } from "../../util/mongodb";
-import { SessionData, sessionOptions } from "../../lib/session";
-import { getIronSession } from "iron-session";
-const client = require("@sendgrid/client");
+import {connectToDatabase} from '../../util/mongodb';
+import {SessionData, sessionOptions} from '../../lib/session';
+import {getIronSession} from 'iron-session';
+const client = require('@sendgrid/client');
 
 export default async (req, res) => {
   const session = await getIronSession<SessionData>(req, res, sessionOptions);
 
-  const { email } = req.body;
+  const {email} = req.body;
 
   client.setApiKey(process.env.SENDGRID_API_KEY);
 
-  if (req.method === "POST") {
-    const { db } = await connectToDatabase();
+  if (req.method === 'POST') {
+    const {db} = await connectToDatabase();
     if (session.isLoggedIn) {
       try {
         const findToCopy = await db
-          .collection("sourdough")
-          .findOne({ uniqueEmail: email });
-        await db.collection("archived").insertOne(findToCopy);
+          .collection('sourdough')
+          .findOne({uniqueEmail: email});
+        await db.collection('archived').insertOne(findToCopy);
 
         const result = await db
-          .collection("sourdough")
-          .deleteOne({ uniqueEmail: email });
+          .collection('sourdough')
+          .deleteOne({uniqueEmail: email});
 
         if (result.deletedCount === 1) {
-          console.log("Successfully deleted one document.");
+          console.log('Successfully deleted one document.');
 
           const request = {
             url: `/v3/marketing/contacts/search/emails`,
-            method: "POST",
+            method: 'POST',
             body: {
               emails: [email],
             },
@@ -39,16 +39,16 @@ export default async (req, res) => {
 
           if (userId) {
             const deleteRequest = {
-              method: "DELETE",
+              method: 'DELETE',
               url: `/v3/marketing/contacts?ids=${userId}`,
             };
             const resp = await client.request(deleteRequest);
             console.log(resp);
           }
 
-          res.json({ deleted: "ok" });
+          res.json({deleted: 'ok'});
         } else {
-          console.log("No documents matched the query. Deleted 0 documents.");
+          console.log('No documents matched the query. Deleted 0 documents.');
 
           throw new Error("Couldn't find user");
         }

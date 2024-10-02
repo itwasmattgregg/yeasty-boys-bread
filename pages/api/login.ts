@@ -1,8 +1,8 @@
-import { SessionData, sessionOptions } from "../../lib/session";
-import { getIronSession } from "iron-session";
+import {SessionData, sessionOptions} from '../../lib/session';
+import {getIronSession} from 'iron-session';
 
 export default async (req, res) => {
-  const { password } = await req.body;
+  const {password} = await req.body;
   const session = await getIronSession<SessionData>(req, res, sessionOptions);
 
   try {
@@ -14,7 +14,7 @@ export default async (req, res) => {
       res.json(session);
     }
   } catch (error) {
-    const { response: fetchResponse } = error;
+    const {response: fetchResponse} = error;
     res.status(fetchResponse?.status || 500).json(error.data);
   }
 };

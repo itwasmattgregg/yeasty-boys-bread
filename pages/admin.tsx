@@ -1,10 +1,10 @@
-import { SessionData, sessionOptions } from "../lib/session";
-import fetchJson from "../lib/fetchJson";
-import { connectToDatabase } from "../util/mongodb";
-import { useState } from "react";
-import useRouterRefresh from "../lib/useRouterRefresh";
-import classNames from "classnames";
-import { getIronSession } from "iron-session";
+import {SessionData, sessionOptions} from '../lib/session';
+import fetchJson from '../lib/fetchJson';
+import {connectToDatabase} from '../util/mongodb';
+import {useState} from 'react';
+import useRouterRefresh from '../lib/useRouterRefresh';
+import classNames from 'classnames';
+import {getIronSession} from 'iron-session';
 
 interface Breadie {
   name: string;
@@ -22,21 +22,21 @@ interface Meta {
   kept: number;
 }
 
-const Admin = ({ breadies, meta }: { breadies: Breadie[]; meta: Meta }) => {
+const Admin = ({breadies, meta}: {breadies: Breadie[]; meta: Meta}) => {
   const [winner, setWinner] = useState<any>();
   const [emailSent, setEmailSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [incrementingDonated, setIncrementingDonated] = useState(false);
   const [incrementingSold, setIncrementingSold] = useState(false);
   const [incrementingKept, setIncrementingKept] = useState(false);
-  const [confirmDelete, setConfirmDelete] = useState("");
+  const [confirmDelete, setConfirmDelete] = useState('');
   const refresh = useRouterRefresh();
 
   const pickWinner = (people: Breadie[]) => {
     setEmailSent(false);
     // Find lowest number of wins for curve
     const lowestNumber = people.reduce(
-      (a, { numberOfBreads }) => Math.min(a, numberOfBreads),
+      (a, {numberOfBreads}) => Math.min(a, numberOfBreads),
       people[0].numberOfBreads
     );
     // Create an array with peoples names where people with less wins have more entries
@@ -56,15 +56,15 @@ const Admin = ({ breadies, meta }: { breadies: Breadie[]; meta: Meta }) => {
   const incrementAndSendEmail = async (winnerEmail) => {
     setSubmitting(true);
     try {
-      await fetchJson("/api/incrementAndSendEmail", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: winnerEmail }),
+      await fetchJson('/api/incrementAndSendEmail', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email: winnerEmail}),
       });
       setEmailSent(true);
       refresh();
     } catch (error) {
-      console.error("An unexpected error happened:", error);
+      console.error('An unexpected error happened:', error);
     } finally {
       setSubmitting(false);
     }
@@ -72,122 +72,122 @@ const Admin = ({ breadies, meta }: { breadies: Breadie[]; meta: Meta }) => {
 
   const decrement = async (email) => {
     try {
-      await fetchJson("/api/decrement", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+      await fetchJson('/api/decrement', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email}),
       });
       refresh();
     } catch (error) {
-      console.error("An unexpected error happened:", error);
+      console.error('An unexpected error happened:', error);
     }
   };
 
   const increment = async (email) => {
     try {
-      await fetchJson("/api/increment", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+      await fetchJson('/api/increment', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email}),
       });
       refresh();
     } catch (error) {
-      console.error("An unexpected error happened:", error);
+      console.error('An unexpected error happened:', error);
     }
   };
 
   const pauseUser = async (email) => {
     try {
-      await fetchJson("/api/pauseUser", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+      await fetchJson('/api/pauseUser', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email}),
       });
       refresh();
     } catch (error) {
-      console.error("An unexpected error happened:", error);
+      console.error('An unexpected error happened:', error);
     }
   };
 
   const resumeUser = async (email) => {
     try {
-      await fetchJson("/api/resumeUser", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
+      await fetchJson('/api/resumeUser', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({email}),
       });
       refresh();
     } catch (error) {
-      console.error("An unexpected error happened:", error);
+      console.error('An unexpected error happened:', error);
     }
   };
 
   const deleteUser = async (email) => {
-    if (confirmDelete === "") {
+    if (confirmDelete === '') {
       setConfirmDelete(email);
       setTimeout(() => {
-        setConfirmDelete("");
+        setConfirmDelete('');
       }, 5000);
     } else if (confirmDelete !== email) {
-      setConfirmDelete("");
+      setConfirmDelete('');
     } else {
-      setConfirmDelete("");
+      setConfirmDelete('');
       try {
-        await fetchJson("/api/deleteUser", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email }),
+        await fetchJson('/api/deleteUser', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({email}),
         });
         refresh();
       } catch (error) {
-        console.error("An unexpected error happened:", error);
+        console.error('An unexpected error happened:', error);
       }
     }
   };
 
   const incrementMeta = async (type) => {
     switch (type) {
-      case "donated":
+      case 'donated':
         setIncrementingDonated(true);
         try {
-          await fetchJson("/api/incrementMeta", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ donated: true }),
+          await fetchJson('/api/incrementMeta', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({donated: true}),
           });
           refresh();
         } catch (error) {
-          console.error("An unexpected error happened:", error);
+          console.error('An unexpected error happened:', error);
         } finally {
           setIncrementingDonated(false);
         }
         break;
-      case "sold":
+      case 'sold':
         setIncrementingSold(true);
         try {
-          await fetchJson("/api/incrementMeta", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ sold: true }),
+          await fetchJson('/api/incrementMeta', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({sold: true}),
           });
           refresh();
         } catch (error) {
-          console.error("An unexpected error happened:", error);
+          console.error('An unexpected error happened:', error);
         } finally {
           setIncrementingSold(false);
         }
         break;
-      case "kept":
+      case 'kept':
         setIncrementingKept(true);
         try {
-          await fetchJson("/api/incrementMeta", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ kept: true }),
+          await fetchJson('/api/incrementMeta', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({kept: true}),
           });
           refresh();
         } catch (error) {
-          console.error("An unexpected error happened:", error);
+          console.error('An unexpected error happened:', error);
         } finally {
           setIncrementingKept(false);
         }
@@ -202,38 +202,38 @@ const Admin = ({ breadies, meta }: { breadies: Breadie[]; meta: Meta }) => {
       </h1>
       <div className="flex flex-wrap gap-4 mb-8">
         <p>
-          Donated: {meta?.donated}{" "}
+          Donated: {meta?.donated}{' '}
           <button
-            onClick={() => incrementMeta("donated")}
+            onClick={() => incrementMeta('donated')}
             disabled={incrementingDonated}
-            className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium bg-white border border-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
+            className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium bg-white border border-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red focus:ring-offset-2 disabled:opacity-50"
           >
             🔥
           </button>
         </p>
         <p>
-          Sold: {meta?.sold}{" "}
+          Sold: {meta?.sold}{' '}
           <button
-            onClick={() => incrementMeta("sold")}
+            onClick={() => incrementMeta('sold')}
             disabled={incrementingSold}
-            className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium bg-white border border-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
+            className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium bg-white border border-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red focus:ring-offset-2 disabled:opacity-50"
           >
             🔥
           </button>
         </p>
         <p>
-          Kept: {meta?.kept}{" "}
+          Kept: {meta?.kept}{' '}
           <button
-            onClick={() => incrementMeta("kept")}
+            onClick={() => incrementMeta('kept')}
             disabled={incrementingKept}
-            className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium bg-white border border-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
+            className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium bg-white border border-gray-800 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-red focus:ring-offset-2 disabled:opacity-50"
           >
             🔥
           </button>
         </p>
       </div>
       <button
-        className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-red hover:bg-red focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red"
+        className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-red hover:bg-red focus:outline-none focus:ring-2 focus:ring-red focus:ring-offset-2"
         onClick={() => setWinner(pickWinner(breadies))}
       >
         Select winner
@@ -241,12 +241,12 @@ const Admin = ({ breadies, meta }: { breadies: Breadie[]; meta: Meta }) => {
       {winner && (
         <>
           <p>
-            Winner is: {winner.name} | wins: {winner.numberOfBreads} |{" "}
+            Winner is: {winner.name} | wins: {winner.numberOfBreads} |{' '}
             {winner.address}
           </p>
           <button
             disabled={emailSent || submitting}
-            className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-red hover:bg-red focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red disabled:opacity-50"
+            className="inline-flex justify-center px-4 py-2 mb-8 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-red hover:bg-red focus:outline-none focus:ring-2 focus:ring-red focus:ring-offset-2 disabled:opacity-50"
             onClick={() => incrementAndSendEmail(winner.uniqueEmail)}
           >
             Crown winner?
@@ -314,10 +314,10 @@ const Admin = ({ breadies, meta }: { breadies: Breadie[]; meta: Meta }) => {
                     <button
                       onClick={() => deleteUser(breadie.email)}
                       className={classNames({
-                        "bg-red": breadie.email === confirmDelete,
+                        'bg-red': breadie.email === confirmDelete,
                       })}
                     >
-                      {breadie.email === confirmDelete ? "🔥" : "🗑"}
+                      {breadie.email === confirmDelete ? '🔥' : '🗑'}
                     </button>
                   </td>
                 </tr>
@@ -329,25 +329,25 @@ const Admin = ({ breadies, meta }: { breadies: Breadie[]; meta: Meta }) => {
   );
 };
 
-export const getServerSideProps = async function ({ req, res }) {
+export const getServerSideProps = async function ({req, res}) {
   const session = await getIronSession<SessionData>(req, res, sessionOptions);
 
   if (!session.isLoggedIn) {
-    console.log("here");
-    res.setHeader("location", "/login");
+    console.log('here');
+    res.setHeader('location', '/login');
     res.statusCode = 302;
     res.end();
-    return { props: {} };
+    return {props: {}};
   }
 
   let breadies = [];
   let meta;
 
   try {
-    const { db } = await connectToDatabase();
-    const response = await db.collection("sourdough").find({});
+    const {db} = await connectToDatabase();
+    const response = await db.collection('sourdough').find({});
     breadies = await response.toArray();
-    const metaResponse = await db.collection("otherBread").findOne({});
+    const metaResponse = await db.collection('otherBread').findOne({});
     meta = await metaResponse;
   } catch (e) {
     console.error(e);
