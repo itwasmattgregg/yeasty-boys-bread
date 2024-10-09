@@ -39,6 +39,11 @@ export default async (req, res) => {
                     name: foundWinner.name,
                   },
                 ],
+                bcc: [
+                  {
+                    email: 'mattdgregg@gmail.com',
+                  },
+                ],
                 dynamic_template_data: {
                   num_wins: converter.toWordsOrdinal(
                     foundWinner.numberOfBreads
