@@ -1,13 +1,11 @@
 import {getIronSession} from 'iron-session';
 import {SessionData, sessionOptions} from 'lib/session';
+import {sendWinnerEmail} from 'lib/email';
 import {connectToDatabase} from '../../util/mongodb';
-const client = require('@sendgrid/client');
 const converter = require('number-to-words');
 
 export default async (req, res) => {
   const session = await getIronSession<SessionData>(req, res, sessionOptions);
-
-  client.setApiKey(process.env.SENDGRID_API_KEY);
 
   if (req.method === 'POST') {
     const {db} = await connectToDatabase();
@@ -23,42 +21,16 @@ export default async (req, res) => {
         );
         const foundWinner = response.value;
 
-        const request = {
-          method: 'POST',
-          url: '/v3/mail/send',
-          body: {
-            template_id: 'd-8eee7c28510044edb7200f18f43802e5',
-            from: {
-              email: 'bread@yeastyboysbread.com',
-            },
-            personalizations: [
-              {
-                to: [
-                  {
-                    email: foundWinner.email,
-                    name: foundWinner.name,
-                  },
-                ],
-                bcc: [
-                  {
-                    email: 'mattdgregg@gmail.com',
-                  },
-                ],
-                dynamic_template_data: {
-                  num_wins: converter.toWordsOrdinal(
-                    foundWinner.numberOfBreads
-                  ),
-                  address: foundWinner.address,
-                },
-              },
-            ],
-          },
-        };
-        await client.request(request);
-        // assume email went through
+        await sendWinnerEmail({
+          email: foundWinner.email,
+          name: foundWinner.name,
+          numWins: converter.toWordsOrdinal(foundWinner.numberOfBreads),
+          address: foundWinner.address,
+        });
+
         res.json({user: response.value, email: 'ok'});
       } catch (e) {
-        console.log(e.response.body);
+        console.log(e);
         res.status(500).json(e);
       }
     } else res.status(403).end();

@@ -1,15 +1,9 @@
+import {addContact} from '../../lib/email';
 import {connectToDatabase} from '../../util/mongodb';
-const client = require('@sendgrid/client');
 
 export default async (req, res) => {
   if (req.method === 'POST') {
     const {db} = await connectToDatabase();
-
-    client.setApiKey(process.env.SENDGRID_API_KEY);
-    const request = {
-      method: 'PUT',
-      url: '/v3/marketing/contacts',
-    };
 
     let regex = /\+(.*)(?=@)/gm;
     const {email, name, address} = req.body;
@@ -23,21 +17,14 @@ export default async (req, res) => {
         uniqueEmail: strippedEmail,
         numberOfBreads: 0,
       });
-      request.body = {
-        contacts: [
-          {
-            email: email,
-            first_name: name,
-          },
-        ],
-      };
-      await client.request(request);
+      await addContact({email, name});
       res.status(201).json({ok: true});
     } catch (e) {
       if (e.code === 11000) {
         res.status(500).send("You've already been added to the list");
         return;
       }
+      console.log(e);
       res.status(500).end();
     }
   } else {

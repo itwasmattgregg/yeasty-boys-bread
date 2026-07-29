@@ -1,14 +1,12 @@
 import {connectToDatabase} from '../../util/mongodb';
 import {SessionData, sessionOptions} from '../../lib/session';
 import {getIronSession} from 'iron-session';
-const client = require('@sendgrid/client');
+import {removeContact} from '../../lib/email';
 
 export default async (req, res) => {
   const session = await getIronSession<SessionData>(req, res, sessionOptions);
 
   const {email} = req.body;
-
-  client.setApiKey(process.env.SENDGRID_API_KEY);
 
   if (req.method === 'POST') {
     const {db} = await connectToDatabase();
@@ -26,25 +24,9 @@ export default async (req, res) => {
         if (result.deletedCount === 1) {
           console.log('Successfully deleted one document.');
 
-          const request = {
-            url: `/v3/marketing/contacts/search/emails`,
-            method: 'POST',
-            body: {
-              emails: [email],
-            },
-          };
-
-          const [, userResponse] = await client.request(request);
-          const userId = userResponse.result[email].contact.id;
-
-          if (userId) {
-            const deleteRequest = {
-              method: 'DELETE',
-              url: `/v3/marketing/contacts?ids=${userId}`,
-            };
-            const resp = await client.request(deleteRequest);
-            console.log(resp);
-          }
+          // Prefer the original signup email for contact cleanup when available.
+          const contactEmail = findToCopy?.email || email;
+          await removeContact(contactEmail);
 
           res.json({deleted: 'ok'});
         } else {
