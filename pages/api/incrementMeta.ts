@@ -1,12 +1,9 @@
 import {getIronSession} from 'iron-session';
 import {SessionData, sessionOptions} from 'lib/session';
 import {connectToDatabase} from '../../util/mongodb';
-const client = require('@sendgrid/client');
 
 export default async (req, res) => {
   const session = await getIronSession<SessionData>(req, res, sessionOptions);
-
-  client.setApiKey(process.env.SENDGRID_API_KEY);
 
   if (req.method === 'POST') {
     const {db} = await connectToDatabase();
@@ -42,7 +39,7 @@ export default async (req, res) => {
 
         res.json({user: response.value, email: 'ok'});
       } catch (e) {
-        console.log(e.response.body);
+        console.log(e);
         res.status(500).json(e);
       }
     } else res.status(403).end();

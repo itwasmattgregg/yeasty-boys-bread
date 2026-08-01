@@ -1,50 +1,38 @@
 import {connectToDatabase} from '../../util/mongodb';
 import {SessionData, sessionOptions} from '../../lib/session';
 import {getIronSession} from 'iron-session';
-const client = require('@sendgrid/client');
+import {removeContact} from '../../lib/email';
 
 export default async (req, res) => {
   const session = await getIronSession<SessionData>(req, res, sessionOptions);
 
   const {email} = req.body;
 
-  client.setApiKey(process.env.SENDGRID_API_KEY);
-
   if (req.method === 'POST') {
     const {db} = await connectToDatabase();
     if (session.isLoggedIn) {
       try {
-        const findToCopy = await db
-          .collection('sourdough')
-          .findOne({uniqueEmail: email});
+        // Admin may pass either the display email or uniqueEmail.
+        const findToCopy = await db.collection('sourdough').findOne({
+          $or: [{uniqueEmail: email}, {email}],
+        });
+
+        if (!findToCopy) {
+          console.log('No documents matched the query. Deleted 0 documents.');
+          throw new Error("Couldn't find user");
+        }
+
         await db.collection('archived').insertOne(findToCopy);
 
-        const result = await db
-          .collection('sourdough')
-          .deleteOne({uniqueEmail: email});
+        const result = await db.collection('sourdough').deleteOne({
+          _id: findToCopy._id,
+        });
 
         if (result.deletedCount === 1) {
           console.log('Successfully deleted one document.');
 
-          const request = {
-            url: `/v3/marketing/contacts/search/emails`,
-            method: 'POST',
-            body: {
-              emails: [email],
-            },
-          };
-
-          const [, userResponse] = await client.request(request);
-          const userId = userResponse.result[email].contact.id;
-
-          if (userId) {
-            const deleteRequest = {
-              method: 'DELETE',
-              url: `/v3/marketing/contacts?ids=${userId}`,
-            };
-            const resp = await client.request(deleteRequest);
-            console.log(resp);
-          }
+          // Best-effort Resend cleanup; Mongo delete already succeeded.
+          await removeContact(findToCopy.email || findToCopy.uniqueEmail);
 
           res.json({deleted: 'ok'});
         } else {
