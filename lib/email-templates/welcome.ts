@@ -152,7 +152,7 @@ export const welcomeEmailHtml = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 St
       </tr>
     </tbody></table><table class="wrapper" role="module" data-type="image" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="bKZJcGfRPJb7R2nzyp6ZB6">
       <tbody><tr>
-        <td style="font-size:6px; line-height:10px; padding:0px 0px 0px 0px;" valign="top" align="center"><img class="max-width" border="0" style="display:block; color:#000000; text-decoration:none; font-family:Helvetica, arial, sans-serif; font-size:16px; max-width:100% !important; width:100%; height:auto !important;" src="http://cdn.mcauto-images-production.sendgrid.net/012f1663c04cee38/e541203e-6bf3-4a5d-8eac-daa960729d92/1400x1050.jpg" alt="" width="600" data-responsive="true" data-proportionally-constrained="false"></td>
+        <td style="font-size:6px; line-height:10px; padding:0px 0px 0px 0px;" valign="top" align="center"><img class="max-width" border="0" style="display:block; color:#000000; text-decoration:none; font-family:Helvetica, arial, sans-serif; font-size:16px; max-width:100% !important; width:100%; height:auto !important;" src="https://yeastyboysbread.com/images/bread1.jpg" alt="" width="600" data-responsive="true" data-proportionally-constrained="false"></td>
       </tr>
     </tbody></table><table class="module" role="module" data-type="text" border="0" cellpadding="0" cellspacing="0" width="100%" style="table-layout: fixed;" data-muid="gNWHzBzkFeWH4JDKd2Aikk" data-mc-module-version="2019-10-22">
       <tbody><tr>
