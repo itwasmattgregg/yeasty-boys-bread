@@ -12,21 +12,27 @@ export default async (req, res) => {
     const {db} = await connectToDatabase();
     if (session.isLoggedIn) {
       try {
-        const findToCopy = await db
-          .collection('sourdough')
-          .findOne({uniqueEmail: email});
+        // Admin may pass either the display email or uniqueEmail.
+        const findToCopy = await db.collection('sourdough').findOne({
+          $or: [{uniqueEmail: email}, {email}],
+        });
+
+        if (!findToCopy) {
+          console.log('No documents matched the query. Deleted 0 documents.');
+          throw new Error("Couldn't find user");
+        }
+
         await db.collection('archived').insertOne(findToCopy);
 
-        const result = await db
-          .collection('sourdough')
-          .deleteOne({uniqueEmail: email});
+        const result = await db.collection('sourdough').deleteOne({
+          _id: findToCopy._id,
+        });
 
         if (result.deletedCount === 1) {
           console.log('Successfully deleted one document.');
 
-          // Prefer the original signup email for contact cleanup when available.
-          const contactEmail = findToCopy?.email || email;
-          await removeContact(contactEmail);
+          // Best-effort Resend cleanup; Mongo delete already succeeded.
+          await removeContact(findToCopy.email || findToCopy.uniqueEmail);
 
           res.json({deleted: 'ok'});
         } else {

@@ -9,6 +9,7 @@ import {getIronSession} from 'iron-session';
 interface Breadie {
   name: string;
   email: string;
+  uniqueEmail: string;
   _id: string;
   address: string;
   numberOfBreads: number;
@@ -283,13 +284,13 @@ const Admin = ({breadies, meta}: {breadies: Breadie[]; meta: Meta}) => {
                   <td className="flex items-center gap-1 p-2 text-sm">
                     {breadie.numberOfBreads}
                     <button
-                      onClick={() => decrement(breadie.email)}
+                      onClick={() => decrement(breadie.uniqueEmail)}
                       className="p-2 border"
                     >
                       🔻
                     </button>
                     <button
-                      onClick={() => increment(breadie.email)}
+                      onClick={() => increment(breadie.uniqueEmail)}
                       className="p-2 border"
                     >
                       🔺
@@ -298,26 +299,28 @@ const Admin = ({breadies, meta}: {breadies: Breadie[]; meta: Meta}) => {
                   <td className="p-2 text-sm">{breadie.lastModified}</td>
                   <td className="flex gap-2">
                     {breadie.paused ? (
-                      <button onClick={() => resumeUser(breadie.email)}>
+                      <button onClick={() => resumeUser(breadie.uniqueEmail)}>
                         ▶️
                       </button>
                     ) : (
-                      <button onClick={() => pauseUser(breadie.email)}>
+                      <button onClick={() => pauseUser(breadie.uniqueEmail)}>
                         ⏸️
                       </button>
                     )}
                     <button
-                      onClick={() => incrementAndSendEmail(breadie.email)}
+                      onClick={() =>
+                        incrementAndSendEmail(breadie.uniqueEmail)
+                      }
                     >
                       ✉️
                     </button>
                     <button
-                      onClick={() => deleteUser(breadie.email)}
+                      onClick={() => deleteUser(breadie.uniqueEmail)}
                       className={classNames({
-                        'bg-red': breadie.email === confirmDelete,
+                        'bg-red': breadie.uniqueEmail === confirmDelete,
                       })}
                     >
-                      {breadie.email === confirmDelete ? '🔥' : '🗑'}
+                      {breadie.uniqueEmail === confirmDelete ? '🔥' : '🗑'}
                     </button>
                   </td>
                 </tr>

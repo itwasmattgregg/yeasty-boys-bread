@@ -65,7 +65,9 @@ export async function addContact({email, name}: {email: string; name: string}) {
   });
 
   if (error) {
-    throw error;
+    // Contact sync is secondary to signup / welcome email.
+    console.log('Resend contact create failed:', error);
+    return null;
   }
 
   return data;
@@ -76,15 +78,9 @@ export async function removeContact(email: string) {
   const {data, error} = await resend.contacts.remove({email});
 
   if (error) {
-    // Contact may already be gone; treat not-found as success for delete flow.
-    const message = error.message?.toLowerCase?.() ?? '';
-    if (
-      message.includes('not found') ||
-      (error as {statusCode?: number}).statusCode === 404
-    ) {
-      return null;
-    }
-    throw error;
+    // Contact may never have been synced to Resend; ignore cleanup failures.
+    console.log('Resend contact remove failed:', error);
+    return null;
   }
 
   return data;
