@@ -23,9 +23,7 @@ export default async (req, res) => {
 
         await sendWinnerEmail({
           email: foundWinner.email,
-          name: foundWinner.name,
           numWins: converter.toWordsOrdinal(foundWinner.numberOfBreads),
-          address: foundWinner.address,
         });
 
         res.json({user: response.value, email: 'ok'});

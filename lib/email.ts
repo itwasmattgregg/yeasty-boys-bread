@@ -1,4 +1,5 @@
 import {welcomeEmailHtml} from 'lib/email-templates/welcome';
+import {winnerEmailHtml} from 'lib/email-templates/winner';
 import {Resend} from 'resend';
 
 const FROM_EMAIL = 'Yeasty Boys Bread <bread@yeastyboysbread.com>';
@@ -30,14 +31,10 @@ export async function sendWelcomeEmail({email}: {email: string}) {
 
 export async function sendWinnerEmail({
   email,
-  name,
   numWins,
-  address,
 }: {
   email: string;
-  name: string;
   numWins: string;
-  address: string;
 }) {
   const resend = getResend();
   const {data, error} = await resend.emails.send({
@@ -45,24 +42,7 @@ export async function sendWinnerEmail({
     to: [email],
     bcc: [BCC_EMAIL],
     subject: `You've won your ${numWins} loaf of Yeasty Boys bread!`,
-    html: `
-      <div style="font-family: Georgia, 'Times New Roman', serif; max-width: 560px; margin: 0 auto; color: #1a1a1a;">
-        <h1 style="font-size: 28px; line-height: 1.2;">Congratulations, ${escapeHtml(name)}!</h1>
-        <p style="font-size: 16px; line-height: 1.5;">
-          You've become a Breadwinner for the
-          <strong>${escapeHtml(numWins)}</strong> time.
-        </p>
-        <p style="font-size: 16px; line-height: 1.5;">
-          I'll bake a loaf and deliver it to:
-        </p>
-        <p style="font-size: 16px; line-height: 1.5; white-space: pre-line;">
-          ${escapeHtml(address)}
-        </p>
-        <p style="font-size: 16px; line-height: 1.5;">
-          — Matt / Yeasty Boys Bread
-        </p>
-      </div>
-    `,
+    html: winnerEmailHtml,
   });
 
   if (error) {
@@ -108,13 +88,4 @@ export async function removeContact(email: string) {
   }
 
   return data;
-}
-
-function escapeHtml(value: string) {
-  return String(value)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
 }
