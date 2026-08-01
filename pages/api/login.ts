@@ -11,6 +11,8 @@ export default async (req, res) => {
       await session.save();
       res.json(session);
     } else {
+      // Slow brute-force attempts without affecting successful logins.
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       res.json(session);
     }
   } catch (error) {
