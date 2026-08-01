@@ -1,4 +1,4 @@
-import {addContact} from '../../lib/email';
+import {addContact, sendWelcomeEmail} from '../../lib/email';
 import {connectToDatabase} from '../../util/mongodb';
 
 export default async (req, res) => {
@@ -17,6 +17,7 @@ export default async (req, res) => {
         uniqueEmail: strippedEmail,
         numberOfBreads: 0,
       });
+      await sendWelcomeEmail({email});
       await addContact({email, name});
       res.status(201).json({ok: true});
     } catch (e) {

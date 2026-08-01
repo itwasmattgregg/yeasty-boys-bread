@@ -1,3 +1,4 @@
+import {welcomeEmailHtml} from 'lib/email-templates/welcome';
 import {Resend} from 'resend';
 
 const FROM_EMAIL = 'Yeasty Boys Bread <bread@yeastyboysbread.com>';
@@ -9,6 +10,22 @@ function getResend() {
     throw new Error('RESEND_API_KEY is not set');
   }
   return new Resend(apiKey);
+}
+
+export async function sendWelcomeEmail({email}: {email: string}) {
+  const resend = getResend();
+  const {data, error} = await resend.emails.send({
+    from: FROM_EMAIL,
+    to: [email],
+    subject: 'Welcome to Yeasty Boys Sourdough!',
+    html: welcomeEmailHtml,
+  });
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
 }
 
 export async function sendWinnerEmail({
