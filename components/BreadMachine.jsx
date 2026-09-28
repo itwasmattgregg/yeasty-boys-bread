@@ -60,8 +60,10 @@ export default function BreadMachine() {
 
     const players = {};
     PADS.forEach((pad) => {
+      // MP3 rather than the original m4a: AAC decoding depends on platform
+      // codecs, so browsers without them fail to load the samples entirely.
       players[pad.id] = new Tone.Player(
-        `/sounds/${pad.id}.m4a`
+        `/sounds/${pad.id}.mp3`
       ).toDestination();
     });
     playersRef.current = players;
