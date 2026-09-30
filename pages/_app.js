@@ -12,6 +12,7 @@ function MyApp({Component, pageProps}) {
     <main className={sora.className}>
       <Head>
         <title>Yeasty Boys Sourdough Bread Lottery</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Analytics />
       <SpeedInsights />
